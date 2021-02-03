@@ -8,38 +8,38 @@
 </template>
 
 <script>
-  export default {
-    name: "TabBarItem",
-    props: {
-      path: String,
-      activeColor: {
-        type: String,
-        default: 'red'
-      }
+export default {
+  name: 'TabBarItem',
+  props: {
+    path: String,
+    activeColor: {
+      type: String,
+      default: 'red'
+    }
+  },
+  data () {
+    return {
+      // isActive: true
+    }
+  },
+  computed: {
+    isActive () {
+      // /home -> item1(/home) = true
+      // /home -> item1(/category) = false
+      // /home -> item1(/cart) = true
+      // /home -> item1(/profile) = true
+      return this.$route.path.indexOf(this.path) !== -1
     },
-    data() {
-      return {
-        // isActive: true
-      }
-    },
-    computed: {
-      isActive() {
-        // /home -> item1(/home) = true
-        // /home -> item1(/category) = false
-        // /home -> item1(/cart) = true
-        // /home -> item1(/profile) = true
-        return this.$route.path.indexOf(this.path) !== -1
-      },
-      activeStyle() {
-        return this.isActive ? {color: this.activeColor} : {}
-      }
-    },
-    methods: {
-      itemClick() {
-        this.$router.replace(this.path)
-      }
+    activeStyle () {
+      return this.isActive ? { color: this.activeColor } : {}
+    }
+  },
+  methods: {
+    itemClick () {
+      this.$router.replace(this.path)
     }
   }
+}
 </script>
 
 <style scoped>
