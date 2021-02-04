@@ -4,7 +4,7 @@
       <div slot="item-icon" class="iconfont icon-faxian"></div>
       <div slot="item-text">发现</div>
     </tab-bar-item>
-    <tab-bar-item path="/discover">
+    <tab-bar-item path="/podcast">
       <div slot="item-icon" class="iconfont icon-boke"></div>
       <div slot="item-text">播客</div>
     </tab-bar-item>

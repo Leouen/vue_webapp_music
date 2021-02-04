@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 // 0. 懒加载导包
 const Home = () => import('../views/home/Home')
-const Discover = () => import('../views/discover/Discover')
+const Podcast = () => import('../views/podcast/Podcast')
 const Profile = () => import('../views/profile/Profile')
 const Karaoke = () => import('../views/karaoke/Karaoke')
 const Friends = () => import('../views/friends/Friends')
@@ -33,8 +33,8 @@ const routes = [
     component: Profile
   },
   {
-    path: '/discover',
-    component: Discover
+    path: '/podcast',
+    component: Podcast
   }
 ]
 

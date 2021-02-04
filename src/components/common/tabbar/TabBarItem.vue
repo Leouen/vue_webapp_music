@@ -48,12 +48,12 @@ export default {
   .tab-bar-item {
     flex: 1;
     text-align: center;
-    height: 48px;
+    height: 52px;
     color: #bfbfbf;
   }
 
   .tab-bar-item .tabbar-icon {
-    margin:2px auto;
+    margin:4px auto;
     display:flex;
     width: 30px;
     height: 30px;

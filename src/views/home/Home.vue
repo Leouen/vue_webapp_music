@@ -1,17 +1,27 @@
 <template>
-  <div>
-    <h2>首页主页面</h2>
-    <i class="iconfont icon-discover"></i>
-    <i class="iconfont icon-profile"></i>
-    <i class="iconfont icon-friends"></i>
-    <i class="iconfont icon-home"></i>
-    <i class="iconfont icon-karaoke"></i>
+  <div class="home">
+    <HomeNavBar></HomeNavBar>
   </div>
 </template>
 
 <script>
+import HomeNavBar from '@/components/content/homeNavBar/HomeNavBar'
+import { getBanner } from 'network/home'
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    HomeNavBar
+  },
+  data () {
+    return {
+      result: null
+    }
+  },
+  created () {
+    getBanner().then(res => {
+      this.result = res
+    })
+  }
 }
 </script>
 
