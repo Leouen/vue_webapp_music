@@ -1,4 +1,4 @@
-# vue_mall_project
+# vue_webapp_music
 
 ## Project setup
 ```
