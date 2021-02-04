@@ -1,10 +1,10 @@
 <template>
-  <h2>购物车</h2>
+  <h2>Karaoke</h2>
 </template>
 
 <script>
 export default {
-  name: 'Cart'
+  name: 'Karaoke'
 }
 </script>
 
