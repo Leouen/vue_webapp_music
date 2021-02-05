@@ -3,6 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'lib-flexible/flexible'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
+// 图片懒加载
+import VueLazyLoad from 'vue-lazyload'
+Vue.use(VueAwesomeSwiper)
+Vue.use(VueLazyLoad)
 
 Vue.config.productionTip = false
 

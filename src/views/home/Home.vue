@@ -1,26 +1,22 @@
 <template>
   <div class="home">
     <HomeNavBar></HomeNavBar>
+    <HomeSwiper></HomeSwiper>
   </div>
 </template>
 
 <script>
 import HomeNavBar from '@/components/content/homeNavBar/HomeNavBar'
-import { getBanner } from 'network/home'
+import HomeSwiper from '@/views/home/childCpns/HomeSwiper'
 export default {
   name: 'Home',
   components: {
-    HomeNavBar
+    HomeNavBar,
+    HomeSwiper
   },
   data () {
     return {
-      result: null
     }
-  },
-  created () {
-    getBanner().then(res => {
-      this.result = res
-    })
   }
 }
 </script>
