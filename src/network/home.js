@@ -10,7 +10,7 @@ export function getBanner (type) {
   })
 }
 // 可获取APP首页圆形图标入口列表
-export function getball (type) {
+export function getBall (type) {
   return request({
     url: '/homepage/dragon/ball',
     params: {

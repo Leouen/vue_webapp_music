@@ -7,6 +7,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 // 图片懒加载
 import VueLazyLoad from 'vue-lazyload'
+import 'assets/mui/css/mui.css'
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueLazyLoad)
 

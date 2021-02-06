@@ -69,10 +69,11 @@ export default {
     line-height: 22px;
   }
 
-  .tab-bar-item .tabbar-text {
-    font-size: 9px;
+  .tab-bar-item>.tabbar-text {
+    font-size: 10px;
     vertical-align: middle;
-    margin-bottom: 3px;
+    position: relative;
+    bottom: 4px;
   }
   .active {
     background:linear-gradient(45deg, red, #fdd5d5)  !important;

@@ -48,8 +48,8 @@ export default {
   created () {
     getBanner().then(res => {
       this.banners = res.banners
-      console.log(res)
-      console.log(res.banners[0].imageUrl)
+      // console.log(res)
+      // console.log(res.banners[0].imageUrl)
     })
   }
 }
@@ -91,7 +91,7 @@ export default {
     }
     .title{
       position: absolute;
-      padding: 4px 8px 3px;
+      padding: 0px 7px 0px;
       border-top-left-radius: 8px;
       border-bottom-right-radius: 8px;
       font-size: 10px;

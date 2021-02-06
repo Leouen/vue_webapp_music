@@ -4,7 +4,7 @@ export function request (config) {
   // 创建一个 axios 对象
   const instance = axios.create({
     // 根路径
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://192.168.43.149:3000',
     // 请求时间
     timeout: 5000
   })
