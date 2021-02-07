@@ -91,7 +91,7 @@ export default {
     }
     .title{
       position: absolute;
-      padding: 2px 7px 2px;
+      padding: 3px 7px 2px;
       border-top-left-radius: 6px;
       border-bottom-right-radius: 8px;
       font-size: 10px;

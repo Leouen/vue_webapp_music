@@ -1,49 +1,45 @@
 <template>
   <div class="HomeSlideBall">
-    <div class="wrapper" ref="wrapper">
-      <ul class="content">
-        <a class="balls-control-item" v-for="(item,index) in balls" :key="index">
+    <Swiper class="wrapper" :options="swiperOption">
+      <SwiperSlide class="content" v-for="(item,index) in balls" :key="index">
+        <a class="balls-control-item" >
           <div class="ball-img">
             <img :src="item.iconUrl" alt="" />
           </div>
           <div class="ball-text">{{item.name}}</div>
         </a>
-      </ul>
-    </div>
+      </SwiperSlide>
+    </Swiper>
   </div>
 </template>
 
 <script>
 import { getBall } from 'network/home'
-import BScroll from 'better-scroll'
-
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
 export default {
   name: 'HomeSlideBall',
   data () {
     return {
       balls: [],
-      scroll: null
+      swiperOption: {
+        // freeMode: true,
+        slidesPerView: 5,
+        spaceBetween: 4,
+        preventLinksPropagation: false, // 拖动Swiper时阻止click事件,如果没有禁止拖动需要设置此项
+        observer: true, // 修改swiper自己或子元素时，自动初始化swiper
+        observeParents: true // 修改swiper的父元素时，自动初始化swiper
+      }
     }
+  },
+  components: {
+    Swiper,
+    SwiperSlide
   },
   created () {
     getBall().then(res => {
       this.balls = res.data
       console.log(res)
-    })
-  },
-  mounted () {
-    this.scroll = new BScroll(this.$refs.wrapper, {
-      startX: 0,
-      click: true,
-      scrollX: true,
-      // 忽略竖直方向的滚动
-      scrollY: false,
-      eventPassthrough: 'vertical',
-      mouseWheel: true, // 开启鼠标滚轮
-      disableMouse: false, // 启用鼠标拖动
-      disableTouch: false, // 启用手指触摸
-      pullUpLoad: true,
-      pullDownRefresh: true
     })
   }
 }
@@ -57,12 +53,11 @@ export default {
   overflow: hidden;
 }
 .content {
-  width: 600px;
   display: flex;
 }
 .balls-control-item{
   flex: 1;
-  padding: 16px 14px 10px 18px;
+  padding: 16px 0px 10px;
 }
 .balls-control-item .ball-img img{
   width: 40px ;
