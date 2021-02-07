@@ -1,4 +1,16 @@
 module.exports = {
+  devServer: {
+    proxy: {
+      '^/api': {
+        target: 'http://47.114.186.226:3000',
+        changeOrigin: true,
+        ws: false,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
+  },
   // rem适配
   css: {
     loaderOptions: {
