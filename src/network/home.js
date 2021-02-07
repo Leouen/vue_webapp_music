@@ -18,3 +18,15 @@ export function getBall (type) {
     }
   })
 }
+// 热门歌单
+export function getHotSheet (order, cat = '全部', limit, offset) {
+  return request({
+    url: '/top/playlist',
+    params: {
+      order,
+      cat,
+      limit,
+      offset
+    }
+  })
+}

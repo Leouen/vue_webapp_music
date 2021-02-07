@@ -1,26 +1,28 @@
 <template>
-  <tab-bar>
-    <tab-bar-item path="/home">
-      <div slot="item-icon" class="iconfont icon-faxian"></div>
-      <div slot="item-text">发现</div>
-    </tab-bar-item>
-    <tab-bar-item path="/podcast">
-      <div slot="item-icon" class="iconfont icon-boke"></div>
-      <div slot="item-text">播客</div>
-    </tab-bar-item>
-    <tab-bar-item path="/profile">
-      <div slot="item-icon" class="iconfont icon-profile"></div>
-      <div slot="item-text">我的</div>
-    </tab-bar-item>
-    <tab-bar-item path="/karaoke">
-      <div slot="item-icon" class="iconfont icon-maikefeng"></div>
-      <div slot="item-text">K歌</div>
-    </tab-bar-item>
-    <tab-bar-item path="/friends">
-      <div slot="item-icon" class="iconfont icon-haoyou"></div>
-      <div slot="item-text">云村</div>
-    </tab-bar-item>
-  </tab-bar>
+  <div id="main-music-bar">
+    <tab-bar>
+      <tab-bar-item path="/home">
+        <div slot="item-icon" class="iconfont icon-faxian"></div>
+        <div slot="item-text">发现</div>
+      </tab-bar-item>
+      <tab-bar-item path="/podcast">
+        <div slot="item-icon" class="iconfont icon-boke"></div>
+        <div slot="item-text">播客</div>
+      </tab-bar-item>
+      <tab-bar-item path="/profile">
+        <div slot="item-icon" class="iconfont icon-profile"></div>
+        <div slot="item-text">我的</div>
+      </tab-bar-item>
+      <tab-bar-item path="/karaoke">
+        <div slot="item-icon" class="iconfont icon-maikefeng"></div>
+        <div slot="item-text">K歌</div>
+      </tab-bar-item>
+      <tab-bar-item path="/friends">
+        <div slot="item-icon" class="iconfont icon-haoyou"></div>
+        <div slot="item-text">云村</div>
+      </tab-bar-item>
+    </tab-bar>
+  </div>
 </template>
 
 <script>
@@ -37,5 +39,10 @@ export default {
 </script>
 
 <style scoped>
-
+#main-music-bar{
+  z-index: 99;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
 </style>

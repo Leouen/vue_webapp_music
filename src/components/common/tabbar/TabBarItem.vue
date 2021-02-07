@@ -73,7 +73,7 @@ export default {
     font-size: 10px;
     vertical-align: middle;
     position: relative;
-    bottom: 4px;
+    bottom: 3px;
   }
   .active {
     background:linear-gradient(45deg, red, #fdd5d5)  !important;

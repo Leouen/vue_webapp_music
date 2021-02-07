@@ -46,4 +46,9 @@ export default {
 #HomeNavCenter>.NavSearch>.hotsearch{
   font-size: 14px ;
 }
+.HomeNavBar{
+  z-index: 99;
+  position: fixed;
+  width: 100%;
+}
 </style>
