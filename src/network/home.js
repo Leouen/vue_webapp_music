@@ -30,3 +30,12 @@ export function getHotSheet (order, cat = '全部', limit, offset) {
     }
   })
 }
+// 推荐歌单
+export function personalized (limit) {
+  return request({
+    url: '/personalized',
+    params: {
+      limit
+    }
+  })
+}
