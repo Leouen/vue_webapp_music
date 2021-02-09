@@ -1,15 +1,15 @@
 <template>
   <div class="HomeSlideBall">
-    <Swiper class="wrapper" :options="swiperOption">
-      <SwiperSlide class="content" v-for="(item,index) in balls" :key="index">
+    <swiper class="wrapper" :options="swiperOption">
+      <swiper-slide class="content" v-for="(item,index) in balls" :key="index">
         <a class="balls-control-item" >
           <div class="ball-img">
             <img :src="item.iconUrl" alt="" />
           </div>
           <div class="ball-text">{{item.name}}</div>
         </a>
-      </SwiperSlide>
-    </Swiper>
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 
@@ -51,6 +51,8 @@ export default {
   height: 90px;
   width: 100%;
   overflow: hidden;
+  border-bottom: 0.3px solid #e6e6e6;
+  margin-bottom: 5px;
 }
 .content {
   display: flex;

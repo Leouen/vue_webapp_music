@@ -55,3 +55,13 @@ a {
   float: right;
 }
 * { touch-action: pan-y; }
+
+@font-face {
+  font-family: 'iconfont';  /* project id 2363713 */
+  src: url('//at.alicdn.com/t/font_2363713_9uv04akg5c.eot');
+  src: url('//at.alicdn.com/t/font_2363713_9uv04akg5c.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_2363713_9uv04akg5c.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_2363713_9uv04akg5c.woff') format('woff'),
+  url('//at.alicdn.com/t/font_2363713_9uv04akg5c.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_2363713_9uv04akg5c.svg#iconfont') format('svg');
+}

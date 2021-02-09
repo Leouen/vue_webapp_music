@@ -1,14 +1,14 @@
 <template>
     <div class="HomeSwiper">
-      <Swiper class="my-swipe swiper" :options="swiperOption" id="pa"  v-if="banners.length">
-        <SwiperSlide class="swiperItem" v-for="(item,index) in banners" :key="index">
+      <swiper class="my-swipe swiper" :options="swiperOption" id="pa"  v-if="banners.length">
+        <swiper-slide class="swiperItem" v-for="(item,index) in banners" :key="index">
             <div class="img">
               <img :src="item.imageUrl" alt="">
               <div class="title" :style='{background:item.titleColor === "blue" ? "#326ef8" : item.titleColor}'>{{item.typeTitle}}</div>
             </div>
-        </SwiperSlide>
+        </swiper-slide>
         <div class="swiper-pagination swiper-pagination-bullets" slot="pagination"></div>
-      </Swiper>
+      </swiper>
     </div>
 </template>
 
