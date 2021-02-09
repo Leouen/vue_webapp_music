@@ -36,6 +36,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 5px;
 }
 .SheetItemImg{
   text-align: center;
@@ -43,7 +44,8 @@ export default {
 }
 .SheetItemImg>img{
   width: 90%;
-  border-radius: 5px;
+  border-radius: 12px;
+  box-shadow: 0px -9px 0px -5px #f2f2f2;
 }
 .SheetItemImg>div{
   position: absolute;
