@@ -2,7 +2,7 @@
   <div class="titlebar">
       <div class="left l-title">{{titles.left}}</div>
       <div class="right r-title">
-        <div class="r-title-word"><a class="iconfont">{{titles.right}}&#xe660;</a></div>
+        <div class="r-title-word"><a class=""><span>{{titles.right}}</span><span class="iconfont icon-daohangyou"></span></a></div>
       </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
 }
 .l-title{
   font-size: 16px;
-  margin: 10px 0 0 15px;
+  margin: 10px 0 0 18px;
   color: black;
   font-weight: 600;
 }
@@ -37,8 +37,8 @@ export default {
 .r-title .r-title-word{
   color: #333333;
   border: 1px #e6e6e6 solid;
-  border-radius: 11px;
-  margin-top: 8.5px;
+  border-radius: 12px;
+  margin-top: 6px;
   height: 20px;
   line-height: 20px;
 }
@@ -46,12 +46,15 @@ export default {
     display: inline-table;
 }
 .r-title-word a {
-    font-size: 13px;
+    font-size: 12px;
+    display: inline-table;
     display: table-cell;
-    padding: 1px 6px 1px 10px;
-    vertical-align: middle;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    padding: 2px 6px 1px 10px;
+}
+.r-title-word a span{
+  display: table-cell;
+}
+.icon-daohangyou{
+  font-size: 12px;
 }
 </style>

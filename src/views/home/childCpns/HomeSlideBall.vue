@@ -25,7 +25,7 @@ export default {
       swiperOption: {
         // freeMode: true,
         slidesPerView: 5,
-        spaceBetween: 4,
+        spaceBetween: -10,
         preventLinksPropagation: false, // 拖动Swiper时阻止click事件,如果没有禁止拖动需要设置此项
         observer: true, // 修改swiper自己或子元素时，自动初始化swiper
         observeParents: true // 修改swiper的父元素时，自动初始化swiper
@@ -39,7 +39,7 @@ export default {
   created () {
     getBall().then(res => {
       this.balls = res.data
-      console.log(res)
+      // console.log(res)
     })
   }
 }
@@ -70,6 +70,7 @@ export default {
   margin: 0 auto;
 }
 .ball-text{
+  font-size: 12px;
   padding-top: 6px;
   text-align: center;
   white-space:nowrap;

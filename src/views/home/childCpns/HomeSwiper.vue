@@ -4,7 +4,7 @@
         <swiper-slide class="swiperItem" v-for="(item,index) in banners" :key="index">
             <div class="img">
               <img :src="item.imageUrl" alt="">
-              <div class="title" :style='{background:item.titleColor === "blue" ? "#326ef8" : item.titleColor}'>{{item.typeTitle}}</div>
+              <div class="img-title" :style='{background:item.titleColor === "blue" ? "#326ef8" : item.titleColor}'>{{item.typeTitle}}</div>
             </div>
         </swiper-slide>
         <div class="swiper-pagination swiper-pagination-bullets" slot="pagination"></div>
@@ -90,9 +90,9 @@ export default {
       color:#fff;
       background: #fff;
     }
-    .title{
+    .img-title{
       position: absolute;
-      padding: 3px 7px 2px;
+      padding: 2.5px 7px 2.5px;
       border-top-left-radius: 6px;
       border-bottom-right-radius: 8px;
       font-size: 10px;

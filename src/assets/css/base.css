@@ -19,7 +19,8 @@
 }
 
 body {
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   user-select: none; /* 禁止用户鼠标在页面上选中文字/图片等 */
   -webkit-tap-highlight-color: transparent; /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节 */
   background: var(--color-background);
@@ -33,10 +34,9 @@ a {
   text-decoration: none;
 }
 
-
 .clear-fix::after {
   clear: both;
-  content: '';
+  content: "";
   display: block;
   width: 0;
   height: 0;
@@ -54,14 +54,6 @@ a {
 .right {
   float: right;
 }
-* { touch-action: pan-y; }
-
-@font-face {
-  font-family: 'iconfont';  /* project id 2363713 */
-  src: url('//at.alicdn.com/t/font_2363713_9uv04akg5c.eot');
-  src: url('//at.alicdn.com/t/font_2363713_9uv04akg5c.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_2363713_9uv04akg5c.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_2363713_9uv04akg5c.woff') format('woff'),
-  url('//at.alicdn.com/t/font_2363713_9uv04akg5c.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_2363713_9uv04akg5c.svg#iconfont') format('svg');
+* {
+  touch-action: pan-y;
 }
