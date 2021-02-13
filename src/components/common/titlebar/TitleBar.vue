@@ -32,6 +32,7 @@ export default {
   font-weight: 600;
 }
 .r-title{
+  margin-top: 3px;
   margin-right: 15px;
 }
 .r-title .r-title-word{

@@ -11,7 +11,7 @@
 <script>
 import SheetItem from 'components/content/sheetItem/SheetItem.vue'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import { personalized } from 'network/home'
+import { getdjprogram } from 'network/home'
 import 'swiper/css/swiper.css'
 export default {
   name: 'HomeSheet',
@@ -34,7 +34,7 @@ export default {
     SheetItem
   },
   created () {
-    personalized(6).then(res => {
+    getdjprogram(6).then(res => {
       this.sheets = res.result
       // console.log(res)
     })
@@ -43,13 +43,5 @@ export default {
 </script>
 
 <style>
-.HomeSheet{
-  padding-bottom: 16px;
-  border-bottom: 10px solid #f5f5f5;
-}
-.wrapper-sheet{
-  display: flex;
-  align-content: space-around;
-  padding-left: 10px;
-}
+
 </style>

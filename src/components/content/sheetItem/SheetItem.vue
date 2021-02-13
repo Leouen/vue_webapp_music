@@ -26,7 +26,7 @@ export default {
     }
   },
   created () {
-    this.count = toStringNum(this.sheet.playCount)
+    this.count = toStringNum(this.sheet.playCount ? this.sheet.playCount : this.sheet.program.adjustedPlayCount)
   }
 }
 </script>
@@ -53,7 +53,7 @@ export default {
   top: 5px;
   font-size: 10px;
   color: white;
-  background-color: rgba(100, 100, 100, 0.3);
+  background-color: rgba(100, 100, 100, 0.4);
   padding: 1px 5px;
   border-radius: 10px;
 }

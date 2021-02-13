@@ -39,3 +39,21 @@ export function personalized (limit) {
     }
   })
 }
+// 新歌速递
+export function getSongsTop (type) {
+  return request({
+    url: '/top/song',
+    params: {
+      type
+    }
+  })
+}
+// 推荐电台 播客合辑
+export function getdjprogram (limit) {
+  return request({
+    url: '/personalized/djprogram',
+    params: {
+      limit
+    }
+  })
+}
