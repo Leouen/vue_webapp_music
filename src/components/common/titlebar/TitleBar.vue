@@ -39,7 +39,7 @@ export default {
   color: #333333;
   border: 1px #e6e6e6 solid;
   border-radius: 12px;
-  margin-top: 6px;
+  margin-top: 2.5px;
   height: 20px;
   line-height: 20px;
 }

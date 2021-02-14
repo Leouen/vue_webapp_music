@@ -18,19 +18,22 @@ export default {
   height: 40px;
   margin: 20px 0 8px;
 }
-.r-title-word .icon-bofang{
+.HomeRandomBar .r-title-word{
+  margin-top: 5px;
+}
+.HomeRandomBar .r-title-word .icon-bofang{
   font-size: 12px;
   padding-right: 2px;
   padding-top: 0.5px;
   vertical-align: middle;
 }
-.l-title>.icon-shuaxin{
+.HomeRandomBar .l-title>.icon-shuaxin{
   font-size: 18px;
 }
-.l-title{
+.HomeRandomBar .l-title{
   position: relative;
 }
-.title-sp{
+.HomeRandomBar .title-sp{
   position: absolute;
   top: -12px;
   left: 0;

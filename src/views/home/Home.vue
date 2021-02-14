@@ -9,8 +9,10 @@
     <hot-sheet></hot-sheet>
     <div class="home-title"><title-bar :titles='titles[1]'></title-bar></div>
     <homedjprogram></homedjprogram>
+    <div class="home-title"><title-bar :titles='titles[2]'></title-bar></div>
+    <hometoplist></hometoplist>
     <ul>
-      <li v-for="item in 100" :key="item">li{{item}}</li>
+      <li v-for="item in 4" :key="item">li{{item}}</li>
     </ul>
   </div>
 </template>
@@ -24,6 +26,7 @@ import HomeSheet from './childCpns/HomeSheet.vue'
 import HotSheet from './childCpns/HotSheet.vue'
 import HomeRandomBar from './childCpns/HomeRandomBar.vue'
 import Homedjprogram from './childCpns/Homedjprogram.vue'
+import Hometoplist from './childCpns/Hometoplist.vue'
 export default {
   name: 'Home',
   components: {
@@ -34,7 +37,8 @@ export default {
     HomeSheet,
     HotSheet,
     HomeRandomBar,
-    Homedjprogram
+    Homedjprogram,
+    Hometoplist
   },
   data () {
     return {
@@ -46,6 +50,11 @@ export default {
         },
         {
           left: '播客合辑',
+          right: '更多',
+          src: ''
+        },
+        {
+          left: '排行榜',
           right: '更多',
           src: ''
         }

@@ -57,3 +57,22 @@ export function getdjprogram (limit) {
     }
   })
 }
+// 获得排行榜榜单 可获取所有榜单内容摘要
+export function getlistdetail (type) {
+  return request({
+    url: '/toplist/detail',
+    params: {
+      type
+    }
+  })
+}
+
+// 传入榜单 id, 可获取不同排行榜数据
+export function gettoplist (id) {
+  return request({
+    url: '/top/list',
+    params: {
+      id
+    }
+  })
+}

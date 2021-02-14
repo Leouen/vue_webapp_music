@@ -5,9 +5,12 @@ import store from './store'
 import 'lib-flexible/flexible'
 import 'swiper/css/swiper.css'
 import 'vant/lib/style/base.css'
+import { Lazyload } from 'vant'
 
 Vue.config.productionTip = false
-
+Vue.use(Lazyload, {
+  lazyComponent: true
+})
 new Vue({
   router,
   store,
