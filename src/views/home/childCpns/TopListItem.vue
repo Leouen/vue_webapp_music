@@ -51,13 +51,18 @@ export default {
 </script>
 
 <style>
+.TopListItem{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
 .TopListItem>div{
-  width: 84%;
+  width: 314px;
   background: white;
   border: 1px #e1e1e1 solid;
   box-shadow: 0px 0px 3px 2px #e1e1e1;
   border-radius: 10px;
-  margin: 8px 0px 20px 16px;
+  margin: 8px 0px 20px 0px;
 }
 .TopListItem li img{
   width: 55px;
@@ -70,14 +75,14 @@ export default {
   color: black;
   text-align: center;
   height: 40px;
-  line-height: 48px;
+  line-height: 42px;
 }
 .TopListTitle>.icon-daohangyou{
   font-size: 18px;
   font-weight: 100;
 }
 .TopListItem li{
-  padding: 6px;
+  padding: 0px 6px 12px 12px;
 }
 .TopListItem li a{
   display: flex;

@@ -29,7 +29,8 @@ export default {
         spaceBetween: -40,
         preventLinksPropagation: false,
         observer: true,
-        observeParents: true
+        observeParents: true,
+        observeSlideChildren: true
       }
     }
   },

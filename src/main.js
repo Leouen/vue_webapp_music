@@ -4,13 +4,18 @@ import router from './router'
 import store from './store'
 import 'lib-flexible/flexible'
 import 'swiper/css/swiper.css'
-import 'vant/lib/style/base.css'
-import { Lazyload } from 'vant'
 
-Vue.config.productionTip = false
-Vue.use(Lazyload, {
-  lazyComponent: true
-})
+// 只是引入基础样式
+// import 'vant/lib/style/base.css'
+// 引入全部样式
+// import 'vant/lib/index.less'
+
+// 自动按需引入组件,然后对它-全局注册
+import { Button, Form, Field } from 'vant'
+Vue.use(Button)
+Vue.use(Form)
+Vue.use(Field)
+
 new Vue({
   router,
   store,
