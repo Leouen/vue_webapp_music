@@ -56,6 +56,7 @@ export default {
   background-color: rgba(100, 100, 100, 0.4);
   padding: 1px 5px;
   border-radius: 10px;
+  white-space:nowrap;
 }
 .SheetItemImg>div>span{
   font-size: 9px;
