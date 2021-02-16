@@ -46,8 +46,8 @@ module.exports = {
     config.plugin('html').tap(args => {
       args[0].title = 'vue-music'
       args[0].cdn = {
-        css: ['//at.alicdn.com/t/font_2363713_efcnmg7mq9.css'],
-        js: ['//at.alicdn.com/t/font_2363713_efcnmg7mq9.js']
+        css: ['//at.alicdn.com/t/font_2363713_86g46ulbvpp.css'],
+        js: ['//at.alicdn.com/t/font_2363713_86g46ulbvpp.js']
       }
       return args
     })

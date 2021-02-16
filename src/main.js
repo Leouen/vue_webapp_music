@@ -11,8 +11,12 @@ import 'swiper/css/swiper.css'
 // import 'vant/lib/index.less'
 
 // 自动按需引入组件,然后对它-全局注册
-import { Button, Form, Field, Popup, NavBar } from 'vant'
+import { Button, Form, Field, Popup, NavBar, Sticky, Cell, CellGroup, Switch } from 'vant'
 
+Vue.use(Switch)
+Vue.use(Cell)
+Vue.use(CellGroup)
+Vue.use(Sticky)
 Vue.use(NavBar)
 Vue.use(Popup)
 Vue.use(Button)
