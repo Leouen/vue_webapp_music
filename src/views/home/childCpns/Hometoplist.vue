@@ -2,7 +2,7 @@
   <div class="Hometoplist">
     <swiper :options="swiperOption">
       <swiper-slide  v-for="(item,index) in topList" :key="index">
-        <div class="top-item"><top-list-item :list='item'></top-list-item></div>
+        <div class="top-item"><home-top-list-item :list='item'></home-top-list-item></div>
       </swiper-slide>
     </swiper>
   </div>
@@ -10,12 +10,12 @@
 
 <script>
 import { getlistdetail } from 'network/home'
-import TopListItem from './TopListItem.vue'
+import HomeTopListItem from './HomeTopListItem.vue'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 export default {
   components: {
-    TopListItem,
+    HomeTopListItem,
     Swiper,
     SwiperSlide
   },

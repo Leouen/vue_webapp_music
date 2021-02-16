@@ -1,6 +1,6 @@
 <template>
   <navbar class="HomeNavBar">
-    <div id="HomeNavLeft" slot="left" class="iconfont icon-caidan"></div>
+    <div id="HomeNavLeft" slot="left" class="iconfont icon-caidan" @click="MenuPopup"></div>
     <div id="HomeNavCenter" slot="center" >
       <div class="NavSearch">
         <span class="iconfont icon-sousuo"></span>
@@ -17,6 +17,11 @@ export default {
   name: 'HomeNavBar',
   components: {
     navbar
+  },
+  methods: {
+    MenuPopup () {
+      this.$Bus.$emit('openPopup', () => {}) // 事件总线
+    }
   }
 }
 </script>
@@ -40,11 +45,17 @@ export default {
   vertical-align: middle;
   font-size: 16px;
 }
+#HomeNavCenter>.NavSearch{
+  display: flex;
+  align-items: center;
+}
 #HomeNavCenter>.NavSearch>.icon-sousuo{
   font-size: 22px ;
 }
 #HomeNavCenter>.NavSearch>.hotsearch{
   font-size: 14px ;
+  margin-top: 1.5px;
+
 }
 .HomeNavBar{
   z-index: 99;

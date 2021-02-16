@@ -4,7 +4,7 @@
       <div class="HotSheetItemSong-img"><img :src="item.picUrl" alt=""><span class="iconfont icon-bofang" ></span></div>
       <div class="HotSheetItemSong-text">
         <span class="HotSheetItemSong-name">{{item.name}}</span>
-        <span> - {{item.artists}}</span>
+        <span class="HotArtistName"> - {{item.artists}}</span>
       </div>
     </div>
   </div>
@@ -26,20 +26,27 @@ export default {
   height: 50px;
   display: flex;
   align-items: center;
-  margin: 0px 14px 12px;
+  margin: 10px 14px 4px 14px;
   position: relative
 }
 .HotSheetItemSong>.HotSheetItemSong-img>img{
   width: 50px;
   border-radius: 8px;
+  margin-top: 3px;
   margin-right: 10px;
 }
 .HotSheetItemSong .HotSheetItemSong-text{
   flex: 1;
+  display: flex;
+  align-items: center;
 }
 .HotSheetItemSong-name{
+  padding-right: 5px;
   font-size: 16px;
   color: #000;
+}
+.HotArtistName{
+  font-size: 12px;
 }
 .HotSheetItemSong-img>.icon-bofang{
   position: absolute;

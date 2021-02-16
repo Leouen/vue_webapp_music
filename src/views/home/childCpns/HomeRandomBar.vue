@@ -16,7 +16,7 @@ export default {
 <style>
 .HomeRandomBar{
   height: 40px;
-  margin: 20px 0 8px;
+  margin: 16px 0 0px;
 }
 .HomeRandomBar .r-title-word{
   margin-top: 5px;
