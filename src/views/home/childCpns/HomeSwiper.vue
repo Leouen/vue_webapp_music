@@ -58,7 +58,6 @@ export default {
 <style scoped>
     .HomeSwiper{
         background: linear-gradient(#ececec,white);
-        padding-top: 30px;
     }
     .my-swipe{
         padding: 14px 20px 0px;

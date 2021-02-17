@@ -36,16 +36,14 @@ export default {
   margin-top: 3px;
   margin-right: 15px;
 }
-.r-title .r-title-word{
+.r-title-word{
   color: #333333;
   border: 1px #e6e6e6 solid;
   border-radius: 12px;
   margin-top: 2.5px;
   height: 20px;
   line-height: 20px;
-}
-.r-title-word {
-    display: inline-table;
+  display: inline-table;
 }
 .r-title-word a {
     font-size: 12px;

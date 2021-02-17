@@ -57,9 +57,5 @@ export default {
   margin-top: 1.5px;
 
 }
-.HomeNavBar{
-  z-index: 99;
-  position: fixed;
-  width: 100%;
-}
+
 </style>

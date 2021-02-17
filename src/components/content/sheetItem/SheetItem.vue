@@ -1,7 +1,7 @@
 <template>
   <div class="SheetItem">
     <div class="SheetItemImg">
-      <img :src="sheet.picUrl" alt="">
+      <img :src="sheet.picUrl?sheet.picUrl:sheet.coverImgUrl" alt="">
       <div><span class="iconfont icon-bofang-tongyong"></span>{{count}}</div>
     </div>
     <div class="SheetItemText">{{sheet.name}}</div>

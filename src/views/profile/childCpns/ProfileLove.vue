@@ -32,7 +32,7 @@ export default {
   background: white;
   width: 90%;
   border-radius: 10px;
-  margin: 10px auto;
+  margin: 18px auto 0px;
   display: flex;
 }
 .Loveleft{
