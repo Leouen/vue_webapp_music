@@ -181,7 +181,6 @@ export default {
 .PopupNavText{
   padding: 0 6px;
   font-size: 16px;
-  font-weight: bold;
   color: #353535;
 }
 .PopupNavLeft>.icon-daohangyou{

@@ -32,6 +32,7 @@ export default {
   flex: 1;
 }
 .nav-bar {
-  background: linear-gradient(#e1e1e1,#ececec);
+  /* background: linear-gradient(#e1e1e1,#f5f5f5); */
+  background: #f5f5f5
 }
 </style>
