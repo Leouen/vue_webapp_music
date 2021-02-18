@@ -12,6 +12,7 @@ Vue.use(VueRouter)
 
 // 2. 创建路由对象
 const routes = [
+  // 0. 底侧主导航栏
   {
     path: '',
     redirect: '/home'
@@ -35,7 +36,9 @@ const routes = [
   {
     path: '/podcast',
     component: Podcast
-  }
+  },
+  // 共用：登陆
+  { path: '/UserLogin', component: () => import('components/content/userLogin/UserLogin') }
 ]
 
 const router = new VueRouter({

@@ -29,7 +29,7 @@ export default {
 <style>
 #HomeNavLeft,#HomeNavRight{
   font-size: 22px;
-  color: #2f2f2f;
+  color: #333333;
 }
 #HomeNavCenter{
   height: 30px;
@@ -57,5 +57,4 @@ export default {
   margin-top: 1.5px;
 
 }
-
 </style>

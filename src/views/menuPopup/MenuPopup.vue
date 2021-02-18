@@ -2,11 +2,13 @@
   <div class="MenuPopup">
     <van-popup v-model="show" position="left" :style="{ width: '82%' }">
         <div class="PopupNav">
-            <div class="PopupNavLeft">
-              <span class="iconfont icon-tx"></span>
+            <router-link class="PopupNavLeft" to="/UserLogin">
+              <div class="UserImg">
+                <img class="UserImg" src="~assets/img/ProfileBox/user.svg" alt="">
+              </div>
               <span class="PopupNavText">立即登陆</span>
               <span class="iconfont icon-daohangyou"></span>
-            </div>
+            </router-link>
             <div class="PopupNavRight">
               <span class="iconfont icon-saoma"></span>
             </div>
@@ -172,6 +174,18 @@ export default {
   flex: 1;
   display: flex;
   align-items: center;
+}
+.UserImg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 6px;
+}
+.UserImg>img{
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #f1ecec;
 }
 .icon-tx{
   font-size: 26px;
