@@ -40,10 +40,8 @@ export default {
     close () {
       this.$router.go(-1)
     },
-
-    // 手机登录组件
     phoneLogin () {
-      this.$router.push('/myMessage/login/phoneLogin')
+      this.$router.push('/PhoneLogin')
     }
   }
 }
@@ -58,7 +56,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9999;
+  z-index: 9000;
   height: 100vh;
 }
 .musicLogo{
@@ -134,7 +132,7 @@ export default {
   transform:translate(-50%,-50%);
   width: 200px;
   height: 34px;
-  font-size: 6px;
+  font-size: 10px;
   color: #e97f78;
   display: flex;
   align-items: center;
