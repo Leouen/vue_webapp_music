@@ -2,7 +2,13 @@
   <div class="titlebar">
       <div class="left l-title">{{titles.left}}</div>
       <div class="right r-title">
-        <div class="r-title-word"><a class=""><span>{{titles.right}}</span><span class="iconfont icon-daohangyou"></span></a></div>
+        <div class="r-title-word">
+          <a class="">
+            <span v-show="showFront" class="iconfont icon-diantai"></span>
+            <span>{{titles.right}}</span>
+            <span class="iconfont icon-daohangyou"></span>
+          </a>
+        </div>
       </div>
   </div>
 </template>
@@ -16,6 +22,10 @@ export default {
       default () {
         return {}
       }
+    },
+    showFront: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -55,6 +65,10 @@ export default {
   display: table-cell;
 }
 .icon-daohangyou{
+  font-size: 12px;
+}
+.r-title-word .icon-diantai{
+  padding-right: 3px;
   font-size: 12px;
 }
 </style>
