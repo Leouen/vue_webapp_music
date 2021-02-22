@@ -16,7 +16,7 @@
         <li><img src="~assets/img/login/weixin.svg" alt=""></li>
         <li><img src="~assets/img/login/qq.svg" alt=""></li>
         <li><img src="~assets/img/login/weibo.svg" alt=""></li>
-        <li><img src="~assets/img/login/yx.svg" alt=""></li>
+        <li @click="mailLogin"><img src="~assets/img/login/yx.svg" alt=""></li>
       </ul>
     </div>
     <div class="protocol">
@@ -42,6 +42,9 @@ export default {
     },
     phoneLogin () {
       this.$router.push('/PhoneLogin')
+    },
+    mailLogin () {
+      this.$router.push('/MailLogin')
     }
   }
 }

@@ -22,8 +22,6 @@
 
 <script>
 import navbar from 'components/common/navbar/navbar'
-import { phoneLogin } from 'network/login' // 网络请求
-import { getUserDetail, getUserPlayList } from 'network/user' // 用户信息
 
 export default {
   name: 'PhoneLogin',
@@ -102,7 +100,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 36px;
   border-bottom: 1px solid #cdcdcd;
 }
 .countryDel{
@@ -114,7 +112,7 @@ export default {
   padding-right: 10px;
 }
 .loginInput input {
-  height: 48px;
+  height: 34px;
   width: 300px;
   border: 0;
   color: black;

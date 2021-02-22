@@ -27,7 +27,8 @@ export default {
   display: flex;
   align-items: center;
   margin: 10px 14px 4px 14px;
-  position: relative
+  position: relative;
+  overflow: hidden;
 }
 .HotSheetItemSong>.HotSheetItemSong-img>img{
   width: 50px;
@@ -44,9 +45,13 @@ export default {
   padding-right: 5px;
   font-size: 16px;
   color: #000;
+  white-space: nowrap;
 }
 .HotArtistName{
   font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .HotSheetItemSong-img>.icon-bofang{
   position: absolute;

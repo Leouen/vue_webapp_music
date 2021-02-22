@@ -8,25 +8,44 @@
     </navbar>
     <div class="text_1">请输入验证码</div>
     <div class="text_3">
-      <span class="text_3_1">已发送至+86
+      <span class="text_3_1">已发送至+86 {{numHidden(tel)}}
         <span class="iconfont icon-xiezi"></span>
         <span v-show="show" @click="getCode" class="codeCount reGet">重新获取</span>
         <span v-show="!show" class="codeCount">{{count}} s</span>
       </span>
     </div>
+    <van-password-input
+      :value="value"
+      :gutter="10"
+      :mask="false"
+      :focused="showKeyboard"
+      @focus="showKeyboard = true"
+    />
+    <div class="del_change">
+      <span>手机号已停用</span>
+      <span class="iconfont icon-daohangyou" ></span>
+    </div>
+    <van-number-keyboard
+      v-model="value"
+      :show="showKeyboard"
+      @blur="showKeyboard = false"
+    />
   </div>
 </template>
 
 <script>
 import navbar from 'components/common/navbar/navbar'
+import { getCaptcha } from 'network/login'
 export default {
   name: 'PhoneLoginVerify',
   data () {
     return {
+      value: '',
+      showKeyboard: true,
       show: true,
       timer: null,
       count: '',
-      tel: '', // 手机号
+      tel: '15317865719', // 手机号
       password: '' // 密码
     }
   },
@@ -36,6 +55,9 @@ export default {
   methods: {
     close () {
       this.$router.go(-3)
+    },
+    numHidden (str) {
+      return str.substr(0, 3) + '****' + str.substr(7)
     },
     getCode () {
       const TIME_COUNT = 6
@@ -53,11 +75,40 @@ export default {
         }, 1000)
       }
     }
+  },
+  watch: {
+    value (value) {
+      if (value.length === 6) {
+        getCaptcha(this.tel, value).then(
+          (res) => {
+            console.log(res)
+            if (res.code === 200) {
+              // 登陆成功 ，开始获得用户数据
+              this.$toast({ message: '欢迎使用本网页~', className: 'toastIndex', position: 'bottom' })
+            } else {
+              this.$toast({ message: '验证码错误', className: 'toastIndex', position: 'bottom' })
+              this.value = ''
+            }
+          }
+        )
+      } else {}
+    }
   }
 }
 </script>
 
 <style>
+.van-password-input{
+  width: 80%;
+  margin: 0 auto;
+}
+.van-password-input__item{
+  margin: 0px 10px;
+  border-bottom: 1px solid #d7d7d7;
+}
+.van-password-input__item.blackBold{
+  border-bottom: 1px solid black;
+}
 .PhoneLoginVerify{
   position: absolute;
   background: #fff;
@@ -94,8 +145,13 @@ export default {
 }
 .text_3{
   margin-top: 10px;
+  margin-bottom: 10px;
   font-size: 12px;
   padding-left: 20px;
+  color: #9d9d9d;
+}
+.text_3 .icon-xiezi{
+  padding-left: 2px;
 }
 .text_3_1{
   display: flex;
@@ -111,5 +167,16 @@ export default {
 .text_3_1 .reGet{
   font-size: 14px;
   color: #5682b2;
+}
+.del_change{
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #9d9d9d;
+}
+.del_change .icon-daohangyou{
+  font-size: 10px;
 }
 </style>

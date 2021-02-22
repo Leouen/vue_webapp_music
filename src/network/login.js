@@ -1,5 +1,16 @@
 import { request } from './request'
 
+// 邮箱登录
+export function mailLogin (email, password) {
+  return request({
+    url: '/login',
+    params: {
+      email,
+      password
+    }
+  })
+}
+
 // 手机号登录
 export function phoneLogin (phone, password) {
   return request({

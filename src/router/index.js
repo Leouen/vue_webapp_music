@@ -40,6 +40,7 @@ const routes = [
   // 共用：登陆
   { path: '/UserLogin', component: () => import('components/content/userLogin/UserLogin') },
   { path: '/PhoneLogin', component: () => import('components/content/userLogin/PhoneLogin') },
+  { path: '/MailLogin', component: () => import('components/content/userLogin/MailLogin') },
   { path: '/PhoneLoginVerify', component: () => import('components/content/userLogin/PhoneLoginVerify') }
 ]
 

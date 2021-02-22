@@ -46,10 +46,10 @@ export default {
 .profile-list-bar{
   padding: 12px 0px;
 }
-.van-tabs__line{
+.profile-list-bar .van-tabs__line{
   bottom: 25px;
 }
-.van-tab{
+.profile-list-bar .van-tab{
   margin: 10px 0px;
 }
 

@@ -42,7 +42,6 @@ export default {
   components: { SheetItem },
   created () {
     getHotSheet(this.order, this.cat, this.limit, this.offset).then(res => {
-      console.log(res)
       this.sheets = res.playlists
     })
   }
