@@ -30,3 +30,18 @@ export function toStringNum (num) {
   }
   return num
 }
+
+// 时间转换工具
+function formatDate (date) {
+  date = new Date(date)
+  var y = date.getFullYear()
+  var m = date.getMonth() + 1
+  var d = date.getDate()
+  var h = date.getHours()
+  var m1 = date.getMinutes()
+  var s = date.getSeconds()
+  m = m < 10 ? ('0' + m) : m
+  d = d < 10 ? ('0' + d) : d
+  return y + '-' + m + '-' + d + ' ' + h + ':' + m1 + ':' + s
+}
+console.log(formatDate(567964800000))// 2018-03-23 13:35:47  参数为Number

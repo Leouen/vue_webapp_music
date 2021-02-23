@@ -10,6 +10,15 @@
       <van-tab title="推荐" title-style='z-index: 9;'>
         <podcast-rec></podcast-rec>
         <title-bar :titles='titles[0]' :showFront='true'></title-bar>
+        <podcast-dj-rec-slider></podcast-dj-rec-slider>
+        <title-bar :titles='titles[1]'></title-bar>
+        <podcast-dj-hot></podcast-dj-hot>
+        <title-bar :titles='titles[2]'></title-bar>
+        <podcast-dj-rec-item :list='list[1]'></podcast-dj-rec-item>
+        <title-bar :titles='titles[3]'></title-bar>
+        <podcast-dj-rec-item :list='list[0]'></podcast-dj-rec-item>
+        <title-bar :titles='titles[4]'></title-bar>
+        <podcast-dj-rec-item :list='list[2]'></podcast-dj-rec-item>
       </van-tab>
       <van-tab title="分类" title-style='z-index: 9;'>内容 3</van-tab>
     </van-tabs>
@@ -20,11 +29,16 @@
 import Navbar from '../../../components/common/navbar/navbar.vue'
 import TitleBar from '../../../components/common/titlebar/TitleBar.vue'
 import PodcastRec from './PodcastRec.vue'
+import { getDjCateRec } from 'network/podcast'
+import PodcastDjRecItem from './PodcastDjRecItem.vue'
+import PodcastDjRecSlider from './PodcastDjRecSlider.vue'
+import PodcastDjHot from './PodcastDjHot.vue'
 export default {
   name: 'PodcastBar',
   data () {
     return {
       active: 1,
+      list: [],
       show: false,
       titles: [
         {
@@ -33,23 +47,38 @@ export default {
           src: ''
         },
         {
-          left: '播客合辑',
+          left: '精选播单',
           right: '更多',
           src: ''
         },
         {
-          left: '排行榜',
+          left: '音乐故事 | 这有一个故事陪你听歌',
+          right: '更多',
+          src: ''
+        },
+        {
+          left: '情感调频 | 治愈你的每一种情绪',
+          right: '更多',
+          src: ''
+        },
+        {
+          left: '重磅呈现 | 不容错过的宝藏播客',
           right: '更多',
           src: ''
         }
       ]
     }
   },
-  components: { Navbar, PodcastRec, TitleBar },
+  components: { Navbar, PodcastRec, TitleBar, PodcastDjRecItem, PodcastDjRecSlider, PodcastDjHot },
   methods: {
     MenuPopup () {
       this.$Bus.$emit('openPopup', () => {}) // 事件总线
     }
+  },
+  created () {
+    getDjCateRec().then(res => {
+      this.list = res.data
+    })
   }
 }
 </script>

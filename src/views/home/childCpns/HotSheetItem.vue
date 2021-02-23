@@ -1,7 +1,7 @@
 <template>
   <div class="HotSheetItem">
     <div class="HotSheetItemSong" v-for="(item, index) in itemDetail" :key="index">
-      <div class="HotSheetItemSong-img"><img :src="item.picUrl" alt=""><span class="iconfont icon-bofang" ></span></div>
+      <div class="HotSheetItemSong-img"><img :src="item.picUrl" alt="" v-lazy="item.picUrl"><span class="iconfont icon-bofang" ></span></div>
       <div class="HotSheetItemSong-text">
         <span class="HotSheetItemSong-name">{{item.name}}</span>
         <span class="HotArtistName"> - {{item.artists}}</span>

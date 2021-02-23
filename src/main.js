@@ -11,8 +11,9 @@ import 'swiper/css/swiper.css'
 // import 'vant/lib/index.less'
 
 // 自动按需引入组件,然后对它-全局注册
-import { Button, Form, Field, Popup, NavBar, Sticky, Cell, CellGroup, Switch, Tab, Tabs, PullRefresh, Toast, PasswordInput, NumberKeyboard } from 'vant'
+import { Button, Form, Field, Popup, NavBar, Sticky, Cell, CellGroup, Switch, Tab, Tabs, PullRefresh, Toast, PasswordInput, NumberKeyboard, Lazyload } from 'vant'
 
+Vue.use(Lazyload)
 Vue.use(PasswordInput)
 Vue.use(NumberKeyboard)
 Vue.use(Toast)
@@ -29,7 +30,7 @@ Vue.use(Button)
 Vue.use(Form)
 Vue.use(Field)
 
-Toast.setDefaultOptions({ duration: 6000 }) // 初始化Toast
+Toast.setDefaultOptions({ duration: 3000 }) // 初始化Toast
 Vue.prototype.$Bus = new Vue() // 创建全局事件总线
 
 new Vue({

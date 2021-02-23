@@ -78,7 +78,9 @@ export default {
 
 <style>
 .PodcastRecNav{
-  margin: 16px 0;
+  margin: 5px 0;
+  padding: 11px 0;
+  border-bottom: 1px solid #e1e1e1;
 }
 .RecNavItem{
   display: flex;

@@ -1,8 +1,8 @@
 <template>
-  <div class="HomeSheet">
+  <div class="PodcastDjRecSlider">
     <swiper class="wrapper-sheet" :options="swiperOption">
       <swiper-slide class="content-sheet" v-for="(item,index) in sheets" :key="index">
-        <a href="#"><sheet-item class="sheet-control-item" :sheet='item'></sheet-item></a>
+        <a href="#"><sheet-item class="sheet-control-item" :sheet='item' :showRcmdText="true"></sheet-item></a>
       </swiper-slide>
     </swiper>
   </div>
@@ -11,10 +11,9 @@
 <script>
 import SheetItem from 'components/content/sheetItem/SheetItem.vue'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import { getdjprogram } from 'network/home'
-import 'swiper/css/swiper.css'
+import { getDjRec } from 'network/podcast'
 export default {
-  name: 'HomeSheet',
+  name: 'PodcastDjRecSlider',
   data () {
     return {
       sheets: [],
@@ -34,8 +33,8 @@ export default {
     SheetItem
   },
   created () {
-    getdjprogram(6).then(res => {
-      this.sheets = res.result
+    getDjRec().then(res => {
+      this.sheets = res.djRadios
       // console.log(res)
     })
   }
@@ -43,9 +42,12 @@ export default {
 </script>
 
 <style>
+.PodcastDjRecSlider{
+  margin: 5px auto 10px;
+}
 .wrapper-sheet{
   display: flex;
   align-content: space-around;
-  padding-left: 8px;
+  padding-left: 10px;
 }
 </style>

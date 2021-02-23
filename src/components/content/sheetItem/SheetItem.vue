@@ -1,10 +1,11 @@
 <template>
   <div class="SheetItem">
     <div class="SheetItemImg">
-      <img :src="sheet.picUrl?sheet.picUrl:sheet.coverImgUrl" alt="">
-      <div><span class="iconfont icon-bofang-tongyong"></span>{{count}}</div>
+      <div class="ItemImg"><img :src="sheet.picUrl?sheet.picUrl:sheet.coverImgUrl" alt="" v-lazy="sheet.picUrl?sheet.picUrl:sheet.coverImgUrl"></div>
+      <div class="ItemDiv"><span class="iconfont icon-bofang-tongyong"></span>{{count}}</div>
     </div>
-    <div class="SheetItemText">{{sheet.name}}</div>
+    <div v-show="!showRcmdText" class="SheetItemText">{{sheet.name}}</div>
+    <div v-show="showRcmdText" class="SheetItemText">{{sheet.rcmdText ? sheet.rcmdText : sheet.rcmdtext}}</div>
   </div>
 </template>
 
@@ -18,6 +19,10 @@ export default {
       default () {
         return {}
       }
+    },
+    showRcmdText: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -42,12 +47,16 @@ export default {
   text-align: center;
   position: relative;
 }
-.SheetItemImg>img{
+.SheetItemImg>.ItemImg{
+  min-width: 110px;
+  min-height: 110px;
+}
+.SheetItemImg>.ItemImg img{
   width: 90%;
   border-radius: 12px;
   box-shadow: 0px -9px 0px -5px #f2f2f2;
 }
-.SheetItemImg>div{
+.SheetItemImg>.ItemDiv{
   position: absolute;
   right: 10px;
   top: 5px;
@@ -58,7 +67,7 @@ export default {
   border-radius: 10px;
   white-space:nowrap;
 }
-.SheetItemImg>div>span{
+.SheetItemImg>.ItemDiv>span{
   font-size: 9px;
   padding-right: 2px;
 }
