@@ -24,3 +24,10 @@ export function getDjCateRec () {
     url: '/dj/category/recommend'
   })
 }
+
+// 调用此接口 , 可获得电台推荐类型
+export function getDjBanner () {
+  return request({
+    url: '/dj/banner'
+  })
+}

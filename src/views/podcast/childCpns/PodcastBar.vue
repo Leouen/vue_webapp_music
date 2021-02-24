@@ -19,8 +19,12 @@
         <podcast-dj-rec-item :list='list[0]'></podcast-dj-rec-item>
         <title-bar :titles='titles[4]'></title-bar>
         <podcast-dj-rec-item :list='list[2]'></podcast-dj-rec-item>
+        <podcast-dj-banner></podcast-dj-banner>
       </van-tab>
-      <van-tab title="分类" title-style='z-index: 9;'>内容 3</van-tab>
+      <van-tab title="分类" title-style='z-index: 9;'>
+        <podcast-category></podcast-category>
+        <podcast-category-body :list='list'></podcast-category-body>
+      </van-tab>
     </van-tabs>
   </div>
 </template>
@@ -33,6 +37,9 @@ import { getDjCateRec } from 'network/podcast'
 import PodcastDjRecItem from './PodcastDjRecItem.vue'
 import PodcastDjRecSlider from './PodcastDjRecSlider.vue'
 import PodcastDjHot from './PodcastDjHot.vue'
+import PodcastCategory from './PodcastCategory.vue'
+import PodcastCategoryBody from './PodcastCategoryBody.vue'
+import PodcastDjBanner from './PodcastDjBanner.vue'
 export default {
   name: 'PodcastBar',
   data () {
@@ -69,7 +76,7 @@ export default {
       ]
     }
   },
-  components: { Navbar, PodcastRec, TitleBar, PodcastDjRecItem, PodcastDjRecSlider, PodcastDjHot },
+  components: { Navbar, PodcastRec, TitleBar, PodcastDjRecItem, PodcastDjRecSlider, PodcastDjHot, PodcastCategory, PodcastCategoryBody, PodcastDjBanner },
   methods: {
     MenuPopup () {
       this.$Bus.$emit('openPopup', () => {}) // 事件总线
@@ -78,6 +85,7 @@ export default {
   created () {
     getDjCateRec().then(res => {
       this.list = res.data
+      console.log(this.list)
     })
   }
 }

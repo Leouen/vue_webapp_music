@@ -73,10 +73,15 @@ export default {
         height: 100%;
         position: relative;
     }
-
+    .swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal > .swiper-pagination-bullets{
+      bottom: 4px;
+    }
+    .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet{
+      margin: 0 2px;
+    }
     #pa /deep/ .swiper-pagination-bullet {
-      width: 12px;
-      height: 4px;
+      width: 10px;
+      height: 2px;
       border-radius: 2px;
       text-align: center;
       line-height: 20px;

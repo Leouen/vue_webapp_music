@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg t="1614142266569" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2884" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48">
+  <defs>
+    <style type="text/css"></style>
+  </defs>
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(255,58,58);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(253,213,213);stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path d="M512 62C263 62 62 263 62 512s201 450 450 450 450-201 450-450S761 62 512 62z m-90 622.5c0 28.5-22.5 51-49.5 51s-49.5-22.5-49.5-51v-106.5c0-28.5 22.5-51 49.5-51s49.5 22.5 49.5 51v106.5z m277.5 0c0 28.5-22.5 51-49.5 51s-49.5-22.5-49.5-51v-106.5c0-28.5 22.5-51 49.5-51s48 22.5 49.5 51v106.5z m79.5-55.5c0 13.5-12 25.5-25.5 25.5-15 0-25.5-12-25.5-25.5v-112.5C728 393.5 632 293 512 287c-120 4.5-214.5 105-214.5 229.5v112.5c0 13.5-12 25.5-25.5 25.5-15 0-25.5-12-25.5-25.5v-120c0-151.5 118.5-274.5 265.5-279h-7.5 15-7.5c147 4.5 265.5 126 267 279v120z"  fill="url(#grad1)"  p-id="2885"></path>
+</svg>
