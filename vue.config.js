@@ -30,7 +30,7 @@ module.exports = {
       }
     }
   },
-  publicPath: './',
+  publicPath: '/',
   configureWebpack: {
     resolve: {
       alias: {
@@ -46,8 +46,8 @@ module.exports = {
     config.plugin('html').tap(args => {
       args[0].title = 'vue-music'
       args[0].cdn = {
-        css: ['//at.alicdn.com/t/font_2363713_wme05wf3du.css'],
-        js: ['//at.alicdn.com/t/font_2363713_wme05wf3du.js']
+        css: ['//at.alicdn.com/t/font_2363713_zw3zu23ysn.css'],
+        js: ['//at.alicdn.com/t/font_2363713_zw3zu23ysn.js']
       }
       return args
     })

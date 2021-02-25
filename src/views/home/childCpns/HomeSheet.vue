@@ -2,7 +2,7 @@
   <div class="HomeSheet">
     <swiper class="wrapper-sheet" :options="swiperOption">
       <swiper-slide class="content-sheet" v-for="(item,index) in sheets" :key="index">
-        <a href="#"><sheet-item class="sheet-control-item" :sheet='item'></sheet-item></a>
+        <sheet-item  @click.native="toSheet(item.id)"  class="sheet-control-item" :sheet='item'></sheet-item>
       </swiper-slide>
     </swiper>
   </div>
@@ -38,6 +38,11 @@ export default {
       this.sheets = res.result
       // console.log(res)
     })
+  },
+  methods: {
+    toSheet (id) {
+      this.$router.push('/musicSheet/' + id + '&' + false)
+    }
   }
 }
 </script>

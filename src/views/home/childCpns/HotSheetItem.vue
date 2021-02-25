@@ -17,6 +17,8 @@ export default {
     itemDetail: {
       type: Array
     }
+  },
+  methods: {
   }
 }
 </script>

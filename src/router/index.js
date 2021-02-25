@@ -41,7 +41,9 @@ const routes = [
   { path: '/UserLogin', component: () => import('components/content/userLogin/UserLogin') },
   { path: '/PhoneLogin', component: () => import('components/content/userLogin/PhoneLogin') },
   { path: '/MailLogin', component: () => import('components/content/userLogin/MailLogin') },
-  { path: '/PhoneLoginVerify', component: () => import('components/content/userLogin/PhoneLoginVerify') }
+  { path: '/PhoneLoginVerify', component: () => import('components/content/userLogin/PhoneLoginVerify') },
+  // 歌单页面
+  { path: '/musicSheet/:id&:isAlbum', component: () => import('components/content/musicList/MusicSheet') }
 ]
 
 const router = new VueRouter({

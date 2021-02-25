@@ -85,7 +85,7 @@ export default {
   created () {
     getDjCateRec().then(res => {
       this.list = res.data
-      console.log(this.list)
+      // console.log(this.list)
     })
   }
 }
