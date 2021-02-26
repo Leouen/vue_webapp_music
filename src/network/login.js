@@ -66,3 +66,10 @@ export function refreshLogin () {
     url: '/login/refresh'
   })
 }
+
+// 登出
+export function logout () {
+  return request({
+    url: '/logout'
+  })
+}

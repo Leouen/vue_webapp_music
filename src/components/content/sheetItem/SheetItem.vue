@@ -1,7 +1,7 @@
 <template>
   <div class="SheetItem">
     <div class="SheetItemImg">
-      <div class="ItemImg"><img :src="sheet.picUrl?sheet.picUrl:sheet.coverImgUrl" alt="" v-lazy="sheet.picUrl?sheet.picUrl:sheet.coverImgUrl"></div>
+      <div class="ItemImg"><img alt="" v-lazy="sheet.picUrl?sheet.picUrl:sheet.coverImgUrl"></div>
       <div class="ItemDiv"><span class="iconfont icon-bofang-tongyong"></span>{{count}}</div>
     </div>
     <div v-show="!showRcmdText" class="SheetItemText">{{sheet.name}}</div>

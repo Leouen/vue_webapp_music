@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="friends">
     <circular-progress-view
     @click="startTime()"
       v-if="isShow"
@@ -96,6 +96,11 @@ export default {
 </script>
 
 <style scoped>
+.friends{
+  height: 1000px;
+  width: 100%;
+  background: #fff;
+}
 .TestFriend{
   font-size: 40px;
 }

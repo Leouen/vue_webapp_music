@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="Karaoke">
     <van-button type="primary" @click="isShowPlayer">测试打开音乐播放器</van-button>
     <van-button type="info">信息按钮</van-button>
     <van-button type="default">默认按钮</van-button>
@@ -12,6 +12,15 @@
         <van-button round block type="info" native-type="submit">提交</van-button>
        </div>
     </van-form>
+    <div id="demo">
+      <button v-on:click="show = !show">
+        Toggle
+      </button>
+      <transition name="van-slide-up">
+        <p v-if="show">hello</p>
+      </transition>
+    </div>
+
   </div>
 </template>
 
@@ -19,6 +28,11 @@
 
 export default {
   name: 'Karaoke',
+  data () {
+    return {
+      show: true
+    }
+  },
   components: {
   },
   methods: {
@@ -30,5 +44,9 @@ export default {
 </script>
 
 <style scoped>
-
+#Karaoke{
+  height: 1000px;
+  width: 100%;
+  background: #fff;
+}
 </style>

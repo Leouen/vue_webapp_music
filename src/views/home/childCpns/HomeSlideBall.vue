@@ -4,7 +4,7 @@
       <swiper-slide class="content" v-for="(item,index) in balls" :key="index">
         <a class="balls-control-item" >
           <div class="ball-img">
-            <img :src="item.iconUrl" alt="" />
+            <img v-lazy="item.iconUrl" alt="" />
           </div>
           <div class="ball-text">{{item.name}}</div>
         </a>

@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <menu-popup></menu-popup>
-    <router-view></router-view>
+    <transition :name="transitionName">
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
+    </transition>
     <main-tab-bar v-if="isShowBar()" ></main-tab-bar>
     <play-music-mini :class="setBottom()"></play-music-mini>
   </div>
@@ -12,11 +16,24 @@ import MainTabBar from '@/components/content/mainTabbar/MainTabBar'
 import MenuPopup from './views/menuPopup/MenuPopup.vue'
 import PlayMusicMini from './components/content/playMusic/PlayMusicMini.vue'
 export default {
+  data () {
+    return {
+      transitionName: 'slide-left'
+    }
+  },
   name: 'app',
   components: {
     MainTabBar,
     PlayMusicMini,
     MenuPopup
+  },
+  // 监听,当路由发生变化的时候执行
+  watch: {
+    $route (to, from) {
+      // 实现路由跳转动画
+      if (to.meta.index > from.meta.index) { this.transitionName = 'slide-left' }
+      if (to.meta.index < from.meta.index) { this.transitionName = 'slide-right' }
+    }
   },
   methods: {
     isShowBar () {

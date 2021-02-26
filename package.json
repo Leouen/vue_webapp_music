@@ -10,8 +10,10 @@
   "dependencies": {
     "amfe-flexible": "^2.2.1",
     "axios": "^0.21.1",
+    "colorthief": "^2.3.2",
     "core-js": "^3.6.5",
     "less": "^4.1.1",
+    "rgbaster": "^2.1.1",
     "save": "^2.4.0",
     "swiper": "^5.4.5",
     "vant": "^2.12.6",

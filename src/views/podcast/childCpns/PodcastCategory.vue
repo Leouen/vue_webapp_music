@@ -1,7 +1,7 @@
 <template>
   <div class="PodcastCategory">
     <a class="CategoryItme" href="" v-for="(item, index) in data" :key="index">
-        <img :src="item.url" alt="">
+        <img v-lazy="item.url" alt="">
         <span>{{item.name}}</span>
     </a>
   </div>

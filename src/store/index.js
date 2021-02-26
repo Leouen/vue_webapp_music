@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import getters from './getters'
+
+import user from './modules/user/index'
+import playlist from './modules/playlist/index'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -20,8 +25,10 @@ export default new Vuex.Store({
       state.sheetId = newID
     }
   },
-  actions: {
-  },
+  actions: { },
   modules: {
-  }
+    user,
+    playlist
+  },
+  getters
 })

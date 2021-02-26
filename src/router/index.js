@@ -19,23 +19,28 @@ const routes = [
   },
   {
     path: '/home',
-    component: Home
-  },
-  {
-    path: '/karaoke',
-    component: Karaoke
-  },
-  {
-    path: '/friends',
-    component: Friends
-  },
-  {
-    path: '/profile',
-    component: Profile
+    component: Home,
+    meta: { index: 1 }
   },
   {
     path: '/podcast',
-    component: Podcast
+    component: Podcast,
+    meta: { index: 2 }
+  },
+  {
+    path: '/profile',
+    component: Profile,
+    meta: { index: 3 }
+  },
+  {
+    path: '/karaoke',
+    component: Karaoke,
+    meta: { index: 4 }
+  },
+  {
+    path: '/friends',
+    component: Friends,
+    meta: { index: 5 }
   },
   // 共用：登陆
   { path: '/UserLogin', component: () => import('components/content/userLogin/UserLogin') },

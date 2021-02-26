@@ -5,7 +5,7 @@
       <ul>
         <li v-for="(item,index) in musicList" :key="index">
           <a href="">
-            <div><img :src="item.picUrl" alt="" v-lazy="item.picUrl"><span class="iconfont icon-bofang"></span></div>
+            <div><img alt="" v-lazy="item.picUrl"><span class="iconfont icon-bofang"></span></div>
             <span class="listindex">{{index+1}}</span>
             <span class="TopListItemName">{{item.name}}</span>
             <span class="TopListItemarName"> - {{item.arname}}</span>
