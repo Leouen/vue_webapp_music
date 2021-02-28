@@ -14,7 +14,7 @@
       <div class="TopBoxLeft">
         <div class="SheetItemImg">
           <div class="ItemImg"><img alt="" :src="playlist.picUrl?playlist.picUrl:playlist.coverImgUrl"></div>
-          <div class="ItemDiv"><span class="iconfont icon-bofang-tongyong"></span>{{playlist.playCount}}</div>
+          <div class="ItemDiv"><span class="iconfont icon-bofang-tongyong"></span>{{playlist.playCount | toStringNum}}</div>
         </div>
       </div>
       <div class="TopBoxRight">
@@ -41,15 +41,15 @@
       <div class="sheetTripleItem">
         <div class="borderRight">
           <span class=" iconfont icon-tianjiagedan"></span>
-          <span>{{playlist.subscribedCount}}</span>
+          <span>{{playlist.subscribedCount | toStringNum}}</span>
         </div>
         <div class="borderRight">
           <span class=" iconfont icon-liuyan"></span>
-          <span>{{playlist.commentCount}}</span>
+          <span>{{playlist.commentCount | toStringNum}}</span>
         </div>
         <div>
           <span class="iconfont icon-fenxiang1"></span>
-          <span>{{playlist.shareCount}}</span>
+          <span>{{playlist.shareCount | toStringNum}}</span>
         </div>
       </div>
     </div>
@@ -58,6 +58,8 @@
 
 <script>
 import Navbar from '../../../common/navbar/navbar.vue'
+import { toStringNum } from '@/common/utils'
+
 export default {
   name: 'MusicSheetTop',
   components: { Navbar },
@@ -73,16 +75,16 @@ export default {
       }
     }
   },
-  created () {
-    console.log(this.playlist)
-    console.log(this.playlist.id)
+  watch: {
+    playlist: {
+      handler (val) {
+        console.log(val)
+      },
+      immediate: true
+    }
   },
-  mounted () {
-    console.log(this.playlist)
-    console.log(this.playlist.id)
-    // if (this.playlist.playCount) {
-    //   this.ImgColor(this.playlist.playCount)
-    // }
+  filters: {
+    toStringNum
   },
   methods: {
     back () {
@@ -105,11 +107,6 @@ export default {
       document.querySelector('.MusicSheetTop').style.background = this.BGCcolor
       document.querySelector('.MusicSheetNavBar').style.background = this.BGCcolor
     }
-  },
-  watch: {
-    // playlist () {
-    //   this.ImgColor(this.playlist.coverImgUrl)
-    // }
   }
 }
 </script>

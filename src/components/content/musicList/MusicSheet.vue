@@ -8,7 +8,6 @@
 <script>
 import { getlistDetial } from 'network/musicList'
 import { getSongDetial } from 'network/playmusic'
-import { toStringNum } from '@/common/utils'
 import MusicSheetTop from './childCpn/MusicSheetTop.vue'
 import MusicSheetBottom from './childCpn/MusicSheetBottom.vue'
 export default {
@@ -42,19 +41,10 @@ export default {
   created () {
     this.changeSheetId(this.$route.params.id)
     getlistDetial(this.$route.params.id).then((res) => {
-      // console.log(res)
       // 歌单信息
-      this.playlist.id = res.playlist.id
-      this.playlist.name = res.playlist.name
-      this.playlist.coverImgUrl = res.playlist.coverImgUrl
-      this.playlist.playCount = toStringNum(res.playlist.playCount)
-      this.playlist.commentCount = toStringNum(res.playlist.commentCount)
-      this.playlist.shareCount = toStringNum(res.playlist.shareCount)
-      this.playlist.subscribedCount = toStringNum(res.playlist.subscribedCount)
-      this.playlist.description = res.playlist.description
-      this.playlist.creator.nickname = res.playlist.creator.nickname
-      this.playlist.creator.avatarDetail = res.playlist.creator.avatarDetail
-      this.playlist.creator.avatarUrl = res.playlist.creator.avatarUrl
+      const { id, name, coverImgUrl, playCount, commentCount, shareCount, subscribedCount, description, creator: { nickname, avatarDetail, avatarUrl } } = res.playlist
+      this.playlist = { id, name, coverImgUrl, playCount, commentCount, shareCount, subscribedCount, description, creator: { nickname, avatarDetail, avatarUrl } }
+
       // 获得完整歌单ID
       for (const item of res.playlist.trackIds) {
         this.songListId.push(item.id)
