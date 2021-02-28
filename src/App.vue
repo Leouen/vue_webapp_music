@@ -2,7 +2,7 @@
   <div id="app">
     <menu-popup></menu-popup>
     <transition :name="transitionName">
-      <keep-alive>
+      <keep-alive exclude="MusicSheet">
         <router-view/>
       </keep-alive>
     </transition>
@@ -18,7 +18,7 @@ import PlayMusicMini from './components/content/playMusic/PlayMusicMini.vue'
 export default {
   data () {
     return {
-      transitionName: 'slide-left'
+      transitionName: null // 'slide-left' // 默认过渡动画
     }
   },
   name: 'app',
@@ -31,8 +31,8 @@ export default {
   watch: {
     $route (to, from) {
       // 实现路由跳转动画
-      if (to.meta.index > from.meta.index) { this.transitionName = 'slide-left' }
-      if (to.meta.index < from.meta.index) { this.transitionName = 'slide-right' }
+      // if (to.meta.index > from.meta.index) { this.transitionName = 'slide-left' }
+      // if (to.meta.index < from.meta.index) { this.transitionName = 'slide-right' }
     }
   },
   methods: {

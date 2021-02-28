@@ -5,7 +5,7 @@
       <div class="PodcastBarCenter"></div>
       <div slot="right" class="iconfont icon-sousuo1" ></div>
     </navbar>
-    <van-tabs v-model="active" animated>
+    <van-tabs v-model="active">
       <van-tab title="听听" title-style='z-index: 9;'>该页面还在开发中</van-tab>
       <van-tab title="推荐" title-style='z-index: 9;'>
         <podcast-rec></podcast-rec>

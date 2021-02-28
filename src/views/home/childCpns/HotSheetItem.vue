@@ -3,8 +3,9 @@
     <div class="HotSheetItemSong" v-for="(item, index) in itemDetail" :key="index">
       <div class="HotSheetItemSong-img"><img alt="" v-lazy="item.picUrl"><span class="iconfont icon-bofang" ></span></div>
       <div class="HotSheetItemSong-text">
-        <span class="HotSheetItemSong-name">{{item.name}}</span>
-        <span class="HotArtistName"> - {{item.artists}}</span>
+        <span class="HotSheetItemSong-name">{{item.name}}
+            <span class="HotArtistName"> - {{item.artists}}</span>
+        </span>
       </div>
     </div>
   </div>
@@ -29,6 +30,7 @@ export default {
   display: flex;
   align-items: center;
   margin: 10px 14px 4px 14px;
+  padding-right: 60px;
   position: relative;
   overflow: hidden;
 }
@@ -42,12 +44,17 @@ export default {
   flex: 1;
   display: flex;
   align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .HotSheetItemSong-name{
   padding-right: 5px;
   font-size: 16px;
   color: #000;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .HotArtistName{
   font-size: 12px;

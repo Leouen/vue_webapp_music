@@ -42,6 +42,7 @@ export default {
 <style>
 .Profile{
   background: #f5f5f5;
+  min-height: 100vh;
 }
 .profile-list-bar{
   padding: 12px 0px;

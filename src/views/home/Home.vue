@@ -79,6 +79,9 @@ export default {
 </script>
 
 <style>
+#home{
+  min-height: 100vh;
+}
 .home-title{
   margin-top: 10px;
 }
