@@ -10,7 +10,7 @@ export function request (config) {
     // 根路径
     baseURL,
     // 请求时间
-    timeout: 10000
+    timeout: 60000
   })
 
   // 2.axios的拦截器

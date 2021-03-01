@@ -1,6 +1,7 @@
 <template>
   <div class="MusicSheet">
     <music-sheet-top :playlist="playlist" v-if="playlist"></music-sheet-top>
+    <loading-1 v-if="loading" class="loading-1"></loading-1>
     <music-sheet-bottom :songList="songList" :songCount="songCount" :privileges="privileges" v-if="songList"></music-sheet-bottom>
   </div>
 </template>
@@ -8,14 +9,15 @@
 <script>
 import { getlistDetial } from 'network/musicList'
 import { getSongDetial } from 'network/playmusic'
-import { toStringNum } from '@/common/utils'
 import MusicSheetTop from './childCpn/MusicSheetTop.vue'
 import MusicSheetBottom from './childCpn/MusicSheetBottom.vue'
+import Loading1 from '../../common/loading/Loading1.vue'
 export default {
   name: 'MusicSheet',
-  components: { MusicSheetTop, MusicSheetBottom },
+  components: { MusicSheetTop, MusicSheetBottom, Loading1 },
   data () {
     return {
+      loading: true,
       // 歌单信息
       playlist: {
         id: null,
@@ -42,19 +44,10 @@ export default {
   created () {
     this.changeSheetId(this.$route.params.id)
     getlistDetial(this.$route.params.id).then((res) => {
-      // console.log(res)
       // 歌单信息
-      this.playlist.id = res.playlist.id
-      this.playlist.name = res.playlist.name
-      this.playlist.coverImgUrl = res.playlist.coverImgUrl
-      this.playlist.playCount = toStringNum(res.playlist.playCount)
-      this.playlist.commentCount = toStringNum(res.playlist.commentCount)
-      this.playlist.shareCount = toStringNum(res.playlist.shareCount)
-      this.playlist.subscribedCount = toStringNum(res.playlist.subscribedCount)
-      this.playlist.description = res.playlist.description
-      this.playlist.creator.nickname = res.playlist.creator.nickname
-      this.playlist.creator.avatarDetail = res.playlist.creator.avatarDetail
-      this.playlist.creator.avatarUrl = res.playlist.creator.avatarUrl
+      const { id, name, coverImgUrl, playCount, commentCount, shareCount, subscribedCount, description, creator: { nickname, avatarDetail, avatarUrl } } = res.playlist
+      this.playlist = { id, name, coverImgUrl, playCount, commentCount, shareCount, subscribedCount, description, creator: { nickname, avatarDetail, avatarUrl } }
+
       // 获得完整歌单ID
       for (const item of res.playlist.trackIds) {
         this.songListId.push(item.id)
@@ -84,6 +77,7 @@ export default {
         // console.log(res.privileges)
         // console.log(this.songList)
         // console.log(this.privileges)
+        this.loading = false
       })
     })
   },
@@ -102,7 +96,12 @@ export default {
 <style>
 .MusicSheet{
   color: white;
-  height: 1000px;
   background: #fff;
+}
+.loading-1{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
 }
 </style>

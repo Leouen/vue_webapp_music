@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import 'amfe-flexible'
 import 'swiper/css/swiper.css'
-import './common/rgbaster'
 
 // 只是引入基础样式
 // import 'vant/lib/style/base.css'

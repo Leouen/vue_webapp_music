@@ -7,10 +7,11 @@ const playlist = {
     plid: null,
     audio: {},
     current: {
+      album: '',
+      albumId: '',
+      author: [],
       id: '',
       name: '',
-      album: {},
-      singer: [],
       lyric: '',
       src: ''
     },
@@ -39,6 +40,11 @@ const playlist = {
     updateCurrent: (state, song) => {
       state.current = Object.assign(state.current, song)
     },
+
+    setCurrentLyric: (state, lyric) => {
+      state.current.lyric = lyric
+    },
+
     setCurrentSrc: (state, src) => {
       state.current.src = src
     },

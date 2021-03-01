@@ -17,7 +17,7 @@
           </template>
         </van-cell>
       </template>
-      <van-cell title="" v-for="(item,index) in songList" :key="index">
+      <van-cell title="" v-for="(item,index) in songList" :key="index" @click="startPlay(item)">
         <template #icon>
           <div class="item-index"><span>{{index + 1}}</span></div>
         </template>
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { playSong, getlyric } from 'network/playmusic'
 export default {
   name: 'MusicSheetBottom',
   props: {
@@ -65,6 +66,29 @@ export default {
       default () {
         return []
       }
+    }
+  },
+  created () {
+
+  },
+  methods: {
+    startPlay (current) {
+      this.$store.commit('isShowPlayer')
+      this.$store.commit('isPlayed')
+      playSong(current.id).then((res) => {
+        console.log(res)
+        var musicUrl = res.data[0].url
+        // 只要是提交，无论在哪里模块直接$store.commit
+        this.$store.commit('playlist/setCurrentSrc', musicUrl)
+        this.$store.commit('playlist/updateCurrent', current)
+      })
+      getlyric(current.id).then((res) => {
+        // console.log(res.lrc.lyric)
+        if (res.lrc) {
+          this.$store.commit('playlist/setCurrentLyric', res.lrc.lyric)
+        }
+        console.log(this.$store.state.playlist.current)
+      })
     }
   }
 }

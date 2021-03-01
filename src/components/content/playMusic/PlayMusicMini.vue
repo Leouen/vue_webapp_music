@@ -13,15 +13,18 @@
         <span class="iconfont icon-icon-test1"></span>
       </div>
     </div>
-    <van-popup v-model="$store.state.isShowPlayer" position="bottom" :style="{ height: '90%' }">内容</van-popup>
+    <van-popup v-model="$store.state.isShowPlayer" position="bottom" :style="{ height: '90%' }">
+      <music-player></music-player>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import CircularProgress from './CircularProgress.vue'
+import MusicPlayer from './MusicPlayer.vue'
 export default {
   name: 'PlayMusicMini',
-  components: { CircularProgress },
+  components: { CircularProgress, MusicPlayer },
   data () {
     return {
     }

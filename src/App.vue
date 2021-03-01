@@ -7,7 +7,7 @@
       </keep-alive>
     </transition>
     <main-tab-bar v-if="isShowBar()" ></main-tab-bar>
-    <play-music-mini :class="setBottom()"></play-music-mini>
+    <play-music-mini :class="setBottom()" v-show="$store.state.isPlayed"></play-music-mini>
   </div>
 </template>
 
