@@ -73,8 +73,9 @@ export default {
   },
   methods: {
     startPlay (current) {
-      this.$store.commit('isShowPlayer')
-      this.$store.commit('isPlayed')
+      this.$store.commit('isShowPlayer') // 打开播放器
+      this.$store.commit('isPlayed') // 播放过音乐 mini播放器 常驻显示
+      this.$store.commit('playlist/setPlaying') // 记录是否正在播放音乐
       playSong(current.id).then((res) => {
         console.log(res)
         var musicUrl = res.data[0].url
@@ -87,7 +88,7 @@ export default {
         if (res.lrc) {
           this.$store.commit('playlist/setCurrentLyric', res.lrc.lyric)
         }
-        console.log(this.$store.state.playlist.current)
+        // console.log(this.$store.state.playlist.current)
       })
     }
   }

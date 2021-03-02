@@ -2,7 +2,7 @@
   <div id="PlayMusicMini">
     <div class="MiniContent">
       <div class="MiniLeft" @click="isShowPlayer">
-        <img class="MiniCover" src="~assets/img/playmusic/cover.png"/>
+        <img class="MiniCover" src="~assets/img/playmusic/play_disc.png"/>
       </div>
       <div class="MiniCenter" @click="isShowPlayer">
         <audio src="" autoplay></audio>
@@ -10,10 +10,10 @@
       </div>
       <div class="MiniRight">
         <circular-progress></circular-progress>
-        <span class="iconfont icon-icon-test1"></span>
+        <span class="iconfont icon-songlist"></span>
       </div>
     </div>
-    <van-popup v-model="$store.state.isShowPlayer" position="bottom" :style="{ height: '90%' }">
+    <van-popup v-model="$store.state.isShowPlayer" position="bottom" :style="{ height: '100%' }">
       <music-player></music-player>
     </van-popup>
   </div>
@@ -81,7 +81,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.MiniRight .icon-icon-test1{
+.MiniRight .icon-songlist{
   width: 40px;
   font-size: 30px;
 }

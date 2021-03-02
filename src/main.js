@@ -11,8 +11,9 @@ import 'swiper/css/swiper.css'
 // import 'vant/lib/index.less'
 
 // 自动按需引入组件,然后对它-全局注册
-import { Button, Form, Field, Popup, NavBar, Sticky, Cell, CellGroup, Switch, Tab, Tabs, PullRefresh, Toast, PasswordInput, NumberKeyboard, Lazyload } from 'vant'
+import { Button, Form, Field, Popup, NavBar, Sticky, Cell, CellGroup, Switch, Tab, Tabs, PullRefresh, Toast, PasswordInput, NumberKeyboard, Lazyload, Slider } from 'vant'
 
+Vue.use(Slider)
 Vue.use(Lazyload)
 Vue.use(PasswordInput)
 Vue.use(NumberKeyboard)

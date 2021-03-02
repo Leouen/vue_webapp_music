@@ -32,7 +32,7 @@ export function toStringNum (num) {
 }
 
 // 时间转换工具
-function formatDate (date) {
+export function formatDate (date) {
   date = new Date(date)
   var y = date.getFullYear()
   var m = date.getMonth() + 1
@@ -44,4 +44,25 @@ function formatDate (date) {
   d = d < 10 ? ('0' + d) : d
   return y + '-' + m + '-' + d + ' ' + h + ':' + m1 + ':' + s
 }
-console.log(formatDate(567964800000))// 2018-03-23 13:35:47  参数为Number
+// console.log(formatDate(567964800000))// 2018-03-23 13:35:47  参数为Number
+
+/**
+ * 将秒转换为 分:秒
+ * s int 秒数
+*/
+export function toMs (endTime) {
+  let secondTime = parseInt(endTime)// 将传入的秒的值转化为Number
+  let min = 0// 初始化分
+  let h = 0// 初始化小时
+  let result = ''
+  if (secondTime > 60) { // 如果秒数大于60，将秒数转换成整数
+    min = parseInt(secondTime / 60)// 获取分钟，除以60取整数，得到整数分钟
+    secondTime = parseInt(secondTime % 60)// 获取秒数，秒数取佘，得到整数秒数
+    if (min > 60) { // 如果分钟大于60，将分钟转换成小时
+      h = parseInt(min / 60)// 获取小时，获取分钟除以60，得到整数小时
+      min = parseInt(min % 60) // 获取小时后取佘的分，获取分钟除以60取佘的分
+    }
+  }
+  result = `${min.toString().padStart(2, '0')}:${secondTime.toString().padStart(2, '0')}`
+  return result
+}

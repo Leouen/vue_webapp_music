@@ -16,6 +16,12 @@ const playlist = {
       src: ''
     },
     currentIndex: 0,
+    // 目前播放器播放音乐信息
+    currentSec: 0,
+    currentTotalSec: 0,
+    currentRate: 0,
+    currentValue: 0,
+    audioDom: null,
     playlist: [],
     playing: false,
     // 1顺序 2随机 3单曲
@@ -37,6 +43,10 @@ const playlist = {
       state.plid = plid
     },
 
+    initAudio: (state, audioDom) => {
+      state.audioDom = audioDom
+    },
+
     updateCurrent: (state, song) => {
       state.current = Object.assign(state.current, song)
     },
@@ -56,6 +66,19 @@ const playlist = {
       state.playlist = list
     },
 
+    setCurrentSec: (state, currentSec) => {
+      state.currentSec = currentSec
+    },
+
+    setCurrentTotalSec: (state, currentTotalSec) => {
+      state.currentTotalSec = currentTotalSec
+      state.currentRate = state.currentTotalSec / 100
+    },
+
+    setCurrentValue: (state) => {
+      state.currentValue = state.currentSec / state.currentRate
+    },
+
     setAudio: (state, audio) => {
       state.audio = audio
     },
@@ -63,8 +86,8 @@ const playlist = {
       state.mode = mode
     },
 
-    setPlaying: (state, flg) => {
-      state.playing = flg
+    setPlaying: (state) => {
+      state.playing = !state.playing
     },
 
     setFullscreen: (state, flg) => {
