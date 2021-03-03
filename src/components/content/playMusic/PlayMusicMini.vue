@@ -2,14 +2,21 @@
   <div id="PlayMusicMini">
     <div class="MiniContent">
       <div class="MiniLeft" @click="isShowPlayer">
-        <img class="MiniCover" src="~assets/img/playmusic/play_disc.png"/>
+        <div class="disk-cover-animation" :class="{animePause: !$store.state.playlist.playing}">
+            <img class="left-disk-border" src="~assets/img/playmusic/play_disc.png"/>
+            <img class="left-album" :src="$store.state.playlist.current.picUrl"/>
+            <img class="left-album" style="display: none" src="~assets/img/playmusic/placeholder_disk_play_song.png"/>
+        </div>
       </div>
-      <div class="MiniCenter" @click="isShowPlayer">
-        <audio src="" autoplay></audio>
-        正在播放音乐....
+      <div class="MiniCenter" @click="isShowPlayer">{{$store.state.playlist.current.songName}}
+       -  <span v-for="(item, index) in $store.state.playlist.current.author" :key="index">{{ item.name }}</span>
       </div>
       <div class="MiniRight">
-        <circular-progress></circular-progress>
+        <div class="minProgress"  @click="toPlay">
+          <circular-progress></circular-progress>
+          <span v-if="!$store.state.playlist.playing" class="toPlayMini iconfont icon-miniPlay"></span>
+          <span v-if="$store.state.playlist.playing"  class="toPlayMini iconfont icon-miniPause"></span>
+        </div>
         <span class="iconfont icon-songlist"></span>
       </div>
     </div>
@@ -32,6 +39,10 @@ export default {
   methods: {
     isShowPlayer () {
       this.$store.commit('isShowPlayer')
+    },
+    toPlay () {
+      this.$store.commit('playlist/setPlaying')
+      this.$store.state.playlist.audioDom.paused === true ? this.$store.state.playlist.audioDom.play() : this.$store.state.playlist.audioDom.pause()
     }
   }
 }
@@ -55,6 +66,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
+/** 左边布局 */
 .MiniLeft{
   height: 40px;
   width: 40px;
@@ -62,14 +74,32 @@ export default {
   left: 12px;
   bottom: 4px;
 }
-.MiniLeft img{
+.MiniLeft>div{
   width: 40px;
+  height: 40px;
 }
+.left-disk-border{
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.left-album{
+    width: 68%;
+    margin: 16%;
+    border-radius: 50%;
+}
+/** 中间布局 */
 .MiniCenter{
   flex: 1;
-  padding-left: 75px;
+  padding-left: 65px;
+  padding-right: 20px;
   font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #333;
 }
+/** 右边布局 */
 .MiniRight{
   display: flex;
   justify-content: space-between;
@@ -84,5 +114,33 @@ export default {
 .MiniRight .icon-songlist{
   width: 40px;
   font-size: 30px;
+}
+.minProgress{
+  position: relative;
+}
+.iconfont.toPlayMini{
+  position: absolute;
+  font-size: 12px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+/** 动画 */
+.disk-cover-animation {
+    animation: rotate-disk 20s infinite normal linear;
+}
+.animePause{
+  animation-play-state: paused;
+}
+@keyframes rotate-disk {
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+@-webkit-keyframes rotate-disk {
+    100% {
+        -webkit-transform: rotateZ(360deg);
+    }
 }
 </style>

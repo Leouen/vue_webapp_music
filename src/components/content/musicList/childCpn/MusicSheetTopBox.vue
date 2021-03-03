@@ -63,7 +63,7 @@ export default {
   /* 从父元素继承 background 属性的设置 */
   background: inherit;
   filter: blur(10px);
-  transform: scale(5);
+  transform: scale(3);
   background-size: cover;
   z-index: 2;
 }

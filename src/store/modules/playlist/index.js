@@ -13,7 +13,8 @@ const playlist = {
       id: '',
       name: '',
       lyric: '',
-      src: ''
+      src: '',
+      picUrl: ''
     },
     currentIndex: 0,
     // 目前播放器播放音乐信息
@@ -88,6 +89,14 @@ const playlist = {
 
     setPlaying: (state) => {
       state.playing = !state.playing
+    },
+
+    setPlayingFalse: (state) => {
+      state.playing = false
+    },
+
+    setPlayingTrue: (state) => {
+      state.playing = true
     },
 
     setFullscreen: (state, flg) => {

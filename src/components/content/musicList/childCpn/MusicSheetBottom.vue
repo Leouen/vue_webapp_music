@@ -73,22 +73,20 @@ export default {
   },
   methods: {
     startPlay (current) {
+      console.log(current)
       this.$store.commit('isShowPlayer') // 打开播放器
       this.$store.commit('isPlayed') // 播放过音乐 mini播放器 常驻显示
-      this.$store.commit('playlist/setPlaying') // 记录是否正在播放音乐
       playSong(current.id).then((res) => {
-        console.log(res)
-        var musicUrl = res.data[0].url
+        // console.log(res)
+        var musicUrl = res.data[0].url // 获得音乐url
         // 只要是提交，无论在哪里模块直接$store.commit
         this.$store.commit('playlist/setCurrentSrc', musicUrl)
         this.$store.commit('playlist/updateCurrent', current)
       })
       getlyric(current.id).then((res) => {
-        // console.log(res.lrc.lyric)
         if (res.lrc) {
           this.$store.commit('playlist/setCurrentLyric', res.lrc.lyric)
         }
-        // console.log(this.$store.state.playlist.current)
       })
     }
   }

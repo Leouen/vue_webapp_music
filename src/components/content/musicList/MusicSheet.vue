@@ -61,6 +61,7 @@ export default {
             songName: item.name,
             id: item.id,
             author: item.ar,
+            picUrl: item.al.picUrl,
             mvId: item.mv,
             album: item.al.name,
             albumId: item.al.id,
@@ -100,7 +101,7 @@ export default {
 }
 .loading-1{
   position:absolute;
-  top:50%;
+  top:56%;
   left:50%;
   transform:translate(-50%,-50%);
 }

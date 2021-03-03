@@ -1,6 +1,6 @@
 <template>
   <div class="CircularProgress">
-    <div  @click="startTime" class="progress">
+    <div class="progress">
       <circular-progress-view
       v-if="isShow"
       ref="$circle"
@@ -9,7 +9,7 @@
       :isRound="true"
       :width="width"
       :radius="radius"
-      :progress="currentTime / durationTime * 100"
+      :progress="$store.state.playlist.currentSec / $store.state.playlist.currentRate"
       :barColor="barColor"
       :backgroundColor="backgroundColor">
       </circular-progress-view>
@@ -28,19 +28,16 @@ export default {
       isShow: true,
       width: 24,
       radius: 2,
-      progress: 70,
+      progress: 100,
       barColor: '#333',
-      backgroundColor: '#d1d1d1',
-      intervalTimer: null, // 持续模式，循环计时器
-      currentTime: 0, // 当前时间
-      durationTime: 60 // 持续模式总时长
+      backgroundColor: '#d1d1d1'
     }
   },
 
   watch: {
     isDurationModel () {
       clearInterval(this.intervalTimer)
-      this.currentTime = 0
+      // this.currentTime = 0
     }
   },
 
@@ -51,19 +48,6 @@ export default {
       this.$nextTick(() => {
         this.isShow = true
       })
-    },
-
-    // 开始计时
-    startTime () {
-      let spaceTime = 10
-      clearInterval(this.intervalTimer)
-      this.currentTime = 0
-      this.intervalTimer = setInterval(() => {
-        this.currentTime += spaceTime / 1000
-        if (this.currentTime >= this.durationTime) {
-          clearInterval(this.intervalTimer)
-        }
-      }, spaceTime)
     }
   }
 }

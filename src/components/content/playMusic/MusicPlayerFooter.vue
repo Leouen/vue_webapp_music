@@ -16,6 +16,9 @@
                 :src="$store.state.playlist.current.src"
                 @canplay="initAudio"
                 @timeupdate="updateTime"
+                @play="whenPlay"
+                @pause="whenPause"
+                @ended="whenEnded"
               ></audio>
           </div>
           <span id="totalTime">{{$store.state.playlist.currentTotalSec | toMs}}</span>
@@ -66,6 +69,15 @@ export default {
       this.$store.commit('playlist/initAudio', this.$refs.myAudio) // audio dom元素
       this.$store.commit('playlist/setCurrentTotalSec', this.$refs.myAudio.duration) // 音频时长
       this.$refs.myAudio.volume = 0.3 // 初始化 音量
+    },
+    whenPlay () {
+      this.$store.commit('playlist/setPlayingTrue')
+    },
+    whenPause () {
+      this.$store.commit('playlist/setPlayingFalse')
+    },
+    whenEnded () {
+      this.$store.commit('playlist/setPlayingFalse')
     }
   },
   filters: {
@@ -98,11 +110,11 @@ export default {
 }
 /** 未加载的颜色 */
 .process .van-slider{
-  background: #ffffff55;
+  background: #ffffff30;
 }
 /** 加载的颜色 */
 .process .van-slider__bar{
-  background: pink;
+  background: #FFF;
 }
 
 /** 缓存条 */
@@ -114,7 +126,7 @@ export default {
   display: none;
 }
 #bufferBar .van-slider__bar{
-  background: #333111;
+  background: #b4b2b2;
 }
 
 /********************* */
@@ -147,12 +159,16 @@ export default {
   align-items: center;
 }
 /*****  图标相关***************** */
+#MusicPlayerFooter>div .iconfont{
+  color: #ffffffcc;
+}
 #MusicPlayerFooter .iconfont.icon-songlist{
   font-size: 32px;
   padding-bottom: 1px;
 }
 #MusicPlayerFooter .iconfont.toPlay{
   font-size: 40px;
+  color: #ffffff
 }
 #MusicPlayerFooter .iconfont.mode{
   font-size: 26px;
