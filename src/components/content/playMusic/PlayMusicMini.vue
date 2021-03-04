@@ -5,7 +5,6 @@
         <div class="disk-cover-animation" :class="{animePause: !$store.state.playlist.playing}">
             <img class="left-disk-border" src="~assets/img/playmusic/play_disc.png"/>
             <img class="left-album" :src="$store.state.playlist.current.picUrl"/>
-            <img class="left-album" style="display: none" src="~assets/img/playmusic/placeholder_disk_play_song.png"/>
         </div>
       </div>
       <div class="MiniCenter" @click="isShowPlayer">{{$store.state.playlist.current.songName}}
@@ -17,11 +16,14 @@
           <span v-if="!$store.state.playlist.playing" class="toPlayMini iconfont icon-miniPlay"></span>
           <span v-if="$store.state.playlist.playing"  class="toPlayMini iconfont icon-miniPause"></span>
         </div>
-        <span class="iconfont icon-songlist"></span>
+        <span class="iconfont icon-songlist" @click="showSonglist"></span>
       </div>
     </div>
     <van-popup v-model="$store.state.isShowPlayer" position="bottom" :style="{ height: '100%' }">
       <music-player></music-player>
+    </van-popup>
+    <van-popup v-model="$store.state.isShowPlaylist" position="bottom" :style="{ height: '60%' }" class="popupPlaylist">
+      <music-playlist></music-playlist>
     </van-popup>
   </div>
 </template>
@@ -29,14 +31,18 @@
 <script>
 import CircularProgress from './CircularProgress.vue'
 import MusicPlayer from './MusicPlayer.vue'
+import MusicPlaylist from './MusicPlaylist.vue'
 export default {
   name: 'PlayMusicMini',
-  components: { CircularProgress, MusicPlayer },
+  components: { CircularProgress, MusicPlayer, MusicPlaylist },
   data () {
     return {
     }
   },
   methods: {
+    showSonglist () {
+      this.$store.commit('isShowPlaylist')
+    },
     isShowPlayer () {
       this.$store.commit('isShowPlayer')
     },
@@ -142,5 +148,12 @@ export default {
     100% {
         -webkit-transform: rotateZ(360deg);
     }
+}
+/** 弹窗 正在播放的歌单列表 */
+.popupPlaylist{
+  background: white;
+  width: 90%;
+  margin: 5% ;
+  border-radius: 20px;
 }
 </style>

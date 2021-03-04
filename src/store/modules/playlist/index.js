@@ -4,7 +4,7 @@ const playlist = {
   namespaced: true,
 
   state: {
-    plid: null,
+    plIndex: 0,
     audio: {},
     current: {
       album: '',
@@ -25,13 +25,12 @@ const playlist = {
     audioDom: null,
     playlist: [],
     playing: false,
-    // 1顺序 2随机 3单曲
+    // 1循环 2随机 3单曲
     mode: 1,
     fullscreen: false
   },
 
   getters: {
-    plid: state => state.plid,
     playlist: state => state.playlist,
     currentIndex: state => state.currentIndex,
     mode: state => state.mode,
@@ -40,8 +39,8 @@ const playlist = {
   },
 
   mutations: {
-    setPlid: (state, plid) => {
-      state.plid = plid
+    setplIndex: (state, plIndex) => {
+      state.plIndex = plIndex
     },
 
     initAudio: (state, audioDom) => {

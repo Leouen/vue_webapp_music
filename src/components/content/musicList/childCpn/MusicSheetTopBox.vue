@@ -76,6 +76,7 @@ export default {
   display: flex;
   align-items: center;
   padding: 50px 8px 50px;
+  background: #0000004d;
 }
 #sheetTopBox .TopBoxLeft{
   width: 108px;

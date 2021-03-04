@@ -65,6 +65,7 @@ export default {
   z-index: 2;
 }
 #MusicPlayer>div{
+  background: #0000004d;
   height: 100%;
   position: relative;
   z-index: 3;

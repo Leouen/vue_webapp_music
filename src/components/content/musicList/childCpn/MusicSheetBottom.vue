@@ -17,7 +17,7 @@
           </template>
         </van-cell>
       </template>
-      <van-cell title="" v-for="(item,index) in songList" :key="index" @click="startPlay(item)">
+      <van-cell title="" v-for="(item,index) in songList" :key="index" @click="startPlay(item,songList,index)">
         <template #icon>
           <div class="item-index"><span>{{index + 1}}</span></div>
         </template>
@@ -72,10 +72,12 @@ export default {
 
   },
   methods: {
-    startPlay (current) {
-      console.log(current)
+    startPlay (current, songList, index) {
       this.$store.commit('isShowPlayer') // 打开播放器
       this.$store.commit('isPlayed') // 播放过音乐 mini播放器 常驻显示
+      this.$store.commit('playlist/setPlaylist', songList) // 设置正在播放的歌单
+      this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
+      // console.log(this.$store.state.playlist.playlist)
       playSong(current.id).then((res) => {
         // console.log(res)
         var musicUrl = res.data[0].url // 获得音乐url

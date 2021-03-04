@@ -65,6 +65,12 @@ a {
   color: black;
   border-radius: 24px;
 }
+.van-toast.toastShadow{
+  box-shadow: 0px 0px 0px 0px #e6e6e6;
+  padding-right: 0px;
+  padding-left: 0px;
+  border-radius: 80px;
+}
 input{
   caret-color:#db2c1f;
 }
@@ -108,4 +114,7 @@ input{
 
 .borderRight {
   border-right: 1px solid #d1d1d1;
+}
+div:focus {
+  outline: none;
 }

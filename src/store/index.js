@@ -12,6 +12,7 @@ export default new Vuex.Store({
   state: {
     isPlayed: false, // 是否播放过了音乐
     isShowPlayer: false, // 是否展示播放器界面
+    isShowPlaylist: false, // 是否展示歌单界面
     sheetId: '' // 目前所在的歌单id
   },
   mutations: {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     isShowPlayer (state) {
       state.isShowPlayer = !state.isShowPlayer
+    },
+    isShowPlaylist (state) {
+      state.isShowPlaylist = !state.isShowPlaylist
     },
     changeSheetId (state, newID) {
       state.sheetId = newID

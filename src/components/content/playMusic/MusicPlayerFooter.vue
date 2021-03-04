@@ -13,6 +13,7 @@
               <audio id="myAudio"
                 ref="myAudio"
                 autoplay
+                :loop='isLoop'
                 :src="$store.state.playlist.current.src"
                 @canplay="initAudio"
                 @timeupdate="updateTime"
@@ -24,29 +25,38 @@
           <span id="totalTime">{{$store.state.playlist.currentTotalSec | toMs}}</span>
       </div>
       <div class="control" id="controls">
-          <div class="modeBtn"><span class="iconfont icon-loop mode"></span></div>
-          <div class="backBtn"><span class="iconfont icon-back"></span></div>
+          <div class="modeBtn">
+            <span v-if="$store.state.playlist.mode===1" @click="switchToRandom" class="iconfont icon-loop mode"></span>
+            <span v-if="$store.state.playlist.mode===2" @click="switchToOneloop"  class="iconfont icon-random mode"></span>
+            <span v-if="$store.state.playlist.mode===3" @click="switchToLoop"  class="iconfont icon-loop-one mode"></span>
+          </div>
+          <div class="backBtn" @click="backSong"><span class="iconfont icon-back"></span></div>
           <div class="playBtn" @click="toPlay">
             <span v-if="!$store.state.playlist.playing"  class="iconfont icon-play toPlay"></span>
             <span v-if="$store.state.playlist.playing" class="iconfont icon-pause toPlay"></span>
           </div>
-          <div class="nextBtn"><span class="iconfont icon-next"></span></div>
-          <div class="listBtn"><span class="iconfont icon-songlist"></span></div>
+          <div class="nextBtn" @click="nextSong"><span class="iconfont icon-next"></span></div>
+          <div class="listBtn" @click="showSonglist"><span class="iconfont icon-songlist"></span></div>
       </div>
   </div>
 </template>
 
 <script>
+import { playSong, getlyric } from 'network/playmusic'
 import { toMs } from '@/common/utils'
 export default {
   data () {
     return {
+      isLoop: false,
       value: 0,
       bufferValue: 0,
       isChange: false
     }
   },
   methods: {
+    showSonglist () {
+      this.$store.commit('isShowPlaylist')
+    },
     onChange (value) {
       // 拖动进度条后，改变audio元素的目前已经播放的时长
       this.$refs.myAudio.currentTime = value * this.$store.state.playlist.currentRate
@@ -77,7 +87,83 @@ export default {
       this.$store.commit('playlist/setPlayingFalse')
     },
     whenEnded () {
-      this.$store.commit('playlist/setPlayingFalse')
+      if (this.$store.state.playlist.mode === 3) {
+        this.isLoop = true
+      } else {
+        this.isLoop = false
+        document.querySelector('.nextBtn').click()
+      }
+    },
+    switchToRandom () {
+      this.$store.commit('playlist/setMode', 2)
+      this.$toast({ message: '随机播放', className: 'toastShadow', position: 'bottom' })
+    },
+    switchToOneloop () {
+      this.$store.commit('playlist/setMode', 3)
+      this.$toast({ message: '单曲循环', className: 'toastShadow', position: 'bottom' })
+    },
+    switchToLoop () {
+      this.$store.commit('playlist/setMode', 1)
+      this.$toast({ message: '循环播放', className: 'toastShadow', position: 'bottom' })
+    },
+    nextSong () {
+      if (this.$store.state.playlist.mode === 1 || this.$store.state.playlist.mode === 3) {
+      // 目前的歌单下标 ！= 歌单的长度
+        if (this.$store.state.playlist.plIndex !== this.$store.state.playlist.playlist.length - 1) {
+          let index = this.$store.state.playlist.plIndex
+          index += 1
+          this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
+          let current = this.$store.state.playlist.playlist[index]
+          this.getSongInfo(current)
+        } else {
+          let index = 0
+          this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
+          let current = this.$store.state.playlist.playlist[index]
+          this.getSongInfo(current)
+        }
+      } else if (this.$store.state.playlist.mode === 2) {
+        let index = this.$store.state.playlist.plIndex
+        index = Math.round(Math.random() * (this.$store.state.playlist.playlist.length - 1))
+        this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
+        let current = this.$store.state.playlist.playlist[index]
+        this.getSongInfo(current)
+      }
+    },
+    backSong () {
+      if (this.$store.state.playlist.mode === 1 || this.$store.state.playlist.mode === 3) {
+      // 目前的歌单下标 ！= 歌单的长度
+        if (this.$store.state.playlist.plIndex !== 0) {
+          let index = this.$store.state.playlist.plIndex
+          index -= 1
+          this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
+          let current = this.$store.state.playlist.playlist[index]
+          this.getSongInfo(current)
+        } else {
+          let index = this.$store.state.playlist.playlist.length - 1
+          this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
+          let current = this.$store.state.playlist.playlist[index]
+          this.getSongInfo(current)
+        }
+      } else if (this.$store.state.playlist.mode === 2) {
+        let index = this.$store.state.playlist.plIndex
+        index = Math.round(Math.random() * (this.$store.state.playlist.playlist.length - 1))
+        this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
+        let current = this.$store.state.playlist.playlist[index]
+        this.getSongInfo(current)
+      }
+    },
+    getSongInfo (current) {
+      playSong(current.id).then((res) => {
+        // console.log(res)
+        var musicUrl = res.data[0].url // 获得音乐url
+        this.$store.commit('playlist/setCurrentSrc', musicUrl)
+        this.$store.commit('playlist/updateCurrent', current)
+      })
+      getlyric(current.id).then((res) => {
+        if (res.lrc) {
+          this.$store.commit('playlist/setCurrentLyric', res.lrc.lyric)
+        }
+      })
     }
   },
   filters: {
@@ -90,9 +176,9 @@ export default {
 /* 进度条  */
 .process {
     width: 350px;
-    height: 50px;
+    height: 20px;
     position: absolute;
-    bottom: 40px;
+    bottom: 56px;
     margin: 0px -175px;
     left: 50%;
     font-size: 12px;
@@ -146,7 +232,7 @@ export default {
 .control {
   width: 295px;
   position: absolute;
-  bottom: 16px;
+  bottom: 12px;
   right: 40px;
   display: flex;
   justify-content: center;
