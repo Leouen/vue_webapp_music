@@ -118,3 +118,9 @@ input{
 div:focus {
   outline: none;
 }
+.colorRed{
+  color: #ff3a3a !important;
+}
+.invisible{
+  visibility:hidden;
+}

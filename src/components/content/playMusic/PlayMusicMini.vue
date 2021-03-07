@@ -25,16 +25,20 @@
     <van-popup v-model="$store.state.isShowPlaylist" position="bottom" :style="{ height: '60%' }" class="popupPlaylist">
       <music-playlist></music-playlist>
     </van-popup>
+    <van-popup v-model="$store.state.isShowComment" position="bottom" :style="{ height: '100%' }">
+      <comment-cpn></comment-cpn>
+    </van-popup>
   </div>
 </template>
 
 <script>
+import CommentCpn from '../musicList/comment/CommentCpn.vue'
 import CircularProgress from './CircularProgress.vue'
 import MusicPlayer from './MusicPlayer.vue'
 import MusicPlaylist from './MusicPlaylist.vue'
 export default {
   name: 'PlayMusicMini',
-  components: { CircularProgress, MusicPlayer, MusicPlaylist },
+  components: { CircularProgress, MusicPlayer, MusicPlaylist, CommentCpn },
   data () {
     return {
     }
@@ -156,4 +160,5 @@ export default {
   margin: 5% ;
   border-radius: 20px;
 }
+
 </style>

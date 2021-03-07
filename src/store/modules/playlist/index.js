@@ -1,10 +1,8 @@
-import { songUrl } from '@/network/song'
+import { playSong, getlyric } from 'network/playmusic'
 
 const playlist = {
   namespaced: true,
-
   state: {
-    plIndex: 0,
     audio: {},
     current: {
       album: '',
@@ -22,11 +20,16 @@ const playlist = {
     currentTotalSec: 0,
     currentRate: 0,
     currentValue: 0,
+    currentVolume: 0.3,
     audioDom: null,
     playlist: [],
     playing: false,
     // 1循环 2随机 3单曲
     mode: 1,
+    // 当前倍速
+    modeRate: 2,
+    // 当前轮播封面显示
+    isActive: true,
     fullscreen: false
   },
 
@@ -39,9 +42,6 @@ const playlist = {
   },
 
   mutations: {
-    setplIndex: (state, plIndex) => {
-      state.plIndex = plIndex
-    },
 
     initAudio: (state, audioDom) => {
       state.audioDom = audioDom
@@ -62,10 +62,17 @@ const playlist = {
     setCurrentIndex: (state, idx) => {
       state.currentIndex = idx
     },
-    setPlaylist: (state, list) => {
-      state.playlist = list
+
+    setCurrentVolume: (state, Volume) => {
+      state.currentVolume = Volume
     },
 
+    setPlaylist: (state, list) => {
+      state.playlist = Object.assign(state.playlist, list)
+    },
+    removeListItem: (state, index) => {
+      state.playlist.splice(index, 1)
+    },
     setCurrentSec: (state, currentSec) => {
       state.currentSec = currentSec
     },
@@ -86,6 +93,14 @@ const playlist = {
       state.mode = mode
     },
 
+    swichModeRate: (state, mode) => {
+      state.modeRate = mode
+    },
+
+    setIsActive: (state) => {
+      state.isActive = !state.isActive
+    },
+
     setPlaying: (state) => {
       state.playing = !state.playing
     },
@@ -104,63 +119,105 @@ const playlist = {
   },
 
   actions: {
-    // 歌单内点击播放
-    selectPlaylist: ({ commit, state, dispatch }, { id, index, list }) => {
-      // console.log('selectplaylist', id, state.plid)
-      // 如果歌单 id 不相等
-      if (id !== state.plid) {
-        commit('setPlid', id)
-        commit('setPlaylist', list)
-      }
-      dispatch('selectSong', index)
-    },
-
-    // 获取当前歌曲信息及 src
-    getCurrentSong: ({ commit, state }) => {
-      return new Promise((resolve, reject) => {
-        const { currentIndex, playlist } = state
-        const { id, name, al: album, ar: singer } = playlist[currentIndex]
-
-        commit('updateCurrent', { id, name, album, singer })
-
-        songUrl({ id })
-          .then(res => {
-            const { code, data } = res
-            if (code === 200) {
-              const src = data[0].url
-              commit('setCurrentSrc', src)
-              resolve(state.current)
-            } else {
-              console.log('获取播放地址失败')
-              reject(new Error())
+    // 获得歌曲的信息，并且播放音乐
+    getSongInfo ({ commit, state, dispatch }, current) {
+      playSong(current.id).then((res) => {
+        // console.log(res)
+        var musicUrl = res.data[0].url
+        commit('setCurrentSrc', musicUrl)
+        commit('updateCurrent', current)
+      })
+      getlyric(current.id).then((res) => {
+        if (res.lrc) {
+          // console.log(res.lrc.lyric)
+          // 处理歌词，转化成key为时间，value为歌词的对象
+          let lyricArr = res.lrc.lyric.split('[').slice(1) // 先以[进行分割
+          let lrcObj = {}
+          lyricArr.forEach(item => {
+            let arr = item.split(']') // 再分割右括号
+            // 时间换算成秒
+            let m = parseInt(arr[0].split(':')[0])
+            let s = parseInt(arr[0].split(':')[1])
+            arr[0] = m * 60 + s
+            if (arr[1] !== '\n') { // 去除歌词中的换行符
+              lrcObj[arr[0]] = arr[1]
             }
           })
-          .catch(() => { reject(new Error()) })
+          // 存储数据
+          commit('setCurrentLyric', lrcObj)
+          // console.log(lrcObj)
+        }
       })
     },
+    // 页面----歌单内---点击播放
+    // current 当前歌曲的信息 songlist 整个歌单数组 index 当前音乐下标
+    selectPlaylist: ({ commit, state, dispatch }, { current, songList, index }) => {
+      commit('setPlaylist', songList) // 设置正在播放的歌单
+      commit('setCurrentIndex', index) // 设置正在播放的下标
+      dispatch('getSongInfo', current)
+    },
 
-    // 点击歌单内单曲
-    selectSong: ({ commit, state, dispatch }, index) => {
-      // console.log('selectsong', index, state.currentIndex)
-      if (index !== state.currentIndex) {
-        commit('setPlaying', false)
-        commit('setCurrentIndex', index)
-
-        dispatch('getCurrentSong')
-          .then(() => {
-            commit('setPlaying', true)
-          })
+    backSong ({ commit, state, dispatch }) {
+      if (state.mode === 1 || state.mode === 3) {
+      // 目前的歌单下标 ！= 歌单的长度
+        if (state.currentIndex !== 0) {
+          let index = state.currentIndex
+          index -= 1
+          commit('setCurrentIndex', index) // 设置正在播放的下标
+          let current = state.playlist[index]
+          dispatch('getSongInfo', current) // 播放音乐
+        } else {
+          let index = state.playlist.length - 1
+          commit('setCurrentIndex', index) // 设置正在播放的下标
+          let current = state.playlist[index]
+          dispatch('getSongInfo', current) // 播放音乐
+        }
+      } else if (state.mode === 2) {
+        let index = state.currentIndex
+        index = Math.round(Math.random() * (state.playlist.length - 1))
+        commit('setCurrentIndex', index) // 设置正在播放的下标
+        let current = state.playlist[index]
+        dispatch('getSongInfo', current) // 播放音乐
       }
     },
 
-    nextSong: () => {
-
-    },
-
-    prevSong: () => {
-
+    nextSong ({ commit, state, dispatch }) {
+      if (state.mode === 1 || state.mode === 3) {
+        // 目前的歌单下标 ！= 歌单的长度
+        if (state.currentIndex !== state.playlist.length - 1) {
+          let index = state.currentIndex
+          index += 1
+          commit('setCurrentIndex', index) // 设置正在播放的下标
+          let current = state.playlist[index]
+          dispatch('getSongInfo', current) // 播放音乐
+        } else {
+          let index = 0
+          commit('setCurrentIndex', index) // 设置正在播放的下标
+          let current = state.playlist[index]
+          dispatch('getSongInfo', current) // 播放音乐
+        }
+      } else if (state.mode === 2) {
+        let index = state.currentIndex
+        index = Math.round(Math.random() * (state.playlist.length - 1))
+        commit('setCurrentIndex', index) // 设置正在播放的下标
+        let current = state.playlist[index]
+        dispatch('getSongInfo', current) // 播放音乐
+      }
     }
   }
 }
 
 export default playlist
+// songUrl({ id })
+// .then(res => {
+//   const { code, data } = res
+//   if (code === 200) {
+//     const src = data[0].url
+//     commit('setCurrentSrc', src)
+//     resolve(state.current)
+//   } else {
+//     console.log('获取播放地址失败')
+//     reject(new Error())
+//   }
+// })
+// .catch(() => { reject(new Error()) })

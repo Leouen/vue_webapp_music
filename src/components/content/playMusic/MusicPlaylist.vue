@@ -27,14 +27,15 @@
         <template #title>
           <div>
             <div class="songName">
-              <span class="songNameStyle">{{item.songName}}</span>
-              <span class="songNameAlia songNameStyle" v-if="item.alia.length !== 0">({{ item.alia[0] }})</span>
-              <span class="singer" v-for="(item, index) in item.author" :key="index">- {{ item.name }}</span>
+              <span v-if="item.id===$store.state.playlist.current.id" class="iconfont icon-playing"></span>
+              <span :class="{colorRed: item.id===$store.state.playlist.current.id}" class="songNameStyle">{{item.songName}}</span>
+              <span :class="{colorRed: item.id===$store.state.playlist.current.id}" class="songNameAlia songNameStyle" v-if="item.alia.length !== 0">({{ item.alia[0] }})</span>
+              <span :class="{colorRed: item.id===$store.state.playlist.current.id}" class="singer"><span  v-for="(item, index) in item.author" :key="index" >- {{ item.name }}</span></span>
             </div>
           </div>
         </template>
         <template #right-icon>
-          <div class="right-icon">
+          <div class="right-icon" @click="remove(index,$event)">
             <span span class="item-dot iconfont icon-guanbi"></span>
           </div>
         </template>
@@ -44,27 +45,12 @@
 </template>
 
 <script>
-import { playSong, getlyric } from 'network/playmusic'
 export default {
   name: 'musicPlaylist',
   methods: {
     startPlay (current, songList, index) {
       this.$store.commit('isPlayed') // 播放过音乐 mini播放器 常驻显示
-      this.$store.commit('playlist/setPlaylist', songList) // 设置正在播放的歌单
-      this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
-      // console.log(this.$store.state.playlist.playlist)
-      playSong(current.id).then((res) => {
-        // console.log(res)
-        var musicUrl = res.data[0].url // 获得音乐url
-        // 只要是提交，无论在哪里模块直接$store.commit
-        this.$store.commit('playlist/setCurrentSrc', musicUrl)
-        this.$store.commit('playlist/updateCurrent', current)
-      })
-      getlyric(current.id).then((res) => {
-        if (res.lrc) {
-          this.$store.commit('playlist/setCurrentLyric', res.lrc.lyric)
-        }
-      })
+      this.$store.dispatch('playlist/selectPlaylist', { current, songList, index })
     },
     switchToRandom () {
       this.$store.commit('playlist/setMode', 2)
@@ -74,6 +60,10 @@ export default {
     },
     switchToLoop () {
       this.$store.commit('playlist/setMode', 1)
+    },
+    remove (index, event) {
+      this.$store.commit('playlist/removeListItem', index)
+      event.stopPropagation()
     }
   }
 }
@@ -148,5 +138,9 @@ export default {
 .music-playlist .van-cell{
   padding-top: 5px;
   padding-bottom: 5px;
+}
+.music-playlist .icon-playing{
+  color: #ff3a3a;
+  padding-right: 6px;
 }
 </style>

@@ -19,7 +19,10 @@
       </template>
       <van-cell title="" v-for="(item,index) in songList" :key="index" @click="startPlay(item,songList,index)">
         <template #icon>
-          <div class="item-index"><span>{{index + 1}}</span></div>
+          <div class="item-index">
+            <span v-if="item.id!==$store.state.playlist.current.id">{{index + 1}}</span>
+            <span v-if="item.id===$store.state.playlist.current.id" class="iconfont icon-playing"></span>
+          </div>
         </template>
         <template #title>
           <div>
@@ -75,21 +78,7 @@ export default {
     startPlay (current, songList, index) {
       this.$store.commit('isShowPlayer') // 打开播放器
       this.$store.commit('isPlayed') // 播放过音乐 mini播放器 常驻显示
-      this.$store.commit('playlist/setPlaylist', songList) // 设置正在播放的歌单
-      this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
-      // console.log(this.$store.state.playlist.playlist)
-      playSong(current.id).then((res) => {
-        // console.log(res)
-        var musicUrl = res.data[0].url // 获得音乐url
-        // 只要是提交，无论在哪里模块直接$store.commit
-        this.$store.commit('playlist/setCurrentSrc', musicUrl)
-        this.$store.commit('playlist/updateCurrent', current)
-      })
-      getlyric(current.id).then((res) => {
-        if (res.lrc) {
-          this.$store.commit('playlist/setCurrentLyric', res.lrc.lyric)
-        }
-      })
+      this.$store.dispatch('playlist/selectPlaylist', { current, songList, index })
     }
   }
 }
@@ -190,5 +179,9 @@ export default {
 }
 .icon-xiazai{
   margin-right: 10px;
+}
+.MusicSheetBottom .icon-playing{
+  color: #ff3f3f;
+  font-size: 20px;
 }
 </style>

@@ -1,24 +1,34 @@
 <template>
   <div class="play-board">
-    <img id="needle" class="play-needle pause-needle" :class="{resumeNeedle: $store.state.playlist.playing}" src="~assets/img/playmusic/play_needle.png"/>
+    <img id="needle" class="play-needle pause-needle" :class="{resumeNeedle: $store.state.playlist.playing&&pause}" src="~assets/img/playmusic/play_needle.png"/>
     <div class="disk-bg"></div>
-    <div class="board-middle">
-      <swiper ref="mySwiper" :options="swiperOption" class="swiper-container" @slideNextTransitionStart='nextSong' @slidePrevTransitionEnd='backSong'>
+    <div class="board-middle" >
+      <swiper ref="mySwiper"
+       :options="swiperOption"
+       class="swiper-container"
+      @slideNextTransitionStart='nextSong'
+      @slidePrevTransitionEnd='backSong'
+      @slideChangeTransitionEnd='setIsActive'
+      @touchMove='pause=false'
+      @touchEnd='pause=true'
+      >
         <swiper-slide>
-          <div class="disk-cover disk-cover-animation" :class="{animePause: !$store.state.playlist.playing}">
+          <div class="disk-cover disk-cover-animation" :class="{animePause: !pause||!$store.state.playlist.playing}">
               <img class="disk-border" src="~assets/img/playmusic/play_disc.png"/>
-              <img class="album" @load="imgLoad" v-show="imgShow" :src="$store.state.playlist.current.picUrl"/>
-              <img class="album" v-show="!imgShow" src="~assets/img/playmusic/play_disc2.png"/>
+              <img class="album songImg" @load="loadingShow" v-show="loadShow" v-if="$store.state.playlist.isActive"  :src="$store.state.playlist.current.picUrl"/>
+              <img class="album" v-show="!$store.state.playlist.isActive" src="~assets/img/playmusic/play_disc2.png"/>
+              <img  class="backgroundImg" src="~assets/img/playmusic/play_disc2.png" alt="">
+          </div>
+        </swiper-slide>
+        <swiper-slide>
+          <div class="disk-cover disk-cover-animation" :class="{animePause: !pause||!$store.state.playlist.playing}">
+              <img class="disk-border " src="~assets/img/playmusic/play_disc.png"/>
+              <img class="album songImg" @load="loadingShow" v-show="loadShow" v-if="!$store.state.playlist.isActive" :src="$store.state.playlist.current.picUrl"/>
+              <img class="album" v-show="$store.state.playlist.isActive" src="~assets/img/playmusic/play_disc2.png"/>
+              <img  class="backgroundImg" src="~assets/img/playmusic/play_disc2.png" alt="">
           </div>
         </swiper-slide>
       </swiper>
-    </div>
-    <div id="diskBar">
-      <div><span class="iconfont icon-aixin1"></span></div>
-      <div><span class="iconfont icon-download"></span></div>
-      <div><span class="iconfont icon-rate1 rate"></span></div>
-      <div><span class="iconfont icon-liuyan"></span></div>
-      <div><span class="iconfont icon-ziyuan"></span></div>
     </div>
   </div>
 </template>
@@ -35,6 +45,8 @@ export default {
   },
   data () {
     return {
+      pause: true,
+      loadShow: false,
       picUrl: null,
       imgShow: false,
       swiperOption: {
@@ -58,63 +70,27 @@ export default {
       console.log('我加载好了')
     },
     nextSong () {
-      if (this.$store.state.playlist.mode === 1 || this.$store.state.playlist.mode === 3) {
-      // 目前的歌单下标 ！= 歌单的长度
-        if (this.$store.state.playlist.plIndex !== this.$store.state.playlist.playlist.length - 1) {
-          let index = this.$store.state.playlist.plIndex
-          index += 1
-          this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
-          let current = this.$store.state.playlist.playlist[index]
-          this.getSongInfo(current)
-        } else {
-          let index = 0
-          this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
-          let current = this.$store.state.playlist.playlist[index]
-          this.getSongInfo(current)
-        }
-      } else if (this.$store.state.playlist.mode === 2) {
-        let index = this.$store.state.playlist.plIndex
-        index = Math.round(Math.random() * (this.$store.state.playlist.playlist.length - 1))
-        this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
-        let current = this.$store.state.playlist.playlist[index]
-        this.getSongInfo(current)
-      }
+      this.$store.dispatch('playlist/nextSong')
     },
     backSong () {
-      if (this.$store.state.playlist.mode === 1 || this.$store.state.playlist.mode === 3) {
-      // 目前的歌单下标 ！= 歌单的长度
-        if (this.$store.state.playlist.plIndex !== 0) {
-          let index = this.$store.state.playlist.plIndex
-          index -= 1
-          this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
-          let current = this.$store.state.playlist.playlist[index]
-          this.getSongInfo(current)
-        } else {
-          let index = this.$store.state.playlist.playlist.length - 1
-          this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
-          let current = this.$store.state.playlist.playlist[index]
-          this.getSongInfo(current)
-        }
-      } else if (this.$store.state.playlist.mode === 2) {
-        let index = this.$store.state.playlist.plIndex
-        index = Math.round(Math.random() * (this.$store.state.playlist.playlist.length - 1))
-        this.$store.commit('playlist/setplIndex', index) // 设置正在播放的下标
-        let current = this.$store.state.playlist.playlist[index]
-        this.getSongInfo(current)
+      this.$store.dispatch('playlist/backSong')
+    },
+    setIsActive () {
+      this.$store.commit('playlist/setIsActive')
+      this.loadShow = false
+      document.querySelector('.playerBg').classList.remove('fadeIn')
+    },
+    loadingShow () {
+      let img = document.querySelector('.songImg')
+      if (img.complete === true) {
+        this.loadShow = true
+      } else {
+        this.loadShow = false
       }
     },
-    getSongInfo (current) {
-      playSong(current.id).then((res) => {
-        // console.log(res)
-        var musicUrl = res.data[0].url // 获得音乐url
-        this.$store.commit('playlist/setCurrentSrc', musicUrl)
-        this.$store.commit('playlist/updateCurrent', current)
-      })
-      getlyric(current.id).then((res) => {
-        if (res.lrc) {
-          this.$store.commit('playlist/setCurrentLyric', res.lrc.lyric)
-        }
-      })
+    swichModeRate (number, rate) {
+      this.$store.commit('playlist/swichModeRate', number)
+      this.$store.state.playlist.audioDom.playbackRate = rate
     }
   }
 }
@@ -126,12 +102,13 @@ export default {
     overflow: hidden;
     top: 8%;
     width: 100%;
-    height: 82%;
+    height: 66%;
     color: white;
 }
 .board-middle>div{
-  height: 400px;
+  height: 430px;
 }
+
 .play-needle {
     position: absolute;
     top: 0px;
@@ -170,6 +147,9 @@ export default {
 .animePause{
   animation-play-state: paused;
 }
+.pauseAnime{
+  animation-play-state: paused;
+}
 @keyframes rotate-disk {
     100% {
         transform: rotateZ(360deg);
@@ -197,36 +177,24 @@ export default {
 }
 
 .disk-cover .album {
+    /*position: relative;
+    z-index: 10;*/
     width: 68%;
     height: 68%;
     margin: 16%;
     border-radius: 50%;
 }
-
+.disk-cover .backgroundImg{
+    position: absolute;
+    top: 0;
+    z-index: -2;
+    width: 68%;
+    height: 68%;
+    margin: 16%;
+    border-radius: 50%;
+}
 .disk-cover .disk-border {
     position: absolute;
     top: 0px;
-}
-/** 唱片底部导航栏 */
-#diskBar{
-  width: 295px;
-  position: absolute;
-  bottom: 20px;
-  right: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#diskBar>div .iconfont{
-  color: #ffffffcc;
-}
-#diskBar>div{
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#diskBar .iconfont.rate{
-  font-size: 36px;
 }
 </style>
