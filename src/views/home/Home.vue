@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import HomeNavBar from '@/components/content/homeNavBar/HomeNavBar'
+import HomeNavBar from '@/views/home/childCpns/HomeNavBar'
 import HomeSwiper from '@/views/home/childCpns/HomeSwiper'
 import HomeSlideBall from '@/views/home/childCpns/HomeSlideBall'
 import TitleBar from '@/components/common/titlebar/TitleBar'

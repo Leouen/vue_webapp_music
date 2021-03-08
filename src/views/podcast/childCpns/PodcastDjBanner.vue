@@ -58,7 +58,7 @@ export default {
     padding: 14px 20px 0px;
     width: 100%;
     overflow: hidden;
-    margin: 0 auto 80px;
+    margin: 0 auto 0;
     position: relative;
 }
 .swiperItem img{

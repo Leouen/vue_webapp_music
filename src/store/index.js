@@ -45,11 +45,11 @@ export default new Vuex.Store({
     },
     setCommentId (state, { id, type, info }) {
       state.commentId = id
-      console.log(id)
+      // console.log(id)
       state.commentIdType = type
-      console.log(type)
+      // console.log(type)
       state.commentInfo = Object.assign(state.commentInfo, info)
-      console.log(info)
+      // console.log(info)
     }
   },
   actions: { },

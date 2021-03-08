@@ -10,12 +10,12 @@
             <div class="userinfo">
               <div class="username">{{ ownerUserinfo.nickname }}</div>
               <div class="sendtime">
-                {{ ownerComment.time }}
+                {{ ownerComment.time | formatDate()}}
               </div>
             </div>
             <div class="likeinfo">
               <div class="count">{{ ownerComment.likedCount }}</div>
-              <van-icon name="good-job-o" />
+              <span class="iconfont icon-zan"></span>
             </div>
           </div>
           <div class="commentTxt">
@@ -43,11 +43,11 @@
             <div class="info">
               <div class="userinfo">
                 <div class="username">{{ items.user.nickname }}</div>
-                <div class="sendtime">{{ items.time }}</div>
+                <div class="sendtime">{{ items.time | formatDate()}}</div>
               </div>
               <div class="likeinfo">
                 <div class="count">{{ items.likedCount }}</div>
-                <van-icon name="good-job-o" />
+                <span class="iconfont icon-zan"></span>
               </div>
             </div>
             <div class="commentTxt">
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import { formatDate } from '@/common/utils'
 import { getCommentFloor } from 'network/comment'
 export default {
   data () {
@@ -101,6 +102,9 @@ export default {
       pl_loading: false,
       pl_finished: false
     }
+  },
+  filters: {
+    formatDate
   },
   props: ['targetId', 'playlistid', 'comment_type'],
   methods: {
@@ -163,7 +167,7 @@ export default {
 <style lang="less" scoped>
 .parentComment {
   height: 600px;
-  background-color: #ccc;
+  background-color: #fff;
   .headerBox,
   .pc_body {
     background-color: #fff;
@@ -171,9 +175,11 @@ export default {
   .pc_title {
     height: 34px;
     line-height: 34px;
-    font-size: 12px;
+    font-size: 14px;
+    color: black;
+    font-weight: bold;
     background-color: #fff;
-    margin-top: 6px;
+    border-top: 8px solid #f7f7f7;
     padding-left: 6px;
   }
   .pc_item {
@@ -185,12 +191,13 @@ export default {
     grid-template-columns: 16% 84%;
     .hb_pic {
       margin-left: 8px;
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
     }
     .hb_content {
       .info {
         height: 36px;
+        padding-right: 4px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -200,35 +207,45 @@ export default {
           }
           .sendtime {
             margin-top: 4px;
-            color: #a5a5a5;
+            color: #d2d2d2;
             font-size: 10px;
           }
         }
         .likeinfo {
           display: flex;
           font-size: 12px;
-          color: #a5a5a5;
+          color: #9c9c9c;
           margin-right: 12px;
           align-items: center;
           height: 16px;
           .count {
             padding-right: 4px;
+            padding-top: 0.5px;
+          }
+          .iconfont{
+            font-size: 14px;
+            padding-bottom: 3px;
           }
         }
       }
       .commentTxt {
         font-size: 14.6px;
-        padding: 2px 6px 4px 0;
+        padding: 2px 0px 14px 0;
+        border-bottom: 2px solid #f7f7f7;
         margin-top: 6px;
         .beReplied {
           margin-top: 4px;
           background-color: rgba(230, 230, 230, 0.1);
           font-size: 11.6px;
           color: #9d9d9d;
-          padding: 5.6px 8px;
-          border-left: 3px solid #c6c6c6;
+          margin: 12px 0px 6px;
+          border-left: 3px solid #f3f3f3;
+          div{
+            padding-left: 6px;
+            padding-right: 6px;
+          }
           .beuser {
-            color: #1b78fb;
+            color: #5681b2;
             padding-right: 4px;
           }
         }

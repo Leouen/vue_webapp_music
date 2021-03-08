@@ -7,7 +7,7 @@
        :options="swiperOption"
        class="swiper-container"
       @slideNextTransitionStart='nextSong'
-      @slidePrevTransitionEnd='backSong'
+      @slidePrevTransitionStart='backSong'
       @slideChangeTransitionEnd='setIsActive'
       @touchMove='pause=false'
       @touchEnd='pause=true'

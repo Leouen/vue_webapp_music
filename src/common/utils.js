@@ -42,7 +42,7 @@ export function formatDate (date) {
   var s = date.getSeconds()
   m = m < 10 ? ('0' + m) : m
   d = d < 10 ? ('0' + d) : d
-  return y + '-' + m + '-' + d + ' ' + h + ':' + m1 + ':' + s
+  return y + '年' + m + '月' + d + '日 '
 }
 // console.log(formatDate(567964800000))// 2018-03-23 13:35:47  参数为Number
 

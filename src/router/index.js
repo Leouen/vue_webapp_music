@@ -42,6 +42,22 @@ const routes = [
     component: Friends,
     meta: { index: 5 }
   },
+  // 搜索
+  {
+    path: '/search',
+    component: () => import('@/views/search/Search.vue'),
+    redirect: '/search/searchHot',
+    children: [
+      {
+        path: '/search/searchHot',
+        component: () => import('@/views/search/SearchHot.vue')
+      },
+      {
+        path: '/search/searchConent',
+        component: () => import('@/views/search/SearchConent.vue')
+      }
+    ]
+  },
   // 共用：登陆
   { path: '/UserLogin', component: () => import('components/content/userLogin/UserLogin') },
   { path: '/PhoneLogin', component: () => import('components/content/userLogin/PhoneLogin') },

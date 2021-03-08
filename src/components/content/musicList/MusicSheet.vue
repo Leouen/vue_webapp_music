@@ -1,5 +1,5 @@
 <template>
-  <div class="MusicSheet">
+  <div class="MusicSheet" :class="{paddingBottom44:$store.state.isPlayed}">
     <music-sheet-top :playlist="playlist" v-if="playlist"></music-sheet-top>
     <loading-1 v-if="loading" class="loading-1"></loading-1>
     <music-sheet-bottom :songList="songList" :songCount="songCount" :privileges="privileges" v-if="songList"></music-sheet-bottom>

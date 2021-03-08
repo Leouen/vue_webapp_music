@@ -42,7 +42,7 @@
               <div class="cm_top">
                 <div class="nandt">
                   <div class="name">{{ items.user.nickname }}</div>
-                  <div class="time">{{ items.time }}</div>
+                  <div class="time">{{ items.time | formatDate()}}</div>
                 </div>
                 <div class="like" v-if="items.liked" style="color: red" @click="likeComment(items.commentId, 0)">
                   <span class="count">{{ items.likedCount }}</span>
@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import { formatDate } from '@/common/utils'
 import { getComment, setCommentLike } from 'network/comment'
 import ParentCommentDetail from './ParentCommentDetail.vue'
 export default {
@@ -92,7 +93,7 @@ export default {
       id: this.$store.state.playlist.current.id,
       comment_type: this.$store.state.commentIdType, // 评论类型
       pageNo: 1, // 分页参数,第N页,默认为1
-      sortT: 3, // 排序方式
+      sortT: 2, // 排序方式
       cursor: '', // 当前点击的评论id
       commentslist: [], // 评论列表
 
@@ -109,9 +110,29 @@ export default {
     async getCommentPageInfo (id) {
       this.listLoading = true
       // 根据id获取评论列表
+      if (this.sortT === 1) {
+        let { data: comments } = await getComment(this.comment_type, id, this.pageNo, 1, this.cursor)
+        console.log(comments)
+        this.totalItems = comments.totalCount
+        // 当获取到的评论数===20时候，证明这波取到的数据依然足够一页，需要页数++
+        if (comments.comments.length === 20) {
+          for (let i = 0; i < 20; i++) {
+            this.commentslist.push(comments.comments[i])
+          }
+          this.pageNo++
+          this.cursor = comments.cursor
+        }
+        if (comments.comments.length < 20) {
+          for (let i = 0; i < comments.comments.length; i++) {
+            this.commentslist.push(comments.comments[i])
+          }
+          this.listFinished = true
+        }
+        // console.log(this.commentslist)
+      }
       if (this.sortT === 2) {
         let { data: comments } = await getComment(this.comment_type, id, this.pageNo, 2)
-        console.log(comments)
+        // console.log(comments)
         this.totalItems = comments.totalCount
         // 当获取到的评论数===20时候，证明这波取到的数据依然足够一页，需要页数++
         if (comments.comments.length === 20) {
@@ -126,11 +147,11 @@ export default {
           }
           this.listFinished = true
         }
-        console.log(this.commentslist)
+        // console.log(this.commentslist)
       }
       if (this.sortT === 3) {
         let { data: comments } = await getComment(this.comment_type, id, this.pageNo, 3, this.cursor)
-        console.log(comments)
+        // console.log(comments)
         this.totalItems = comments.totalCount
         // 当获取到的评论数===20时候，证明这波取到的数据依然足够一页，需要页数++
         if (comments.comments.length === 20) {
@@ -150,16 +171,19 @@ export default {
         }
       }
       this.listLoading = false
-      console.log(this.commentslist)
+      // console.log(this.commentslist)
     },
     // 点赞/取消点赞
     async likeComment (cid, t) {
       let { data } = await setCommentLike(this.parentId, cid, t, this.type)
-      if (data.code !== 200) return this.$msg.fail(data.msg)
+      console.log(data)
+      // if (data.code !== 200) return this.$msg.fail(data.msg)
       if (this.sortT === 2) {
         this.sortByHot(2)
-      } else {
+      } else if (this.sortT === 2) {
         this.sortByNew(3)
+      } else {
+        this.sortByRec(1)
       }
     },
     // 最热排序
@@ -180,6 +204,15 @@ export default {
       this.listFinished = false
       this.getCommentPageInfo(this.id)
     },
+    // 推荐排序
+    sortByRec (params) {
+      this.pageNo = 1
+      this.sortT = params
+      this.cursor = ''
+      this.commentslist = []
+      this.listFinished = false
+      this.getCommentPageInfo(this.id)
+    },
     issheetShow (targetId, playlistid) {
       this.sheetShow = true
       this.targetId = targetId
@@ -188,6 +221,9 @@ export default {
     getPctotal (d) {
       this.pc_totoalCount = d
     }
+  },
+  filters: {
+    formatDate
   },
   components: {
     ParentCommentDetail
@@ -201,6 +237,9 @@ export default {
 <style lang="less" scoped>
 #comment {
   background-color: #f7f7f7;
+  .van-action-sheet__header{
+    background: #fff;
+  }
   .navbar {
     background: #fff;
     .t_icon {
@@ -222,6 +261,7 @@ export default {
     }
     .icon-fenxiang1{
       font-size: 20px;
+      padding-bottom: 3px;
     }
   }
   .playlistinfo {
@@ -274,7 +314,7 @@ export default {
       }
       .h_memu {
         display: flex;
-        color: #8a8a8a;
+        color: #a6a6a6;
         .m_item {
           margin: 0 10px;
         }
@@ -300,6 +340,7 @@ export default {
         }
         .cm_info {
           padding: 0 16px 4px 4px;
+          border-bottom: 1px solid #f7f7f7;
           .cm_top {
             display: flex;
             justify-content: space-between;

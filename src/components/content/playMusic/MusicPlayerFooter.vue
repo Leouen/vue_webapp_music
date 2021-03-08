@@ -88,7 +88,13 @@ export default {
       this.$store.commit('playlist/setPlayingFalse')
     },
     whenEnded () {
-      document.querySelector('.nextBtn').click()
+      if (this.$store.state.isShowPlayer === false) {
+        this.$store.dispatch('playlist/nextSong')
+      } else {
+        (
+          document.querySelector('.nextBtn').click()
+        )
+      }
     },
     switchToRandom () {
       this.$store.commit('playlist/setMode', 2)
