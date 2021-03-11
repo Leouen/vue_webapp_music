@@ -1,5 +1,5 @@
 <template>
-  <div id="searchTopBar">
+  <div id="searchTopBar" sticky>
     <van-tabs animated swipeable>
       <van-tab title="综合">
         <search-all :keyword="keyword"></search-all>

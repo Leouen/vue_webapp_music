@@ -88,7 +88,8 @@ export default {
         border-radius: 50%;
         background-color: #000;
         position: absolute;
-        top: 1px;
+        top: 0px;
+        border: 1px solid white;
       }
       img {
         width: 50px;

@@ -2,7 +2,7 @@
   <div id="search">
     <div class="searchNav">
       <span class="iconfont icon-fanhui" @click="backHome"></span>
-      <van-search v-model="searchValue" :placeholder="defultWorld" @input="SearchMsgBoxAndContentShow" @search="toSearchInput(searchValue)">
+      <van-search v-model="searchValue" :placeholder="defultWorld.showKeyword" @input="SearchMsgBoxAndContentShow" @search="toSearchInput(searchValue)">
         <template #left-icon>
           <span></span>
         </template>
@@ -27,7 +27,7 @@ export default {
   data () {
     return {
       searchValue: '',
-      defultWorld: '',
+      defultWorld: {},
       searchSuggest: [],
       isShowMsgBox: false
     }
@@ -53,7 +53,7 @@ export default {
     // 表单直接搜索
     toSearchInput (searchValue) {
       if (searchValue === '') {
-        this.toSearch(this.defultWorldObj.realkeyword)
+        this.toSearch(this.defultWorld.realkeyword)
       } else {
         this.toSearch(searchValue)
       }
@@ -77,7 +77,7 @@ export default {
     async getSuggestSearch (keywords) {
       if (keywords === '') return
       await _getSuggestSearch(keywords).then(res => {
-        console.log(res)
+        // console.log(res)
         this.searchSuggest = res.result.allMatch
       })
     }
@@ -85,7 +85,7 @@ export default {
   created () {
     _getDefaultHotKey().then(res => {
       // console.log(res)
-      this.defultWorld = res.data.showKeyword
+      this.defultWorld = res.data
     })
   }
 }

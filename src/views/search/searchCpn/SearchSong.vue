@@ -59,7 +59,7 @@ export default {
       this.offset = (this.page - 1) * 30
       await _getSearchdata(key, 1, this.offset).then(res => {
         if (res.code === 200) {
-          console.log(res)
+          // console.log(res)
           for (let i = 0; i < res.result.songs.length; i++) {
             this.songs.push(res.result.songs[i])
           }

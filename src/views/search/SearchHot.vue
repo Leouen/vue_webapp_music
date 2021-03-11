@@ -34,7 +34,7 @@ export default {
     async getHotdetail () {
       _getHotDetail().then(res => {
         this.hotDetail = res.data
-        console.log(res)
+        // console.log(res)
       })
     }
   },

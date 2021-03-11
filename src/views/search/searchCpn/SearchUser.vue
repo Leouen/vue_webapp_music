@@ -8,9 +8,10 @@
         </div>
         <div class="info">
           <div class="i_name">
-            <div class="name van-ellipsis">{{ user.nickname }}</div>
-            <van-icon class-prefix="my-icon" class="sex1" v-if="user.gender === 2" name="women2"/>
-            <van-icon class-prefix="my-icon" class="sex2" v-else-if="user.gender === 1" name="man2"/>
+            <div class="name van-ellipsis">{{ user.nickname }}
+            <span class="iconfont icon-nan"  v-if="user.gender === 1"></span>
+            <span class="iconfont icon-nv" v-else></span>
+            </div>
           </div>
           <div class="i_signature" v-if="user.avatarDetail">网易音乐人</div>
           <div class="i_signature van-ellipsis" v-else>

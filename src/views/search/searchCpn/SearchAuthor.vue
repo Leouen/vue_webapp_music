@@ -7,8 +7,16 @@
         </div>
         <div class="ar_name van-ellipsis">
           {{ artist.name }}
+          <span class="iconfont icon-nan"  v-if="artist.gender === 1"></span>
+          <span class="iconfont icon-nv" v-else></span>
           <span v-if="artist.alia" class="name">( {{ artist.alia[0] }} )</span>
           <span v-else-if="artist.trans" class="name" >( {{ artist.trans }} )</span >
+        </div>
+        <div class="follow">
+          <div class="btn1" v-if="artist.followed">已关注</div>
+          <div class="btn2" v-else>
+            <van-icon class="folow-icon" name="plus" />关注
+          </div>
         </div>
       </div>
     </van-list>
@@ -74,7 +82,7 @@ export default {
       }
     }
     .ar_name {
-      width: 310px;
+      width: 220px;
       margin-left: 10px;
       font-size: 15px;
       padding: 20px 0;
@@ -82,6 +90,35 @@ export default {
       .name {
         color: #969799;
         margin-left: 4px;
+      }
+    }
+    .follow {
+      width: 70px;
+      display: inline-block;
+      .btn1 {
+        width: 64px;
+        height: 24px;
+        font-size: 11.6px;
+        color: #4a4a4a;
+        border: 1px solid #989898;
+        border-radius: 15px;
+        text-align: center;
+        line-height: 24px;
+      }
+      .btn2 {
+        width: 60px;
+        height: 22px;
+        font-size: 11.6px;
+        color: #ff3a3a;
+        border: 1px solid #ff3a3a;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .folow-icon {
+          font-size: 10px;
+          padding-right: 4px;
+        }
       }
     }
   }

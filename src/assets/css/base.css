@@ -129,3 +129,11 @@ div:focus {
 .invisible{
   visibility:hidden;
 }
+.iconfont.icon-nan{
+  color: #6fccff;
+  font-size: 14px;
+}
+.iconfont.icon-nv{
+  color: #ff86b6;
+  font-size: 14px;
+}
