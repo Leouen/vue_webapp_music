@@ -1,11 +1,8 @@
 <template>
-  <div class="PodcastBar">
-    <navbar class="PodcastBarNav">
-      <div slot="left" class="iconfont icon-caidan" @click="MenuPopup"></div>
-      <div class="PodcastBarCenter"></div>
-      <div slot="right" class="iconfont icon-sousuo1" ></div>
-    </navbar>
-    <van-tabs v-model="active">
+  <div class="PodcastBar" >
+    <div class="iconfont icon-caidan menu-icon" @click="MenuPopup"></div>
+    <div class="iconfont icon-sousuo1 search-icon" @click='toSearch'></div>
+    <van-tabs v-model="active" sticky>
       <van-tab title="听听" title-style='z-index: 9;'>该页面还在开发中</van-tab>
       <van-tab title="推荐" title-style='z-index: 9;'>
         <podcast-rec></podcast-rec>
@@ -30,7 +27,6 @@
 </template>
 
 <script>
-import Navbar from '../../../components/common/navbar/navbar.vue'
 import TitleBar from '../../../components/common/titlebar/TitleBar.vue'
 import PodcastRec from './PodcastRec.vue'
 import { getDjCateRec } from 'network/podcast'
@@ -76,10 +72,13 @@ export default {
       ]
     }
   },
-  components: { Navbar, PodcastRec, TitleBar, PodcastDjRecItem, PodcastDjRecSlider, PodcastDjHot, PodcastCategory, PodcastCategoryBody, PodcastDjBanner },
+  components: { PodcastRec, TitleBar, PodcastDjRecItem, PodcastDjRecSlider, PodcastDjHot, PodcastCategory, PodcastCategoryBody, PodcastDjBanner },
   methods: {
     MenuPopup () {
       this.$Bus.$emit('openPopup', () => {}) // 事件总线
+    },
+    toSearch () {
+      this.$router.push('/search')
     }
   },
   created () {
@@ -92,26 +91,57 @@ export default {
 </script>
 
 <style>
-.PodcastBarNav div{
-  font-size: 16px;
+.PodcastBar .van-tab__text{
+  font-size: 18px;
 }
-
+.PodcastBar .van-tabs__wrap{
+  height: 40px;
+}
+.PodcastBar .van-tab{
+  line-height: 40px;
+}
+.PodcastBar .van-tabs__nav{
+  width: 220px;
+  background: #fff;
+}
+.PodcastBar .van-tabs__wrap{
+  display: flex;
+  justify-content: center;
+  background: #fff;
+}
 .PodcastBar .van-tabs__line{
   bottom: 25px;
 }
-.PodcastBarCenter{
-  width: 5rem;
-  margin: 0 auto;
-}
-.PodcastBar .van-tabs__wrap{
-  width: 5rem;
-  left: 50%;
-  transform:translate(-50%,-50%);
-  position: absolute;
-  top: -0.5rem;
-
-}
 .PodcastBar .van-tabs__line{
-  width: 40px;
+  width: 36px;
+}
+.PodcastBar .van-tab--active{
+  font-weight: bold;
+}
+.menu-icon.iconfont{
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-size: 22px;
+  width: 56px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #fff;
+  z-index: 100;
+  color: #333333;
+}
+.search-icon.iconfont{
+  position: fixed;
+  top: 0;
+  right: 0;
+  font-size: 18px;
+  width: 56px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #fff;
+  z-index: 100;
+  color: #333333;
 }
 </style>

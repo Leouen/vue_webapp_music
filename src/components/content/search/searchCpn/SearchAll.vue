@@ -4,13 +4,13 @@
     <div class="list_div">
       <div class="s_title">
         <span>单曲</span>
-        <div class="r-title-word"><a class=""><span class="iconfont icon-bofang" ></span><span> 播放</span></a></div>
+        <div class="r-title-word" @click="playAll(song.songs)"><a class=""><span class="iconfont icon-bofang" ></span><span> 播放</span></a></div>
       </div>
       <van-empty image="error" description="暂无相关的任何单曲" v-if="!song.songs" />
       <div class="songList" v-else>
         <van-cell title="" v-for="(item,index) in song.songs" :key="index">
           <template #title>
-            <div>
+            <div @click="playSingleSong(item)">
               <div class="songName">
                 <span>{{item.name}}</span>
                 <span class="songNameAlia" v-if="item.transNames">({{ item.transNames[0] }})</span>
@@ -186,7 +186,7 @@ export default {
           if (data.user) this.user = data.user
           if (data.video) this.video = data.video
         } else {
-          console.log(res)
+          // console.log(res)
         }
       })
     },
@@ -203,6 +203,36 @@ export default {
     // 跳转用户详情页
     toUserInfoDetailPage (id) {
       this.$router.push({ path: '/userinfo', query: { id } })
+    },
+    // 播放音乐
+    playSingleSong (singleSong) {
+      // 通过ID获取歌曲详情信息
+      let flag = false
+      if (this.$store.state.playlist.playlist !== []) {
+        for (let item of this.$store.state.playlist.playlist) {
+          if (item.id === singleSong.id) {
+            flag = true
+            console.log(flag) // 判断是否为重复的歌,是的话直接播放
+            this.$store.dispatch('playlist/getSongInfo', item)
+          }
+        }
+        if (flag === false) {
+        // 不是重复的歌。将其添加至歌单列表首位playSingleSong
+          this.$store.commit('isShowPlayer') // 打开播放器
+          this.$store.commit('isPlayed') // 播放过音乐 mini播放器 常驻显示
+          this.$store.dispatch('playlist/playSingleSong', { singleSong })
+        }
+      }
+    },
+    // 播放全部音乐
+    playAll (songs) {
+      let songsId = []
+      for (let item of songs) {
+        songsId.push(item.id)
+      }
+      this.$store.commit('isShowPlayer') // 打开播放器
+      this.$store.commit('isPlayed') // 播放过音乐 mini播放器 常驻显示
+      this.$store.dispatch('playlist/playAllSong', { songsId })
     }
   },
   mounted () {
@@ -254,6 +284,9 @@ export default {
       display: table-cell;
       font-size: 12px;
     }
+    .r-title-word .iconfont{
+      padding-right: 2px;
+    }
     .s_more{
       font-size: 13px;
       color: #adadad;
@@ -270,7 +303,7 @@ export default {
       font-size: 22px;
       height: 24px;
       width: 24px;
-      margin-right: 8px;
+      padding-right: 8px;
       color: #ff4a3d;
     }
     .icon-xuanzhong{

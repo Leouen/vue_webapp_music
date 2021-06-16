@@ -132,6 +132,12 @@ export default {
   font-size: 11px;
   color: #8d8d8d;
 }
+.songName{
+  width: 288px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .songNameStyle{
   font-size: 13px;
 }

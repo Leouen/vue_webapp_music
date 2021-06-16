@@ -2,7 +2,7 @@
   <div class="SearchSonglist">
     <van-list
       v-model="loading" :finished="finished" finished-text="没有更多了" @load="getPlaylistsSearch(key)">
-      <div class="playlist_item" v-for="(playlist, index) in playlists" :key="index" @click="toPlayListDetail(playlist.id)">
+      <div class="playlist_item" v-for="(playlist, index) in playlists" :key="index" @click="toSheet(playlist.id)">
         <van-image class="i_pic" :src="playlist.coverImgUrl" />
         <div class="i_info">
           <div class="name van-ellipsis">{{ playlist.name }}</div>
@@ -52,8 +52,8 @@ export default {
       })
     },
     // 跳转歌单详情页
-    toPlayListDetail (id) {
-      this.$router.push({ path: '/playlistdetail', query: { id } })
+    toSheet (id) {
+      this.$router.push('/musicSheet/' + id + '&' + false)
     }
   },
   props: ['keyword'],

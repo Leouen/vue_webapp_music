@@ -8,13 +8,14 @@
     </navbar>
     <div class="text_1">请输入验证码</div>
     <div class="text_3">
-      <span class="text_3_1">已发送至+86 {{numHidden(tel)}}
+      <span class="text_3_1">已发送至+86 {{numHidden(this.$store.state.user.tel)}}
         <span class="iconfont icon-xiezi"></span>
-        <span v-show="show" @click="getCode" class="codeCount reGet">重新获取</span>
+        <span v-show="show" @click="reGetCode" class="codeCount reGet">重新获取</span>
         <span v-show="!show" class="codeCount">{{count}} s</span>
       </span>
     </div>
     <van-password-input
+      :length="4"
       :value="value"
       :gutter="10"
       :mask="false"
@@ -35,7 +36,7 @@
 
 <script>
 import navbar from 'components/common/navbar/navbar'
-import { getCaptcha } from 'network/login'
+import { getCaptcha, getCode, loginState, getAccountInfo } from 'network/login'
 export default {
   name: 'PhoneLoginVerify',
   data () {
@@ -45,12 +46,14 @@ export default {
       show: true,
       timer: null,
       count: '',
-      tel: '15317865719', // 手机号
       password: '' // 密码
     }
   },
   components: {
     navbar
+  },
+  mounted () {
+    this.reGetCode()
   },
   methods: {
     close () {
@@ -59,8 +62,12 @@ export default {
     numHidden (str) {
       return str.substr(0, 3) + '****' + str.substr(7)
     },
-    getCode () {
-      const TIME_COUNT = 6
+    reGetCode () {
+      getCode(this.$store.state.user.tel).then(res => {
+        console.log(res)
+        this.$toast({ message: '验证码已发送，请查收', className: 'toastIndex', position: 'bottom' })
+      })
+      const TIME_COUNT = 60
       if (!this.timer) {
         this.count = TIME_COUNT
         this.show = false
@@ -78,18 +85,23 @@ export default {
   },
   watch: {
     value (value) {
-      if (value.length === 6) {
-        getCaptcha(this.tel, value).then(
-          (res) => {
+      if (value.length === 4) {
+        getCaptcha(this.$store.state.user.tel, value).then(res => {
+          if (res.code === 200) {
             console.log(res)
-            if (res.code === 200) {
-              // 登陆成功 ，开始获得用户数据
-              this.$toast({ message: '欢迎使用本网页~', className: 'toastIndex', position: 'bottom' })
-            } else {
-              this.$toast({ message: '验证码错误', className: 'toastIndex', position: 'bottom' })
-              this.value = ''
-            }
+            // 登陆成功 ，开始获得用户数据
+            loginState().then(res => {
+              console.log(res)
+            })
+            getAccountInfo().then(res => {
+              console.log(res)
+            })
+            this.$toast({ message: '欢迎使用本网页~', className: 'toastIndex', position: 'bottom' })
+          } else {
+            this.$toast({ message: '验证码错误', className: 'toastIndex', position: 'bottom' })
+            this.value = ''
           }
+        }
         )
       } else {}
     }

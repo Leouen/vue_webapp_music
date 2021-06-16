@@ -78,6 +78,8 @@ export default {
     startPlay (current, songList, index) {
       this.$store.commit('isShowPlayer') // 打开播放器
       this.$store.commit('isPlayed') // 播放过音乐 mini播放器 常驻显示
+      // 清空歌单
+      this.$store.state.playlist.playlist = []
       this.$store.dispatch('playlist/selectPlaylist', { current, songList, index })
     }
   }

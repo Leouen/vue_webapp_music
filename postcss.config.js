@@ -16,7 +16,7 @@ module.exports = {
     'postcss-pxtorem': {
       rootValue: 37.5,
       exclude: /node_modules|folder_name/i,
-      selectorBlackList: ['van-'], // van- my- 开头的选择器不进行适配s
+      selectorBlackList: [], // van- my- 开头的选择器不进行适配s
       propList: ['*']
     }
   }

@@ -3,7 +3,8 @@
     <van-sticky>
        <profile-bar></profile-bar>
     </van-sticky>
-    <profile-login></profile-login>
+    <profile-user v-if="$store.state.user.isLogin!==false"></profile-user>
+    <profile-login v-else></profile-login>
     <profile-box></profile-box>
     <profile-love></profile-love>
     <van-tabs class="profile-list-bar" v-model="active" scrollspy sticky offset-top='34px'>
@@ -26,6 +27,7 @@ import ProfileBox from './childCpns/ProfileBox.vue'
 import ProfileLogin from './childCpns/ProfileLogin.vue'
 import ProfileLove from './childCpns/ProfileLove.vue'
 import ProfileRec from './childCpns/ProfileRec.vue'
+import ProfileUser from './childCpns/ProfileUser.vue'
 export default {
   name: 'Profile',
   data () {
@@ -33,7 +35,7 @@ export default {
       active: 0
     }
   },
-  components: { ProfileBar, ProfileLogin, ProfileBox, ProfileLove, CreateList, CollectList, ProfileRec },
+  components: { ProfileBar, ProfileLogin, ProfileBox, ProfileLove, CreateList, CollectList, ProfileRec, ProfileUser },
   methods: {
   }
 }

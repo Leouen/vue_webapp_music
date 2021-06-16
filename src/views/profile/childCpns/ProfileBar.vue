@@ -3,7 +3,13 @@
     <navbar>
       <div id="HomeNavLeft" slot="left" class="iconfont icon-caidan" @click="MenuPopup"></div>
       <div v-if="show"  slot="center" >
-        <div class="ProfileLoginBar">
+        <div v-if="$store.state.user.isLogin!==false" class="ProfileLoginBar">
+          <div class="UserImgNav">
+            <img class="UserImg" :src="$store.state.user.profile.avatarUrl" alt="">
+          </div>
+          <span class="PopupNavText">{{$store.state.user.profile.nickname}}</span>
+        </div>
+        <div v-else class="ProfileLoginBar">
           <div class="UserImgNav">
             <img class="UserImg" src="~assets/img/ProfileBox/user.svg" alt="">
           </div>
@@ -28,12 +34,29 @@ export default {
   methods: {
     MenuPopup () {
       this.$Bus.$emit('openPopup', () => {}) // 事件总线
+    },
+    handleScroll: function () {
+      this.srcoll = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
+      if (this.srcoll < 50) {
+        this.show = false
+      } else {
+        this.show = true
+      }
     }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
 
 <style>
+.icon-caidan{
+  font-size: 22px;
+}
 .ProfileLoginBar{
   display: flex;
   justify-content: center;

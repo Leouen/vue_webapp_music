@@ -137,3 +137,6 @@ div:focus {
   color: #ff86b6;
   font-size: 14px;
 }
+.van-nav-bar__title{
+  max-width: 250px;
+}

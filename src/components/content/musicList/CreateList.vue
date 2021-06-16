@@ -9,6 +9,31 @@
         <span class="iconfont icon-ziyuan"></span>
       </template>
     </van-cell>
+    <div class="songCell">
+      <van-cell  v-for="items in $store.state.user.userCreateList" :key="items.id" @click="toSheet(items.id)">
+        <template #title>
+          <div class="mi_item">
+            <div class="pic">
+              <van-image :src="items.coverImgUrl" class="pic_img" />
+            </div>
+            <div class="info">
+              <div class="i_title van-ellipsis">
+                {{ items.name }}
+              </div>
+              <div class="dep van-ellipsis">
+                {{ items.trackCount }}首，by
+                {{ items.creator.nickname }}，播放{{
+                  items.playCount | toStringNum
+                }}次
+              </div>
+            </div>
+          </div>
+        </template>
+        <template #right-icon>
+          <span class="iconfont icon-ziyuan"></span>
+        </template>
+      </van-cell>
+    </div>
     <div class="daoru">
       <van-cell>
         <template #title>
@@ -27,12 +52,23 @@
 </template>
 
 <script>
+import { toStringNum, toMs, formatDate } from 'common/utils'
 export default {
-  name: 'CreateList'
+  name: 'CreateList',
+  methods: {
+    toSheet (id) {
+      this.$router.push('/musicSheet/' + id + '&' + false)
+    }
+  },
+  filters: {
+    toStringNum,
+    toMs,
+    formatDate
+  }
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 .CreateList{
   background: white;
   width: 90%;
@@ -50,6 +86,7 @@ export default {
   margin-top: -10px;
 }
 .MusicListItem{
+  margin: 6px 0px;
   display: flex;
   align-items: center;
 }

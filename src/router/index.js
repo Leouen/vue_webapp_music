@@ -5,7 +5,7 @@ import VueRouter from 'vue-router'
 const Home = () => import('../views/home/Home')
 const Podcast = () => import('../views/podcast/Podcast')
 const Profile = () => import('../views/profile/Profile')
-const Karaoke = () => import('../views/karaoke/Karaoke')
+const Video = () => import('../views/video/Video')
 const Friends = () => import('../views/friends/Friends')
 // 1. 安装插件
 Vue.use(VueRouter)
@@ -33,8 +33,8 @@ const routes = [
     meta: { index: 3 }
   },
   {
-    path: '/karaoke',
-    component: Karaoke,
+    path: '/video',
+    component: Video,
     meta: { index: 4 }
   },
   {
@@ -45,16 +45,16 @@ const routes = [
   // 搜索
   {
     path: '/search',
-    component: () => import('@/views/search/Search.vue'),
+    component: () => import('components/content/search/Search.vue'),
     redirect: '/search/searchHot',
     children: [
       {
         path: '/search/searchHot',
-        component: () => import('@/views/search/SearchHot.vue')
+        component: () => import('components/content/search/SearchHot.vue')
       },
       {
         path: '/search/searchConent',
-        component: () => import('@/views/search/SearchConent.vue')
+        component: () => import('components/content/search/SearchConent.vue')
       }
     ]
   },
@@ -62,9 +62,12 @@ const routes = [
   { path: '/UserLogin', component: () => import('components/content/userLogin/UserLogin') },
   { path: '/PhoneLogin', component: () => import('components/content/userLogin/PhoneLogin') },
   { path: '/MailLogin', component: () => import('components/content/userLogin/MailLogin') },
+  { path: '/PasswordLogin', component: () => import('components/content/userLogin/PhonePasswordLogin') },
   { path: '/PhoneLoginVerify', component: () => import('components/content/userLogin/PhoneLoginVerify') },
   // 歌单页面
-  { path: '/musicSheet/:id&:isAlbum', component: () => import('components/content/musicList/MusicSheet') }
+  { path: '/musicSheet/:id&:isAlbum', component: () => import('components/content/musicList/MusicSheet') },
+  // 用户详情页面
+  { path: '/userInfo', component: () => import('components/content/infoDetail/userInfo') }
 ]
 
 const router = new VueRouter({

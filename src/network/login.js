@@ -50,6 +50,13 @@ export function loginState () {
   })
 }
 
+// 获取账号信息
+export function getAccountInfo () {
+  return request({
+    url: '/user/account'
+  })
+}
+
 // 查询手机号是否注册
 export function checkPhone (phone) {
   return request({

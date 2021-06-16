@@ -5,7 +5,7 @@
         <div class="item-bofang"><span class="iconfont icon-bofang1"></span></div>
       </template>
       <template #title>
-        <div><div class="playAll">播放全部</div></div>
+        <div @click="playAll(songs)"><div class="playAll">播放全部</div></div>
       </template>
       <template #right-icon>
         <span class="Title-icon iconfont icon-xuanzhong"></span>
@@ -14,7 +14,7 @@
     <van-list v-model="loading" :finished="finished" @load="getSongsSearch(key)" finished-text="没有更多了" >
       <van-cell title="" v-for="(item,index) in songs" :key="index">
         <template #title>
-          <div>
+          <div @click="playSingleSong(item)">
             <div class="songName">
               <span>{{item.name}}</span>
               <span class="songNameAlia" v-if="item.transNames">({{ item.transNames[0] }})</span>
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { getSongDetial } from 'network/playmusic'
 import { _getSearchdata } from 'network/search'
 export default {
   props: ['keyword'],
@@ -71,8 +72,34 @@ export default {
       })
     },
     // 播放音乐
-    playThisMusic (id) {
-      this.$bus.$emit('playThisMusic', id)
+    playSingleSong (singleSong) {
+      // 通过ID获取歌曲详情信息
+      let flag = false
+      if (this.$store.state.playlist.playlist !== []) {
+        for (let item of this.$store.state.playlist.playlist) {
+          if (item.id === singleSong.id) {
+            flag = true
+            console.log(flag) // 判断是否为重复的歌,是的话直接播放
+            this.$store.dispatch('playlist/getSongInfo', item)
+          }
+        }
+        if (flag === false) {
+        // 不是重复的歌。将其添加至歌单列表首位playSingleSong
+          this.$store.commit('isShowPlayer') // 打开播放器
+          this.$store.commit('isPlayed') // 播放过音乐 mini播放器 常驻显示
+          this.$store.dispatch('playlist/playSingleSong', { singleSong })
+        }
+      }
+    },
+    // 播放全部音乐
+    playAll (songs) {
+      let songsId = []
+      for (let item of songs) {
+        songsId.push(item.id)
+      }
+      this.$store.commit('isShowPlayer') // 打开播放器
+      this.$store.commit('isPlayed') // 播放过音乐 mini播放器 常驻显示
+      this.$store.dispatch('playlist/playAllSong', { songsId })
     }
   }
 }

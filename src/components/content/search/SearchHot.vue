@@ -4,7 +4,7 @@
     <div class="hotdetial">
       <div class="hotedetialitem" v-for="(item, index) in hotDetail" :key="item.id" @click="toSearch(item.searchWord)" >
         <span class="itemlever">{{ index + 1 }}</span>
-        <span class="itemname">{{ item.searchWord }}</span>
+        <span class="itemname van-ellipsis">{{ item.searchWord }}</span>
         <span class="itemIcon" v-if="item.iconType==1 ||item.iconType==0">
           <img :src="item.iconUrl" alt="">
         </span>

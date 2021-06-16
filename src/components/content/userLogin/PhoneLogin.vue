@@ -17,12 +17,15 @@
     <div>
       <van-button class="btn" color="#ff3a3a" type="primary" block @click="login" >下一步</van-button>
     </div>
+    <div class="switchLogin">
+      <div @click="toPassword">手机密码登陆</div>
+      <div>邮箱密码登陆</div>
+    </div>
   </div>
 </template>
 
 <script>
 import navbar from 'components/common/navbar/navbar'
-
 export default {
   name: 'PhoneLogin',
   data () {
@@ -38,12 +41,15 @@ export default {
     close () {
       this.$router.go(-1)
     },
+    toPassword () {
+      this.$router.push('/PasswordLogin')
+    },
     // 登陆
     login () {
       var reg = /^1[3-8][0-9]{9}$/ // 判断是否合法手机号
       if (reg.test(this.tel)) {
+        this.$store.commit('user/SET_TEL', this.tel)
         this.$router.push('/PhoneLoginVerify')
-        this.$toast({ message: '验证码已发送，请查收', className: 'toastIndex', position: 'bottom' })
       } else if (this.tel === '') {
         this.$toast({ message: '请输入手机号', className: 'toastIndex', position: 'bottom' })
       } else {
@@ -101,6 +107,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 36px;
+  padding-bottom: 8px;
   border-bottom: 1px solid #cdcdcd;
 }
 .countryDel{
@@ -129,5 +136,22 @@ input::-webkit-input-placeholder{
 }
 .icon-below-s{
   font-size: 10px;
+}
+.switchLogin{
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  height: 80px;
+  font-size: 14px;
+  color: #5682b2;
+}
+.switchLogin>div{
+  flex: 1;
+  text-align: center;
+}
+.switchLogin :nth-child(1){
+  border-right: #adadad 1px solid;
 }
 </style>

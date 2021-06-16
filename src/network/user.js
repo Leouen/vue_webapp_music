@@ -66,3 +66,11 @@ export function getUserFans (uid, limit, lasttime) {
     }
   })
 }
+
+// 关注 / 取消关注 用户
+export function getFollow (id, t) {
+  return request({
+    url: '/follow',
+    params: { id, t }
+  }).catch((err) => err.response)
+}

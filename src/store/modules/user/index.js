@@ -5,12 +5,18 @@ const user = {
   namespaced: true,
 
   state: {
+    isLogin: false,
+    tel: 0,
     token: '',
     account: {},
     bindings: {},
-    info: {
-      userId: ''
-    }
+    profile: {
+      level: '',
+      listenSongs: ''
+    },
+    userLikeList: [],
+    userCreateList: [],
+    userSubList: []
   },
 
   getters: {
@@ -20,6 +26,12 @@ const user = {
   },
 
   mutations: {
+    SET_LOGIN: (state) => {
+      state.isLogin = true
+    },
+    SET_TEL: (state, tel) => {
+      state.tel = tel
+    },
     SET_TOKEN: (state, token) => {
       state.token = token
     },
@@ -29,10 +41,14 @@ const user = {
     SET_BINDINGS: (state, bindings) => {
       state.bindings = bindings
     },
-    SET_INFO: (state, info) => {
-      state.info = info
-      state.userId = info.userId
-      Vue.ls.set('userInfo', info)
+    SET_PROFLIE: (state, profile) => {
+      state.profile = Object.assign(state.profile, profile)
+    },
+    set_level: (state, level) => {
+      state.profile.level = level
+    },
+    set_listenSongs: (state, listenSongs) => {
+      state.profile.listenSongs = listenSongs
     }
   },
 

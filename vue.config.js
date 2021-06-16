@@ -5,7 +5,7 @@ module.exports = {
   devServer: {
     proxy: {
       '^/api': {
-        target: 'http://47.114.186.226:3000',
+        target: 'http://localhost:3000',
         changeOrigin: true,
         ws: false,
         pathRewrite: {
@@ -46,8 +46,8 @@ module.exports = {
     config.plugin('html').tap(args => {
       args[0].title = 'vue-music'
       args[0].cdn = {
-        css: ['//at.alicdn.com/t/font_2363713_dy4x569sn8v.css'],
-        js: ['//at.alicdn.com/t/font_2363713_dy4x569sn8v.js']
+        css: ['//at.alicdn.com/t/font_2363713_fy0om01giie.css'],
+        js: ['//at.alicdn.com/t/font_2363713_fy0om01giie.js']
       }
       return args
     })

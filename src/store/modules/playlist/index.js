@@ -1,4 +1,4 @@
-import { playSong, getlyric } from 'network/playmusic'
+import { playSong, getlyric, getSongDetial } from 'network/playmusic'
 
 const playlist = {
   namespaced: true,
@@ -203,6 +203,46 @@ const playlist = {
         let current = state.playlist[index]
         dispatch('getSongInfo', current) // 播放音乐
       }
+    },
+    async playSingleSong ({ commit, state, dispatch }, { singleSong }) {
+      await getSongDetial(singleSong.id).then((res) => {
+        for (const item of res.songs) {
+        // 选择性保存数据
+          state.playlist.unshift({
+            songName: item.name,
+            id: item.id,
+            author: item.ar,
+            picUrl: item.al.picUrl,
+            mvId: item.mv,
+            album: item.al.name,
+            albumId: item.al.id,
+            alia: item.alia,
+            quality: item.h
+          })
+        }
+      })
+      dispatch('getSongInfo', state.playlist[0])
+    },
+    async playAllSong ({ commit, state, dispatch }, { songsId }) {
+      await getSongDetial(songsId.toString()).then((res) => {
+        // 清空歌单
+        state.playlist = []
+        for (const item of res.songs) {
+        // 选择性保存数据
+          state.playlist.push({
+            songName: item.name,
+            id: item.id,
+            author: item.ar,
+            picUrl: item.al.picUrl,
+            mvId: item.mv,
+            album: item.al.name,
+            albumId: item.al.id,
+            alia: item.alia,
+            quality: item.h
+          })
+        }
+      })
+      dispatch('getSongInfo', state.playlist[0])
     }
   }
 }

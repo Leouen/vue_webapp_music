@@ -59,7 +59,7 @@ export default {
 
 <style>
 #searchTopBar .van-tabs__wrap{
-    margin-bottom: -8px;
+  margin-bottom: -8px;
 }
 #searchTopBar .van-tabs__nav{
   background: #fff;
@@ -76,5 +76,8 @@ export default {
 #searchTopBar .van-tab--active{
   font-weight: bold;
   color: #000;
+}
+.van-tabs--line .van-tabs__wrap{
+  height: 40px;
 }
 </style>

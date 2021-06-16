@@ -2,7 +2,14 @@
   <div class="MenuPopup">
     <van-popup v-model="show" position="left" :style="{ width: '82%' }">
         <div class="PopupNav">
-            <router-link class="PopupNavLeft" to="/UserLogin">
+            <router-link class="PopupNavLeft" to="/UserLogin"  v-if="$store.state.user.isLogin!==false">
+              <div class="UserImg">
+                <img class="UserImg" :src="$store.state.user.profile.avatarUrl" alt="">
+              </div>
+              <span class="PopupNavText">{{$store.state.user.profile.nickname}}</span>
+              <span class="iconfont icon-daohangyou"></span>
+            </router-link>
+            <router-link class="PopupNavLeft" to="/UserLogin" v-else>
               <div class="UserImg">
                 <img class="UserImg" src="~assets/img/ProfileBox/user.svg" alt="">
               </div>

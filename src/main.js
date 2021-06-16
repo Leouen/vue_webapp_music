@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import 'amfe-flexible'
 import 'swiper/css/swiper.css'
+import VueDPlayer from 'vue-dplayer'
+import 'vue-dplayer/dist/vue-dplayer.css'
 
 // 只是引入基础样式
 // import 'vant/lib/style/base.css'
@@ -12,6 +14,8 @@ import 'swiper/css/swiper.css'
 
 // 自动按需引入组件,然后对它-全局注册
 import { Button, Form, Field, Popup, NavBar, Sticky, Cell, CellGroup, Switch, Tab, Tabs, PullRefresh, Toast, PasswordInput, NumberKeyboard, Lazyload, Slider, Icon, Empty, Loading, ActionSheet, Image as VanImage, List, Search } from 'vant'
+
+Vue.use(VueDPlayer)
 
 Vue.use(VanImage)
 Vue.use(Search)
@@ -40,7 +44,6 @@ Vue.use(Field)
 
 Toast.setDefaultOptions({ duration: 2500 }) // 初始化Toast
 Vue.prototype.$Bus = new Vue() // 创建全局事件总线
-
 new Vue({
   router,
   store,

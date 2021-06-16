@@ -13,9 +13,9 @@
         <div slot="item-icon" class="iconfont icon-profile"></div>
         <div slot="item-text">我的</div>
       </tab-bar-item>
-      <tab-bar-item path="/karaoke">
-        <div slot="item-icon" class="iconfont icon-maikefeng"></div>
-        <div slot="item-text">K歌</div>
+      <tab-bar-item path="/video">
+        <div slot="item-icon" class="iconfont icon-shipin"></div>
+        <div slot="item-text">视频</div>
       </tab-bar-item>
       <tab-bar-item path="/friends">
         <div slot="item-icon" class="iconfont icon-haoyou"></div>

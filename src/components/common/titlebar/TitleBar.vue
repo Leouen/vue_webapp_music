@@ -1,15 +1,15 @@
 <template>
   <div class="titlebar">
-      <div class="left l-title">{{titles.left}}</div>
-      <div class="right r-title">
-        <div class="r-title-word">
-          <a class="">
-            <span v-show="showFront" class="iconfont icon-diantai"></span>
-            <span>{{titles.right}}</span>
-            <span class="iconfont icon-daohangyou"></span>
-          </a>
-        </div>
+    <div class="left l-title">{{titles.left}}</div>
+    <div class="right r-title">
+      <div class="r-title-word">
+        <a class="">
+          <span v-show="showFront" class="iconfont icon-diantai"></span>
+          <span>{{titles.right}}</span>
+          <span class="iconfont icon-daohangyou"></span>
+        </a>
       </div>
+    </div>
   </div>
 </template>
 

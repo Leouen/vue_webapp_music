@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import CommentCpn from '../musicList/comment/CommentCpn.vue'
+import CommentCpn from '../comment/CommentCpn.vue'
 import CircularProgress from './CircularProgress.vue'
 import MusicPlayer from './MusicPlayer.vue'
 import MusicPlaylist from './MusicPlaylist.vue'
