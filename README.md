@@ -104,3 +104,8 @@ npm run build
 
 ![](showImg/podcast2.png)
 
+#### 视频页面展示
+
+ps：该页面样式开发尚不完整，可以观看视频，但用户**需要先登陆**，否则无法获得数据
+
+![](./showImg/video1.png)
