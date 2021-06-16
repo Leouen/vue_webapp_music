@@ -88,6 +88,10 @@ npm run build
 
 ![](showImg/musicPlayer2.png)
 
+#### 歌曲评论界面
+
+![](https://github.com/Leouen/vue_webapp_music/blob/develop/showImg/comment1.png)
+
 #### mini播放器
 
 ​	功能特点：圆形进度条，可以点击控件来播放或者暂停歌曲
