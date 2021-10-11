@@ -15,11 +15,11 @@
       </div>
     </div>
     <div>
-      <van-button class="btn" color="#ff3a3a" type="primary" block @click="login" >下一步</van-button>
+      <van-button class="btn" color="#ff3a3a" type="primary" block @click="login">下一步</van-button>
     </div>
     <div class="switchLogin">
       <div @click="toPassword">手机密码登陆</div>
-      <div>邮箱密码登陆</div>
+      <div @click="toEmail">邮箱密码登陆</div>
     </div>
   </div>
 </template>
@@ -44,6 +44,9 @@ export default {
     toPassword () {
       this.$router.push('/PasswordLogin')
     },
+    toEmail () {
+      this.$router.push('/MailLogin')
+    },
     // 登陆
     login () {
       var reg = /^1[3-8][0-9]{9}$/ // 判断是否合法手机号
@@ -60,7 +63,7 @@ export default {
 }
 </script>
 <style>
-.PhoneLogin{
+.PhoneLogin {
   position: absolute;
   overflow: hidden;
   background: #fff;
@@ -71,36 +74,36 @@ export default {
   z-index: 9001;
   height: 100vh;
 }
-.PhoneLogin>.loginNavbar{
+.PhoneLogin > .loginNavbar {
   background: #fff;
   margin-top: 6px;
 }
-.loginLeftIcon{
+.loginLeftIcon {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.icon-fanhui{
+.icon-fanhui {
   color: #333;
 }
-.loginTitle{
+.loginTitle {
   font-size: 16px;
   color: #333;
   display: flex;
   text-align: start;
 }
-.text_1{
+.text_1 {
   font-size: 16px;
   color: #333;
   padding-left: 20px;
   margin-top: 30px;
 }
-.text_2{
+.text_2 {
   margin-top: 10px;
   font-size: 12px;
   padding-left: 20px;
 }
-.loginBoxInput{
+.loginBoxInput {
   width: 92%;
   margin: 30px auto 0px;
   display: flex;
@@ -110,12 +113,12 @@ export default {
   padding-bottom: 8px;
   border-bottom: 1px solid #cdcdcd;
 }
-.countryDel{
+.countryDel {
   font-size: 14px;
   color: #333;
   padding-bottom: 1px;
 }
-.countryDel>span{
+.countryDel > span {
   padding-right: 10px;
 }
 .loginInput input {
@@ -125,8 +128,8 @@ export default {
   color: black;
   font-size: 14px;
 }
-input::-webkit-input-placeholder{
-    color:#d7d7d7;
+input::-webkit-input-placeholder {
+  color: #d7d7d7;
 }
 .btn {
   width: 90%;
@@ -134,10 +137,10 @@ input::-webkit-input-placeholder{
   border-radius: 44px;
   font-size: 16px;
 }
-.icon-below-s{
+.icon-below-s {
   font-size: 10px;
 }
-.switchLogin{
+.switchLogin {
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -147,11 +150,11 @@ input::-webkit-input-placeholder{
   font-size: 14px;
   color: #5682b2;
 }
-.switchLogin>div{
+.switchLogin > div {
   flex: 1;
   text-align: center;
 }
-.switchLogin :nth-child(1){
+.switchLogin :nth-child(1) {
   border-right: #adadad 1px solid;
 }
 </style>

@@ -35,3 +35,11 @@ export function getCommentFloor (parentCommentId, id, type, time) {
     params: { parentCommentId, id, type, time }
   }).catch((err) => err.response)
 }
+
+// 回复评论
+export function sendComment (t, type, id, content, commentId) {
+  return request({
+    url: '/comment',
+    params: { t, id, type, content, commentId }
+  }).catch((err) => err.response)
+}

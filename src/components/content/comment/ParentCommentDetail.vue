@@ -26,18 +26,8 @@
     </div>
     <div class="pc_title">全部回复</div>
     <div class="pc_body">
-      <van-list
-        finished-text="没有更多了"
-        v-model="pl_loading"
-        :finished="pl_finished"
-        @load="getParentCommentDetail(comment_id, pl_id, time)"
-        :key="comment_id"
-      >
-        <div
-          class="pc_item"
-          v-for="items in commentsList"
-          :key="items.commentId"
-        >
+      <van-list finished-text="没有更多了" v-model="pl_loading" :finished="pl_finished" @load="getParentCommentDetail(comment_id, pl_id, time)" :key="comment_id">
+        <div class="pc_item" v-for="items in commentsList" :key="items.commentId">
           <van-image class="hb_pic" :src="items.user.avatarUrl" round />
           <div class="hb_content">
             <div class="info">
@@ -54,14 +44,9 @@
               <div class="content">
                 {{ items.content }}
               </div>
-              <div
-                class="beReplied"
-                v-if="items.beReplied[0].beRepliedCommentId !== comment_id"
-              >
+              <div class="beReplied" v-if="items.beReplied[0].beRepliedCommentId !== comment_id">
                 <div v-if="items.beReplied[0].content">
-                  <span class="beuser"
-                    >@{{ items.beReplied[0].user.nickname }}</span
-                  >
+                  <span class="beuser">@{{ items.beReplied[0].user.nickname }}</span>
                   <span>{{ items.beReplied[0].content }}</span>
                 </div>
                 <div v-else>
@@ -73,12 +58,17 @@
         </div>
       </van-list>
     </div>
+    <div class="replay">
+      <van-field v-model="replay" label="" placeholder="随乐而起，有感而发" />
+      <div class="btnSend" @click="sendComment(2,commentType,pl_id,replay,comment_id)">发送</div>
+    </div>
   </div>
 </template>
 
 <script>
 import { formatDate } from '@/common/utils'
-import { getCommentFloor } from 'network/comment'
+import { getCommentFloor, sendComment } from 'network/comment'
+
 export default {
   data () {
     return {
@@ -99,6 +89,8 @@ export default {
       time: '',
       // 楼层评论列表
       commentsList: [],
+      // 正在输入的回复消息
+      replay: '',
       pl_loading: false,
       pl_finished: false
     }
@@ -143,9 +135,29 @@ export default {
         this.pl_finished = true
       }
     },
+    // forceRefresh () {
+    //   this.getParentCommentDetail(this.comment_id, this.pl_id, this.time)
+    //   this.getheaderBoxMsg(this.comment_id, this.pl_id)
+    // },
     // 向父组件发送参数
     sendCount () {
       this.$emit('getcount', this.totalCount)
+    },
+    // 发送评论
+    sendComment (t, type, id, content, commentId) {
+      console.log(this.$store.state.user.isLogin)
+      if (this.$store.state.user.isLogin) {
+        sendComment(t, type, id, content, commentId).then((res) => {
+          console.log(res)
+          this.$toast({ message: '评论发送成功', className: 'toastIndex', position: 'bottom' })
+          this.replay = ''
+          this.getParentCommentDetail(this.comment_id, this.pl_id, this.time)
+          this.getheaderBoxMsg(this.comment_id, this.pl_id)
+        })
+      } else {
+        this.$router.push('/UserLogin')
+        this.$toast({ message: '亲，请先登陆哦', className: 'toastIndex', position: 'bottom' })
+      }
     }
   },
   // 监听评论id的变化
@@ -159,6 +171,7 @@ export default {
     }
   },
   mounted () {
+    // this.getParentCommentDetail(this.comment_id, this.pl_id, this.time)
     this.getheaderBoxMsg(this.comment_id, this.pl_id)
   }
 }
@@ -222,7 +235,7 @@ export default {
             padding-right: 4px;
             padding-top: 0.5px;
           }
-          .iconfont{
+          .iconfont {
             font-size: 14px;
             padding-bottom: 3px;
           }
@@ -240,7 +253,7 @@ export default {
           color: #9d9d9d;
           margin: 12px 0px 6px;
           border-left: 3px solid #f3f3f3;
-          div{
+          div {
             padding-left: 6px;
             padding-right: 6px;
           }
@@ -250,6 +263,25 @@ export default {
           }
         }
       }
+    }
+  }
+  .replay {
+    width: 100%;
+    border-top: 2px solid #f3f3f3;
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    .btnSend {
+      display: flex;
+      justify-content: center;
+      vertical-align: middle;
+      width: 100px !important;
+      line-height: 44px;
+      font-size: 12px !important;
+      color: #d70001;
     }
   }
 }

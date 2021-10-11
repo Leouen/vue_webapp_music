@@ -21,7 +21,7 @@
     </div>
     <div class="protocol">
       <div class="protocolInput">
-        <input type="checkbox" name="protocolbox" id="protocolbox">
+        <input type="checkbox" v-model="rightValue" name="protocolbox" id="protocolbox">
         <label for="protocolbox"></label>
       </div>
       同意
@@ -34,14 +34,20 @@
 export default {
   name: 'UserLogin',
   data () {
-    return {}
+    return {
+      rightValue: true
+    }
   },
   methods: {
     close () {
       this.$router.go(-1)
     },
     phoneLogin () {
-      this.$router.push('/PhoneLogin')
+      if (this.rightValue) {
+        this.$router.push('/PhoneLogin')
+      } else {
+        this.$toast({ message: '请勾选仅学习协议', className: 'toastIndex', position: 'bottom' })
+      }
     },
     mailLogin () {
       this.$router.push('/MailLogin')
@@ -51,7 +57,7 @@ export default {
 </script>
 
 <style scoped>
-.UserLogin{
+.UserLogin {
   background-color: #db2c1f;
   position: absolute;
   overflow: hidden;
@@ -62,17 +68,17 @@ export default {
   z-index: 9000;
   height: 100vh;
 }
-.musicLogo{
-  position:absolute;
-  top:43%;
-  left:50%;
-  transform:translate(-50%,-50%);
+.musicLogo {
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.phoneLogin{
-  position:absolute;
-  top:74%;
-  left:50%;
-  transform:translate(-50%,-50%);
+.phoneLogin {
+  position: absolute;
+  top: 74%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 275px;
   height: 34px;
   background: white;
@@ -84,11 +90,11 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.startTry{
-  position:absolute;
-  top:81%;
-  left:50%;
-  transform:translate(-50%,-50%);
+.startTry {
+  position: absolute;
+  top: 81%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 275px;
   height: 34px;
   background: #db2c1f;
@@ -100,26 +106,26 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.loginIconList{
-  position:absolute;
-  top:90%;
-  left:50%;
-  transform:translate(-50%,-50%);
+.loginIconList {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 245px;
   height: 34px;
 }
-.loginIconList>ul{
+.loginIconList > ul {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.loginIconList>ul>li{
+.loginIconList > ul > li {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.loginIconList>ul>li>img{
+.loginIconList > ul > li > img {
   color: #f8d6d3;
   height: 30px;
   width: 30px;
@@ -128,11 +134,11 @@ export default {
   border: 1px solid #e66b62;
   border-radius: 50%;
 }
-.protocol{
-  position:absolute;
-  top:96%;
-  left:50%;
-  transform:translate(-50%,-50%);
+.protocol {
+  position: absolute;
+  top: 96%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 200px;
   height: 34px;
   font-size: 10px;
@@ -141,15 +147,15 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.protocolInput{
+.protocolInput {
   position: relative;
 }
-.protocol input{
- height: 10px;
- width: 12px;
- visibility: hidden;
+.protocol input {
+  height: 10px;
+  width: 12px;
+  visibility: hidden;
 }
-.protocol label{
+.protocol label {
   width: 10px;
   height: 10px;
   border: 1px solid #e97f78;
@@ -157,13 +163,13 @@ export default {
   left: 0px;
   top: 1px;
 }
-input:checked+label{
-  background-image:url("~assets/img/icons/checkbox.svg")
+input:checked + label {
+  background-image: url("~assets/img/icons/checkbox.svg");
 }
-.notice{
+.notice {
   color: #f4c0bc;
 }
-.musicLogo{
+.musicLogo {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,37 +179,36 @@ input:checked+label{
   background: #f22a25;
   position: relative;
 }
-.musicLogo>img{
+.musicLogo > img {
   height: 48px;
   width: 48px;
 }
-.musicLogo>span{
+.musicLogo > span {
   position: absolute;
   width: 100%;
   height: 100%;
-  border: 1px solid rgb(224,75,64);
+  border: 1px solid rgb(224, 75, 64);
   border-radius: 50%;
   z-index: -1;
 }
 span.wave_scale {
-    animation: wave_scale 3s linear infinite;
-    -webkit-animation: wave_scale 3s linear infinite;
+  animation: wave_scale 3s linear infinite;
+  -webkit-animation: wave_scale 3s linear infinite;
 }
 @keyframes wave_scale {
-    from {
-        transform: translate3d(-41px, -41px, 0px) scale(1, 1);
-        -webkit-transform: scale(1, 1);
-        opacity: 1;
-    }
-    to {
-        transform: translate3d(-41px, -41px, 0px) scale(7, 7);
-        -webkit-transform: scale(3.5, 3.5);
-        opacity: 0;
-    }
+  from {
+    transform: translate3d(-41px, -41px, 0px) scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(-41px, -41px, 0px) scale(7, 7);
+    -webkit-transform: scale(3.5, 3.5);
+    opacity: 0;
+  }
 }
 span.wave_scale.delay {
-    animation: wave_scale 3s linear infinite 1.4s;
-    -webkit-animation: wave_scale 3s linear infinite 1.4s;
+  animation: wave_scale 3s linear infinite 1.4s;
+  -webkit-animation: wave_scale 3s linear infinite 1.4s;
 }
-
 </style>

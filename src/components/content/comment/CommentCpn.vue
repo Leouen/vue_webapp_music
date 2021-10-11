@@ -1,7 +1,7 @@
 <template>
   <div id="comment">
     <!-- 头部导航栏 -->
-    <van-nav-bar :border="false" fixed @click-left="$store.commit('isShowComment')" class="navbar" >
+    <van-nav-bar :border="false" fixed @click-left="$store.commit('isShowComment')" class="navbar">
       <template #left>
         <span class="iconfont icon-fanhui"></span>
         <span class="title">评论<span>({{ totalItems }})</span></span>
@@ -28,15 +28,15 @@
         <div class="cm_head">
           <div class="h_title">评论区</div>
           <div class="h_memu">
-            <div :class="{ active: style, m_item: true }" @click="sortByHot(2), (style = true)" > 最热 </div>
-            <div :class="{ active: !style, m_item: true }" @click="sortByNew(3), (style = false)" > 最新 </div>
+            <div :class="{ active: style, m_item: true }" @click="sortByHot(2), (style = true)"> 最热 </div>
+            <div :class="{ active: !style, m_item: true }" @click="sortByNew(3), (style = false)"> 最新 </div>
           </div>
         </div>
       </van-sticky>
       <!-- 2. 评论区主体内容 -->
       <div class="cm_body" v-if="commentslist.length !== 0">
-        <van-list v-model="listLoading" :finished="listFinished" finished-text="没有更多了" @load="getCommentPageInfo(id)" >
-          <div class="cm_item" v-for="items in commentslist" :key="items.commentId" >
+        <van-list v-model="listLoading" :finished="listFinished" finished-text="没有更多了" @load="getCommentPageInfo(id)">
+          <div class="cm_item" v-for="items in commentslist" :key="items.commentId">
             <van-image class="userPic" :src="items.user.avatarUrl" round />
             <div class="cm_info">
               <div class="cm_top">
@@ -49,14 +49,14 @@
                   <span class="iconfont icon-zan1"></span>
                 </div>
                 <div class="like" v-else @click="likeComment(items.commentId, 1)">
-                  <span class="count">{{ items.likedCount }}</span>
+                  <span class="count">{{ items.likedCount?items.likedCount:0 }}</span>
                   <span class="iconfont icon-zan"></span>
                 </div>
               </div>
               <div class="info_body">
                 {{ items.content }}
               </div>
-              <div class="cm_bottom" v-if="items.showFloorComment.replyCount !== 0" @click="issheetShow(items.commentId, id)" >
+              <div class="cm_bottom" v-if="items.showFloorComment&&items.showFloorComment.replyCount !== 0" @click="issheetShow(items.commentId, id)">
                 {{ items.showFloorComment.replyCount }}条回复
                 <span class="iconfont icon-daohangyou"></span>
               </div>
@@ -64,30 +64,32 @@
           </div>
         </van-list>
       </div>
-      <div class="cm_body" v-else><van-empty description="暂无评论" /></div>
+      <div class="cm_body" v-else>
+        <van-empty description="暂无评论" />
+      </div>
     </div>
     <!-- 加载组件 -->
     <van-loading />
     <!-- 楼层评论动作面板组件 -->
     <van-action-sheet v-model="sheetShow" :title="`回复(${pc_totoalCount})`">
       <div class="content">
-        <parent-comment-detail
-          :playlistid="id"
-          :targetId="targetId"
-          :comment_type="comment_type"
-          @getcount="getPctotal($event)"
-        />
+        <parent-comment-detail ref="floorCpn" :playlistid="id" :targetId="targetId" :comment_type="comment_type" @getcount="getPctotal($event)" />
       </div>
     </van-action-sheet>
+    <!-- 底部评论 -->
+    <div class="replay">
+      <van-field v-model="replay" label="" placeholder="随乐而起，有感而发" />
+      <div class="btnSend" @click="sendComment(1,comment_type,id,replay)">发送</div>
+    </div>
   </div>
 </template>
 
 <script>
 import { formatDate } from '@/common/utils'
-import { getComment, setCommentLike } from 'network/comment'
+import { getComment, setCommentLike, sendComment } from 'network/comment'
 import ParentCommentDetail from './ParentCommentDetail.vue'
 export default {
-  name: 'comment',
+  name: 'CommentCpn',
   data () {
     return {
       id: this.$store.state.playlist.current.id,
@@ -103,7 +105,9 @@ export default {
       listFinished: false, // 控制评论列表的加载
       listLoading: false,
       targetId: 0,
-      pc_totoalCount: 0 // 楼层评论总数
+      pc_totoalCount: 0, // 楼层评论总数
+      // 正在输入的回复消息
+      replay: ''
     }
   },
   methods: {
@@ -194,6 +198,7 @@ export default {
       this.commentslist = []
       this.listFinished = false
       this.getCommentPageInfo(this.id)
+      this.$forceUpdate()
     },
     // 最新排序
     sortByNew (params) {
@@ -203,6 +208,7 @@ export default {
       this.commentslist = []
       this.listFinished = false
       this.getCommentPageInfo(this.id)
+      this.$forceUpdate()
     },
     // 推荐排序
     sortByRec (params) {
@@ -216,10 +222,26 @@ export default {
     issheetShow (targetId, playlistid) {
       this.sheetShow = true
       this.targetId = targetId
+      // this.$refs.floorCpn.forceRefresh()
     },
     // 接收子组件传过来的值
     getPctotal (d) {
       this.pc_totoalCount = d
+    },
+    // 发送评论
+    sendComment (t, type, id, content, commentId) {
+      console.log(this.$store.state.user.isLogin)
+      if (this.$store.state.user.isLogin) {
+        sendComment(t, type, id, content, commentId).then((res) => {
+          console.log(res)
+          this.$toast({ message: '评论发送成功', className: 'toastIndex', position: 'bottom' })
+          this.replay = ''
+          this.commentslist.unshift(res.comment)
+        })
+      } else {
+        this.$router.push('/UserLogin')
+        this.$toast({ message: '亲，请先登陆哦', className: 'toastIndex', position: 'bottom' })
+      }
     }
   },
   filters: {
@@ -237,7 +259,7 @@ export default {
 <style lang="less" scoped>
 #comment {
   background-color: #f7f7f7;
-  .van-action-sheet__header{
+  .van-action-sheet__header {
     background: #fff;
   }
   .navbar {
@@ -246,7 +268,7 @@ export default {
       color: #000;
       font-size: 16px;
     }
-    .icon-fanhui{
+    .icon-fanhui {
       font-size: 20px;
       color: #000;
       padding-bottom: 2.5px;
@@ -259,7 +281,7 @@ export default {
         font-weight: bold;
       }
     }
-    .icon-fenxiang1{
+    .icon-fenxiang1 {
       font-size: 20px;
       padding-bottom: 3px;
     }
@@ -290,7 +312,7 @@ export default {
           color: #638bb8;
         }
       }
-      .icon-daohangyou{
+      .icon-daohangyou {
         width: 34px;
         color: #9e9e9e;
         position: static;
@@ -307,7 +329,7 @@ export default {
       font-size: 12.6px;
       padding: 0 6px;
       font-weight: 600;
-      .h_title{
+      .h_title {
         padding-left: 8px;
         color: #000;
         font-size: 14px;
@@ -365,7 +387,7 @@ export default {
                 font-size: 12px;
                 margin-right: 4px;
               }
-              .iconfont{
+              .iconfont {
                 font-size: 14px;
                 padding-bottom: 0.5px;
               }
@@ -378,13 +400,13 @@ export default {
             color: #3a3a3a;
           }
           .cm_bottom {
-            display:flex;
+            display: flex;
             align-items: center;
             height: 20px;
             line-height: 20px;
             font-size: 12px;
             color: #5681b2;
-            .icon-daohangyou{
+            .icon-daohangyou {
               position: static;
               color: #5681b2;
               padding-left: 2px;
@@ -398,6 +420,25 @@ export default {
   .content {
     width: 100%;
     height: 600px;
+  }
+  .replay {
+    width: 100%;
+    border-top: 2px solid #f3f3f3;
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    .btnSend {
+      display: flex;
+      justify-content: center;
+      vertical-align: middle;
+      width: 100px !important;
+      line-height: 44px;
+      font-size: 12px !important;
+      color: #d70001;
+    }
   }
 }
 </style>

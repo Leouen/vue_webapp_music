@@ -2,7 +2,7 @@
   <div id="app">
     <menu-popup></menu-popup>
     <transition :name="transitionName">
-      <keep-alive exclude="MusicSheet,userinfo,profile">
+      <keep-alive exclude="MusicSheet,userinfo,profile,CommentCpn,ParentCommentDetail">
         <router-view/>
       </keep-alive>
     </transition>

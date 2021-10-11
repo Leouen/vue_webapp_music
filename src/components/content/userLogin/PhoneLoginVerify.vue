@@ -14,29 +14,19 @@
         <span v-show="!show" class="codeCount">{{count}} s</span>
       </span>
     </div>
-    <van-password-input
-      :length="4"
-      :value="value"
-      :gutter="10"
-      :mask="false"
-      :focused="showKeyboard"
-      @focus="showKeyboard = true"
-    />
+    <van-password-input :length="4" :value="value" :gutter="10" :mask="false" :focused="showKeyboard" @focus="showKeyboard = true" />
     <div class="del_change">
       <span>手机号已停用</span>
-      <span class="iconfont icon-daohangyou" ></span>
+      <span class="iconfont icon-daohangyou"></span>
     </div>
-    <van-number-keyboard
-      v-model="value"
-      :show="showKeyboard"
-      @blur="showKeyboard = false"
-    />
+    <van-number-keyboard v-model="value" :show="showKeyboard" @blur="showKeyboard = false" />
   </div>
 </template>
 
 <script>
 import navbar from 'components/common/navbar/navbar'
 import { getCaptcha, getCode, loginState, getAccountInfo } from 'network/login'
+import { getUserDetail, getUserPlayList } from 'network/user'
 export default {
   name: 'PhoneLoginVerify',
   data () {
@@ -88,14 +78,56 @@ export default {
       if (value.length === 4) {
         getCaptcha(this.$store.state.user.tel, value).then(res => {
           if (res.code === 200) {
-            console.log(res)
-            // 登陆成功 ，开始获得用户数据
-            loginState().then(res => {
-              console.log(res)
+            this.$router.go(-3)
+            // 设置用户个人简介 包括id名称，
+            this.$store.commit('user/SET_LOGIN')
+            this.$store.commit('user/SET_PROFLIE', res.profile)
+            getUserDetail(this.$store.state.user.profile.userId).then((res) => {
+              // console.log(res)
+              this.$store.commit('user/set_level', res.level)
+              this.$store.commit('user/set_listenSongs', res.listenSongs)
             })
-            getAccountInfo().then(res => {
-              console.log(res)
+            // 获取用户歌单
+            getUserPlayList(this.$store.state.user.profile.userId).then((res) => {
+              // console.log(res)
+              for (const item of res.playlist) {
+                // 喜欢的歌单
+                if (item.specialType === 5) {
+                  this.$store.state.user.userLikeList.push({
+                    coverImgUrl: item.coverImgUrl,
+                    name: item.name,
+                    id: item.id,
+                    playCount: item.playCount,
+                    trackCount: item.trackCount,
+                    creator: item.creator.nickname
+                  })
+                } else if (item.userId === this.$store.state.user.profile.userId) {
+                  // 用户创建的歌单
+                  this.$store.state.user.userCreateList.push({
+                    coverImgUrl: item.coverImgUrl,
+                    name: item.name,
+                    id: item.id,
+                    playCount: item.playCount,
+                    trackCount: item.trackCount,
+                    creator: item.creator.nickname
+                  })
+                } else {
+                  // 用户收藏的歌单
+                  this.$store.state.user.userSubList.push({
+                    coverImgUrl: item.coverImgUrl,
+                    name: item.name,
+                    id: item.id,
+                    playCount: item.playCount,
+                    trackCount: item.trackCount,
+                    creator: item.creator.nickname
+                  })
+                }
+              }
             })
+            console.log(this.$store.state.user.userLikeList)
+            console.log(this.$store.state.user.userCreateList)
+            console.log(this.$store.state.user.userSubList)
+            console.log(this.$store.state.user.profile)
             this.$toast({ message: '欢迎使用本网页~', className: 'toastIndex', position: 'bottom' })
           } else {
             this.$toast({ message: '验证码错误', className: 'toastIndex', position: 'bottom' })
@@ -103,25 +135,25 @@ export default {
           }
         }
         )
-      } else {}
+      } else { }
     }
   }
 }
 </script>
 
 <style>
-.van-password-input{
+.van-password-input {
   width: 80%;
   margin: 0 auto;
 }
-.van-password-input__item{
+.van-password-input__item {
   margin: 0px 10px;
   border-bottom: 1px solid #d7d7d7;
 }
-.van-password-input__item.blackBold{
+.van-password-input__item.blackBold {
   border-bottom: 1px solid black;
 }
-.PhoneLoginVerify{
+.PhoneLoginVerify {
   position: absolute;
   background: #fff;
   top: 0;
@@ -131,56 +163,56 @@ export default {
   z-index: 9002;
   height: 100vh;
 }
-.PhoneLoginVerify>.loginNavbar{
+.PhoneLoginVerify > .loginNavbar {
   background: #fff;
   margin-top: 6px;
 }
-.loginLeftIcon{
+.loginLeftIcon {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.icon-fanhui{
+.icon-fanhui {
   color: #333;
 }
-.loginTitle{
+.loginTitle {
   font-size: 16px;
   color: #333;
   display: flex;
   text-align: start;
 }
-.text_1{
+.text_1 {
   font-size: 16px;
   color: #333;
   padding-left: 20px;
   margin-top: 30px;
 }
-.text_3{
+.text_3 {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 12px;
   padding-left: 20px;
   color: #9d9d9d;
 }
-.text_3 .icon-xiezi{
+.text_3 .icon-xiezi {
   padding-left: 2px;
 }
-.text_3_1{
+.text_3_1 {
   display: flex;
   align-items: center;
   position: relative;
 }
-.text_3_1 .codeCount{
+.text_3_1 .codeCount {
   position: absolute;
   right: 20px;
   bottom: 0px;
   font-size: 13px;
 }
-.text_3_1 .reGet{
+.text_3_1 .reGet {
   font-size: 14px;
   color: #5682b2;
 }
-.del_change{
+.del_change {
   margin-top: 26px;
   display: flex;
   align-items: center;
@@ -188,7 +220,7 @@ export default {
   font-size: 12px;
   color: #9d9d9d;
 }
-.del_change .icon-daohangyou{
+.del_change .icon-daohangyou {
   font-size: 10px;
 }
 </style>
