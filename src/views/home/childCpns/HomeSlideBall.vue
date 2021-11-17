@@ -1,25 +1,30 @@
 <template>
-  <div class="HomeSlideBall">
-    <swiper class="wrapper" :options="swiperOption">
-      <swiper-slide class="content" v-for="(item,index) in balls" :key="index">
-        <a class="balls-control-item" >
-          <div class="ball-img">
-            <img v-lazy="item.iconUrl" alt="" />
-          </div>
-          <div class="ball-text">{{item.name}}</div>
-        </a>
-      </swiper-slide>
-    </swiper>
-  </div>
+<div class="HomeSlideBall">
+  <swiper class="wrapper" :options="swiperOption">
+    <swiper-slide class="content" v-for="(item,index) in balls" :key="index">
+      <a class="balls-control-item">
+        <div class="ball-img" @click="pageTo(index)">
+          <img v-lazy="item.iconUrl" alt="" />
+        </div>
+        <div class="ball-text">{{item.name}}</div>
+      </a>
+    </swiper-slide>
+  </swiper>
+</div>
 </template>
 
 <script>
-import { getBall } from 'network/home'
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import {
+  getBall
+} from 'network/home'
+import {
+  Swiper,
+  SwiperSlide
+} from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 export default {
   name: 'HomeSlideBall',
-  data () {
+  data() {
     return {
       balls: [],
       swiperOption: {
@@ -36,43 +41,65 @@ export default {
     Swiper,
     SwiperSlide
   },
-  created () {
+  created() {
     getBall().then(res => {
       this.balls = res.data
       // console.log(res)
     })
+  },
+  methods: {
+    pageTo(index) {
+      console.log(index);
+      if (index === 0) {
+        if (this.$store.state.user.isLogin) {
+          this.$router.push('/dailySheet')
+        } else {
+          this.$router.push('/UserLogin')
+          this.$toast({
+            message: '亲，请先登陆哦',
+            className: 'toastIndex',
+            position: 'bottom'
+          })
+        }
+      }else if (index ===3){
+        this.$router.push('/rank')
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
-
-.wrapper{
+.wrapper {
   height: 90px;
   width: 100%;
   overflow: hidden;
   border-bottom: 0.3px solid #e6e6e6;
   margin-bottom: 5px;
 }
+
 .content {
   display: flex;
 }
-.balls-control-item{
+
+.balls-control-item {
   flex: 1;
   padding: 16px 0px 10px;
 }
-.balls-control-item .ball-img img{
-  width: 40px ;
-  height: 40px ;
+
+.balls-control-item .ball-img img {
+  width: 40px;
+  height: 40px;
   display: block;
-  background:linear-gradient(45deg, red, #fdd5d5);
+  background: linear-gradient(45deg, red, #fdd5d5);
   border-radius: 50%;
   margin: 0 auto;
 }
-.ball-text{
+
+.ball-text {
   font-size: 12px;
   padding-top: 6px;
   text-align: center;
-  white-space:nowrap;
+  white-space: nowrap;
 }
 </style>

@@ -52,5 +52,6 @@ module.exports = {
       return args
     })
   },
-  pluginOptions: {}
+  pluginOptions: {},
+  lintOnSave: false
 }

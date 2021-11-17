@@ -15,9 +15,6 @@
       <div class="home-title"><title-bar :titles='titles[2]'></title-bar></div>
       <hometoplist></hometoplist>
     </van-pull-refresh>
-    <ul>
-      <li v-for="item in 4" :key="item">li{{item}}</li>
-    </ul>
   </div>
 </template>
 

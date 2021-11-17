@@ -36,7 +36,7 @@ export default {
   created () {
     getlistdetail().then((res) => {
       let path = res.list
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 2; i++) {
         this.topList.push({
           id: path[i].id, // 榜单id
           name: path[i].name // 榜单名称
@@ -51,6 +51,7 @@ export default {
 <style>
 .Hometoplist{
   border-bottom: 10px solid #f5f5f5;
+  margin-bottom: 50px;
 }
 
 </style>

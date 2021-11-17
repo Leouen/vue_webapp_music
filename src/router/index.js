@@ -67,7 +67,9 @@ const routes = [
   // 歌单页面
   { path: '/musicSheet/:id&:isAlbum', component: () => import('components/content/musicList/MusicSheet') },
   // 用户详情页面
-  { path: '/userInfo', component: () => import('components/content/infoDetail/userInfo') }
+  { path: '/userInfo', component: () => import('components/content/infoDetail/userInfo') },
+  { path: '/dailySheet', component: () => import('components/content/dailySheet/dailySheet') },
+  { path: '/rank', component: () => import('components/content/rank/rank') },
 ]
 
 const router = new VueRouter({

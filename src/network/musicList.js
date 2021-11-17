@@ -33,3 +33,18 @@ export function collectionSheet (t, id) {
     }
   })
 }
+
+// 获取每日推荐歌曲 需要先登陆
+
+export function getDailySong  () {
+  return request({
+    url: '/recommend/songs',
+  })
+}
+// 获取排行榜
+
+export function getRank () {
+  return request({
+    url: '/toplist/detail',
+  })
+}
