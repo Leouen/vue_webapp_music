@@ -1,7 +1,7 @@
 <template>
   <div class="PodcastDjHot">
     <div class="ProfileRecItem">
-      <div v-for="(item,index) in sheets" :key="index" :showRcmdText="true">
+      <div v-for="(item,index) in sheets" :key="index" :showRcmdText="true" @click="toSheet(item.id)">
         <sheet-item :sheet='item'></sheet-item>
       </div>
     </div>
@@ -27,6 +27,11 @@ export default {
     getDjHot(this.limit, this.offset).then(res => {
       this.sheets = res.djRadios
     })
+  },
+  methods: {
+    toSheet(id) {
+      this.$router.push('/musicSheet/' + id + '&' + true)
+    },
   }
 }
 </script>

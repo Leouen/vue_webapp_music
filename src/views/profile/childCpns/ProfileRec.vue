@@ -11,7 +11,7 @@
       </van-cell>
     </div>
     <div class="ProfileRecItem">
-      <div v-for="(item,index) in sheets" :key="index">
+      <div v-for="(item,index) in sheets" :key="index" @click="toSheet(item.id)">
         <sheet-item :sheet='item'></sheet-item>
       </div>
       <div class="ProfileMore">
@@ -44,6 +44,11 @@ export default {
     getHotSheet(this.order, this.cat, this.limit, this.offset).then(res => {
       this.sheets = res.playlists
     })
+  },
+  methods: {
+    toSheet(id) {
+      this.$router.push('/musicSheet/' + id + '&' + false)
+    },
   }
 }
 </script>

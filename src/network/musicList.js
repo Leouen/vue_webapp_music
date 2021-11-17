@@ -48,3 +48,9 @@ export function getRank () {
     url: '/toplist/detail',
   })
 }
+///personal_fm 私人FM
+export function getPersonal_fm () {
+  return request({
+    url: '/personal_fm ',
+  })
+}

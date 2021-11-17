@@ -1,21 +1,28 @@
 <template>
-  <div class="HomeSheet">
-    <swiper class="wrapper-sheet" :options="swiperOption">
-      <swiper-slide class="content-sheet" v-for="(item,index) in sheets" :key="index">
-        <a href="#"><sheet-item class="sheet-control-item" :sheet='item'></sheet-item></a>
-      </swiper-slide>
-    </swiper>
-  </div>
+<div class="HomeSheet">
+  <swiper class="wrapper-sheet" :options="swiperOption">
+    <swiper-slide class="content-sheet" v-for="(item,index) in sheets" :key="index">
+      <div @click="toSheet(item.id)">
+        <sheet-item class="sheet-control-item" :sheet='item'></sheet-item>
+      </div>
+    </swiper-slide>
+  </swiper>
+</div>
 </template>
 
 <script>
 import SheetItem from 'components/content/sheetItem/SheetItem.vue'
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import { getdjprogram } from 'network/home'
+import {
+  Swiper,
+  SwiperSlide
+} from 'vue-awesome-swiper'
+import {
+  getdjprogram
+} from 'network/home'
 import 'swiper/css/swiper.css'
 export default {
   name: 'HomeSheet',
-  data () {
+  data() {
     return {
       sheets: [],
       swiperOption: {
@@ -33,17 +40,22 @@ export default {
     SwiperSlide,
     SheetItem
   },
-  created () {
+  created() {
     getdjprogram(6).then(res => {
       this.sheets = res.result
       // console.log(res)
     })
+  },
+  methods: {
+    toSheet(id) {
+      this.$router.push('/musicSheet/' + id + '&' + false)
+    },
   }
 }
 </script>
 
 <style>
-.wrapper-sheet{
+.wrapper-sheet {
   display: flex;
   align-content: space-around;
   padding-left: 8px;
